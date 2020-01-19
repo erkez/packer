@@ -18,7 +18,7 @@
                 "bracketSpacing": true,
                 "jsxBracketSameLine": true,
                 "tabWidth": 4,
-                "parser": "babylon"
+                "parser": "babel"
             }
         ],
         "eqeqeq": [

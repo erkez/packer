@@ -1,5 +1,6 @@
 const path = require('path');
 
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const { ProgressPlugin, ProvidePlugin } = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -12,9 +13,12 @@ function createApplicationConfiguration(opts) {
     return function configure(env, argv) {
         const isProduction = argv.mode === 'production';
 
+        const typescriptPath = path.resolve(process.env.INIT_CWD, 'node_modules/typescript');
+
         return {
             mode: argv.mode,
             entry: options.entry,
+            devtool: isProduction ? undefined : 'source-map',
             output: {
                 path: path.resolve(process.env.INIT_CWD, 'dist'),
                 publicPath: options.output.publicPath,
@@ -23,6 +27,11 @@ function createApplicationConfiguration(opts) {
             plugins: [
                 new ProgressPlugin(),
                 new CleanWebpackPlugin(),
+                hasModule(typescriptPath)
+                    ? new ForkTsCheckerWebpackPlugin({
+                          typescript: path.resolve(process.env.INIT_CWD, 'node_modules/typescript')
+                      })
+                    : null,
                 new ProvidePlugin(options.provide),
                 new HtmlWebpackPlugin(options.html),
                 new MiniCssExtractPlugin({
@@ -30,18 +39,32 @@ function createApplicationConfiguration(opts) {
                         ? 'assets/css/[name].[chunkhash:8].css'
                         : 'assets/css/[name].css'
                 })
-            ],
+            ]
+                .concat(options.plugins)
+                .filter(plugin => plugin != null && plugin !== false),
             resolve: {
                 alias: Object.assign(
                     {
                         '@root': path.resolve(process.env.INIT_CWD, 'src')
                     },
                     options.resolve.alias
-                )
+                ),
+                extensions: ['.js', '.jsx', '.ts', '.tsx']
             },
             externals: options.externals,
             module: {
                 rules: [
+                    {
+                        enforce: 'pre',
+                        test: /\.(jsx?|tsx?)$/,
+                        exclude: /node_modules/,
+                        loader: 'eslint-loader',
+                        options: {
+                            failOnError: isProduction,
+                            failOnWarning: isProduction,
+                            emitWarning: !isProduction
+                        }
+                    },
                     {
                         test: /\.(js|jsx)$/,
                         use: {
@@ -59,6 +82,15 @@ function createApplicationConfiguration(opts) {
                                 ],
                                 only: ['src']
                             }
+                        }
+                    },
+                    {
+                        test: /\.tsx?$/,
+                        exclude: /node_modules/,
+                        loader: 'ts-loader',
+                        options: {
+                            transpileOnly: true,
+                            experimentalWatchApi: true
                         }
                     },
                     {
@@ -86,7 +118,7 @@ function createApplicationConfiguration(opts) {
                             'sass-loader'
                         ]
                     }
-                ]
+                ].concat(options.loaders)
             },
             optimization: {
                 minimize: isProduction,
@@ -125,13 +157,22 @@ const DefaultOptions = {
     output: {
         publicPath: '/'
     },
-    html: {
-        template: 'public/index.html',
-        filename: 'index.html'
-    },
+    plugins: [],
+    loaders: [],
+    html: {},
     resolve: {},
     externals: {},
     provide: {}
 };
+
+function hasModule(path) {
+    try {
+        require.resolve(path);
+        return true;
+    } catch (e) {
+        // module not found
+        return false;
+    }
+}
 
 module.exports.createApplicationConfiguration = createApplicationConfiguration;
