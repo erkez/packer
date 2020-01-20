@@ -45,6 +45,25 @@ For ESLint, create the file `.eslintrc` in your application root directory:
 }
 ```
 
+## package.json configuration
+
+It is useful to add the following commands to your `scripts` property in `package.json`:
+
+```json
+{
+    // ... other properties in package.json
+    "scripts": {
+        "lint": "eslint --ext .js --ext .jsx --ext .ts --ext .tsx .",
+        "lint:fix": "yarn lint --fix",
+        "build": "yarn build:dev",
+        "build:dev": "webpack --mode=development",
+        "build:prod": "webpack --mode=production",
+        "build:watch": "webpack-dev-server --mode=development",
+        "start": "yarn build:watch"
+    }
+}
+```
+
 ## Sample configuration
 
 ```js
