@@ -1,0 +1,7 @@
+{
+    "recommendations": [
+        "christian-kohler.path-intellisense",
+        "dbaeumer.vscode-eslint",
+        "eamodio.gitlens"
+    ]
+}

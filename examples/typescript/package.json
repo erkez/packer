@@ -1,0 +1,24 @@
+{
+  "name": "my-app",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "private": true,
+  "scripts": {
+    "lint": "eslint --ext .js --ext .jsx --ext .ts --ext .tsx .",
+    "lint:fix": "yarn lint --fix",
+    "build": "yarn build:dev",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production",
+    "build:watch": "webpack-dev-server --mode=development",
+    "start": "yarn build:watch"
+  },
+  "devDependencies": {
+    "@ekz/packer": "^0.2.0",
+    "typescript": "^3.7.5"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  }
+}

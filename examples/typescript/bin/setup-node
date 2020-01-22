@@ -1,0 +1,30 @@
+#!/bin/bash
+
+if ! type "git" > /dev/null; then
+    ROOTDIR=$(pwd)
+else
+    ROOTDIR=$(git rev-parse --show-toplevel)
+fi
+
+NODE_BIN_DIR=$ROOTDIR/bin/node
+NODE_VERSION=${1:-13.6.0}
+NODE_PKG_NAME=node-v$NODE_VERSION-$(uname | awk '{print tolower($0)}')-x64
+echo $NODE_VERSION
+
+YARN_BIN_DIR=$ROOTDIR/bin/yarn
+YARN_VERSION=${2:-1.21.1}
+YARN_PKG_NAME=yarn-v$YARN_VERSION
+
+if [ ! -d "$NODE_BIN_DIR/$NODE_PKG_NAME" ]; then
+    mkdir -p $NODE_BIN_DIR
+    curl -Lo $NODE_BIN_DIR/$NODE_PKG_NAME.tar.gz https://nodejs.org/dist/v$NODE_VERSION/$NODE_PKG_NAME.tar.gz
+    tar -xzf $NODE_BIN_DIR/$NODE_PKG_NAME.tar.gz -C $NODE_BIN_DIR
+fi
+
+if [ ! -d "$YARN_BIN_DIR/$YARN_PKG_NAME" ]; then
+    mkdir -p $YARN_BIN_DIR
+    curl -Lo $YARN_BIN_DIR/yarn.tar.gz https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz
+    tar -xzf $YARN_BIN_DIR/yarn.tar.gz -C $YARN_BIN_DIR
+fi
+
+export PATH=$NODE_BIN_DIR/$NODE_PKG_NAME/bin:$YARN_BIN_DIR/$YARN_PKG_NAME/bin:$PATH
