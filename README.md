@@ -75,6 +75,7 @@ module.exports = Packer.webpack.createApplicationConfiguration({
         'my-app': './src/index.tsx'
     },
     output: {
+        path: 'dist',
         publicPath: '/my-app/'
     },
     resolve: {
