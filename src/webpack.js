@@ -158,7 +158,7 @@ const DefaultOptions = {
         app: './src/index.js'
     },
     output: {
-        dist: 'dist',
+        path: 'dist',
         publicPath: '/'
     },
     plugins: [],
