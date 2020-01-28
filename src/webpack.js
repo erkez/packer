@@ -20,8 +20,11 @@ function createApplicationConfiguration(opts) {
             entry: options.entry,
             devtool: isProduction ? undefined : 'source-map',
             output: {
-                path: path.resolve(process.env.INIT_CWD, options.output.path || DefaultOptions.options.path),
-                publicPath: options.output.publicPath || DefaultOptions.options.publicPath,
+                path: path.resolve(
+                    process.env.INIT_CWD,
+                    options.output.path || DefaultOptions.output.path
+                ),
+                publicPath: options.output.publicPath || DefaultOptions.output.publicPath,
                 filename: isProduction ? 'assets/js/[name].[chunkhash:8].js' : 'assets/js/[name].js'
             },
             plugins: [
