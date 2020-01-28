@@ -20,7 +20,7 @@ function createApplicationConfiguration(opts) {
             entry: options.entry,
             devtool: isProduction ? undefined : 'source-map',
             output: {
-                path: path.resolve(process.env.INIT_CWD, 'dist'),
+                path: path.resolve(process.env.INIT_CWD, options.output.path),
                 publicPath: options.output.publicPath,
                 filename: isProduction ? 'assets/js/[name].[chunkhash:8].js' : 'assets/js/[name].js'
             },
@@ -155,6 +155,7 @@ const DefaultOptions = {
         app: './src/index.js'
     },
     output: {
+        dist: 'dist',
         publicPath: '/'
     },
     plugins: [],
