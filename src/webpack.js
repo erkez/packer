@@ -1,7 +1,7 @@
 const path = require('path');
 
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const { ProgressPlugin, ProvidePlugin } = require('webpack');
+const { ProgressPlugin, ProvidePlugin, DefinePlugin } = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -12,6 +12,10 @@ function createApplicationConfiguration(opts) {
 
     return function configure(env, argv) {
         const isProduction = argv.mode === 'production';
+
+        const pathResolvers = makePathResolvers(
+            Object.assign({}, DefaultOptions.assetPaths, opts.assetPaths)
+        );
 
         const typescriptPath = path.resolve(process.env.INIT_CWD, 'node_modules/typescript');
 
@@ -25,26 +29,32 @@ function createApplicationConfiguration(opts) {
                     options.output.path || DefaultOptions.output.path
                 ),
                 publicPath: options.output.publicPath || DefaultOptions.output.publicPath,
-                filename: isProduction ? 'assets/js/[name].[chunkhash:8].js' : 'assets/js/[name].js'
+                filename: pathResolvers.jsAsset(
+                    isProduction ? '[name].[chunkhash:8].js' : '[name].js'
+                )
             },
-            plugins: [
-                new ProgressPlugin(),
-                new CleanWebpackPlugin(),
-                hasModule(typescriptPath)
-                    ? new ForkTsCheckerWebpackPlugin({
-                          typescript: path.resolve(process.env.INIT_CWD, 'node_modules/typescript')
-                      })
-                    : null,
-                new ProvidePlugin(options.provide),
-                new HtmlWebpackPlugin(options.html),
-                new MiniCssExtractPlugin({
-                    filename: isProduction
-                        ? 'assets/css/[name].[chunkhash:8].css'
-                        : 'assets/css/[name].css'
-                })
-            ]
-                .concat(options.plugins)
-                .filter(plugin => plugin != null && plugin !== false),
+            plugins: truthyArray(
+                [
+                    options.enableProgressPlugin && new ProgressPlugin(),
+                    new CleanWebpackPlugin(),
+                    hasModule(typescriptPath)
+                        ? new ForkTsCheckerWebpackPlugin({
+                              typescript: path.resolve(
+                                  process.env.INIT_CWD,
+                                  'node_modules/typescript'
+                              )
+                          })
+                        : null,
+                    new ProvidePlugin(options.provide),
+                    new DefinePlugin(options.define),
+                    options.html != null && new HtmlWebpackPlugin(options.html),
+                    new MiniCssExtractPlugin({
+                        filename: pathResolvers.cssAsset(
+                            isProduction ? '[name].[chunkhash:8].css' : '[name].css'
+                        )
+                    })
+                ].concat(options.plugins)
+            ),
             resolve: {
                 alias: Object.assign(
                     {
@@ -52,75 +62,80 @@ function createApplicationConfiguration(opts) {
                     },
                     options.resolve.alias
                 ),
-                extensions: ['.js', '.jsx', '.ts', '.tsx']
+                extensions: options.fileExtensions
             },
             externals: options.externals,
             module: {
-                rules: [
-                    {
-                        enforce: 'pre',
-                        test: /\.(jsx?|tsx?)$/,
-                        exclude: /node_modules/,
-                        loader: 'eslint-loader',
-                        options: {
-                            failOnError: isProduction,
-                            failOnWarning: isProduction,
-                            emitWarning: !isProduction
-                        }
-                    },
-                    {
-                        test: /\.(js|jsx)$/,
-                        use: {
-                            loader: 'babel-loader',
+                rules: truthyArray(
+                    [
+                        {
+                            enforce: 'pre',
+                            test: /\.(jsx?|tsx?)$/,
+                            exclude: /node_modules/,
+                            loader: 'eslint-loader',
                             options: {
-                                presets: [
-                                    [
-                                        '@babel/env',
-                                        {
-                                            targets: '> 0.25%, not dead'
-                                        }
-                                    ],
-                                    '@babel/flow',
-                                    '@babel/react'
-                                ],
-                                only: ['src']
+                                failOnError: isProduction,
+                                failOnWarning: isProduction,
+                                emitWarning: !isProduction
                             }
-                        }
-                    },
-                    {
-                        test: /\.tsx?$/,
-                        loader: 'ts-loader',
-                        options: {
-                            transpileOnly: true,
-                            experimentalWatchApi: true
-                        }
-                    },
-                    {
-                        test: /\.(woff|woff2|ttf|eot|svg|png|jpg|gif|ico)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                        loader: 'file-loader',
-                        options: {
-                            outputPath: 'assets/static/'
-                        }
-                    },
-                    {
-                        test: /\.(css|s[ac]ss)$/i,
-                        use: [
-                            {
-                                loader: MiniCssExtractPlugin.loader
-                            },
-                            'css-loader',
-                            {
-                                loader: 'postcss-loader',
+                        },
+                        {
+                            test: /\.(js|jsx)$/,
+                            use: {
+                                loader: 'babel-loader',
                                 options: {
-                                    config: {
-                                        path: __dirname
-                                    }
+                                    presets: truthyArray(
+                                        [
+                                            [
+                                                '@babel/env',
+                                                {
+                                                    targets: options.babelEnvTargets
+                                                }
+                                            ],
+                                            '@babel/flow',
+                                            '@babel/react'
+                                        ].concat(options.babelPresets)
+                                    ),
+                                    only: ['src']
                                 }
-                            },
-                            'sass-loader'
-                        ]
-                    }
-                ].concat(options.loaders)
+                            }
+                        },
+                        {
+                            test: /\.tsx?$/,
+                            loader: 'ts-loader',
+                            options: {
+                                transpileOnly: true,
+                                experimentalWatchApi: true
+                            }
+                        },
+                        {
+                            test: /\.(woff|woff2|ttf|eot|svg|png|jpg|gif|ico)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                            loader: 'file-loader',
+                            options: {
+                                outputPath: pathResolvers.staticAsset(''),
+                                name: '[name].[contenthash:8].[ext]'
+                            }
+                        },
+                        {
+                            test: /\.(css|s[ac]ss)$/i,
+                            use: [
+                                {
+                                    loader: MiniCssExtractPlugin.loader
+                                },
+                                'css-loader',
+                                {
+                                    loader: 'postcss-loader',
+                                    options: {
+                                        config: {
+                                            path: __dirname
+                                        }
+                                    }
+                                },
+                                'sass-loader'
+                            ]
+                        }
+                    ].concat(options.loaders)
+                )
             },
             optimization: {
                 minimize: isProduction,
@@ -153,6 +168,12 @@ function createApplicationConfiguration(opts) {
 }
 
 const DefaultOptions = {
+    assetPaths: {
+        js: 'assets/js/',
+        css: 'assets/css/',
+        static: 'assets/static/'
+    },
+    enableProgressPlugin: true,
     entry: {
         app: './src/index.js'
     },
@@ -165,7 +186,11 @@ const DefaultOptions = {
     html: {},
     resolve: {},
     externals: {},
-    provide: {}
+    provide: {},
+    define: {},
+    fileExtensions: ['.js', '.jsx', '.ts', '.tsx'],
+    babelEnvTargets: '> 0.25%, not dead',
+    babelPresets: []
 };
 
 function hasModule(path) {
@@ -176,6 +201,24 @@ function hasModule(path) {
         // module not found
         return false;
     }
+}
+
+function truthyArray(array) {
+    return array.filter(item => item != null && item !== false);
+}
+
+function makePathResolvers(config) {
+    return {
+        jsAsset(value) {
+            return path.join(config.js, value);
+        },
+        cssAsset(value) {
+            return path.join(config.css, value);
+        },
+        staticAsset(value) {
+            return path.join(config.static, value);
+        }
+    };
 }
 
 module.exports.createApplicationConfiguration = createApplicationConfiguration;
