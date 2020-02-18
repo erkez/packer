@@ -28,9 +28,13 @@ function createApplicationConfiguration(opts) {
                     process.env.INIT_CWD,
                     options.output.path || DefaultOptions.output.path
                 ),
+                library: options.output.library || DefaultOptions.output.library,
+                libraryTarget: options.output.libraryTarget || DefaultOptions.output.libraryTarget,
                 publicPath: options.output.publicPath || DefaultOptions.output.publicPath,
                 filename: pathResolvers.jsAsset(
-                    isProduction ? '[name].[chunkhash:8].js' : '[name].js'
+                    isProduction && options.useHashInFileNames
+                        ? '[name].[chunkhash:8].js'
+                        : '[name].js'
                 )
             },
             plugins: truthyArray(
@@ -50,7 +54,9 @@ function createApplicationConfiguration(opts) {
                     options.html != null && new HtmlWebpackPlugin(options.html),
                     new MiniCssExtractPlugin({
                         filename: pathResolvers.cssAsset(
-                            isProduction ? '[name].[chunkhash:8].css' : '[name].css'
+                            isProduction && options.useHashInFileNames
+                                ? '[name].[chunkhash:8].css'
+                                : '[name].css'
                         )
                     })
                 ].concat(options.plugins)
@@ -113,7 +119,9 @@ function createApplicationConfiguration(opts) {
                             loader: 'file-loader',
                             options: {
                                 outputPath: pathResolvers.staticAsset(''),
-                                name: '[name].[contenthash:8].[ext]'
+                                name: options.useHashInFileNames
+                                    ? '[name].[contenthash:8].[ext]'
+                                    : '[name].[ext]'
                             }
                         },
                         {
@@ -140,16 +148,7 @@ function createApplicationConfiguration(opts) {
             optimization: {
                 minimize: isProduction,
                 minimizer: [new TerserPlugin()],
-                splitChunks: {
-                    chunks: 'all',
-                    cacheGroups: {
-                        vendors: {
-                            test: /[\\/]node_modules[\\/]/,
-                            name: 'common',
-                            chunks: 'all'
-                        }
-                    }
-                }
+                splitChunks: options.splitChunks
             },
             devServer: Object.assign(
                 {
@@ -167,19 +166,39 @@ function createApplicationConfiguration(opts) {
     };
 }
 
+function createLibraryConfiguration(libraryName, opts) {
+    const output = Object.assign({}, DefaultOptions.output, DefaultLibOptions.output, opts.output, {
+        library: libraryName
+    });
+    return createApplicationConfiguration(Object.assign({}, DefaultLibOptions, opts, { output }));
+}
+
 const DefaultOptions = {
     assetPaths: {
         js: 'assets/js/',
         css: 'assets/css/',
         static: 'assets/static/'
     },
+    useHashInFileNames: true,
     enableProgressPlugin: true,
     entry: {
-        app: './src/index.js'
+        main: './src/index.js'
     },
     output: {
         path: 'dist',
-        publicPath: '/'
+        publicPath: '/',
+        library: undefined,
+        libraryTarget: undefined
+    },
+    splitChunks: {
+        chunks: 'all',
+        cacheGroups: {
+            vendors: {
+                test: /[\\/]node_modules[\\/]/,
+                name: 'common',
+                chunks: 'all'
+            }
+        }
     },
     plugins: [],
     loaders: [],
@@ -191,6 +210,20 @@ const DefaultOptions = {
     fileExtensions: ['.js', '.jsx', '.ts', '.tsx'],
     babelEnvTargets: '> 0.25%, not dead',
     babelPresets: []
+};
+
+const DefaultLibOptions = {
+    useHashInFileNames: false,
+    output: {
+        libraryTarget: 'umd'
+    },
+    assetPaths: {
+        js: '',
+        css: '',
+        static: ''
+    },
+    splitChunks: {},
+    html: null
 };
 
 function hasModule(path) {
@@ -222,3 +255,5 @@ function makePathResolvers(config) {
 }
 
 module.exports.createApplicationConfiguration = createApplicationConfiguration;
+
+module.exports.createLibraryConfiguration = createLibraryConfiguration;
