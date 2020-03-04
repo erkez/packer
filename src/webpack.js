@@ -17,7 +17,7 @@ function createApplicationConfiguration(opts) {
             Object.assign({}, DefaultOptions.assetPaths, opts.assetPaths)
         );
 
-        const typescriptPath = path.resolve(process.env.INIT_CWD, 'node_modules/typescript');
+        const typescriptConfigPath = path.resolve(process.env.INIT_CWD, 'tsconfig.json');
 
         return {
             mode: argv.mode,
@@ -41,7 +41,7 @@ function createApplicationConfiguration(opts) {
                 [
                     options.enableProgressPlugin && new ProgressPlugin(),
                     new CleanWebpackPlugin(),
-                    hasModule(typescriptPath)
+                    hasModule(typescriptConfigPath)
                         ? new ForkTsCheckerWebpackPlugin({
                               typescript: path.resolve(
                                   process.env.INIT_CWD,
@@ -106,7 +106,7 @@ function createApplicationConfiguration(opts) {
                                 }
                             }
                         },
-                        {
+                        typescriptConfigPath && {
                             test: /\.tsx?$/,
                             loader: 'ts-loader',
                             options: {
