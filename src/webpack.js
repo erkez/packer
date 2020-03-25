@@ -14,7 +14,7 @@ function createApplicationConfiguration(opts) {
         const isProduction = argv.mode === 'production';
 
         const pathResolvers = makePathResolvers(
-            Object.assign({}, DefaultOptions.assetPaths, opts.assetPaths)
+            Object.assign({}, DefaultOptions.assetPaths, options.assetPaths)
         );
 
         const typescriptConfigPath = path.resolve(process.env.INIT_CWD, 'tsconfig.json');
@@ -166,7 +166,7 @@ function createApplicationConfiguration(opts) {
     };
 }
 
-function createLibraryConfiguration(libraryName, opts) {
+function createLibraryConfiguration(libraryName, opts = {}) {
     const output = Object.assign({}, DefaultOptions.output, DefaultLibOptions.output, opts.output, {
         library: libraryName
     });
