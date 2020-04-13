@@ -23,6 +23,7 @@ function createApplicationConfiguration(opts) {
             mode: argv.mode,
             entry: options.entry,
             devtool: isProduction ? undefined : 'source-map',
+            target: options.target,
             output: {
                 path: path.resolve(
                     process.env.INIT_CWD,
@@ -200,6 +201,7 @@ const DefaultOptions = {
             }
         }
     },
+    target: 'web',
     plugins: [],
     loaders: [],
     html: {},
