@@ -22,7 +22,7 @@ function createApplicationConfiguration(opts) {
         return {
             mode: argv.mode,
             entry: options.entry,
-            devtool: isProduction ? undefined : 'source-map',
+            devtool: isProduction ? undefined : options.devtool,
             target: options.target,
             output: {
                 path: path.resolve(
@@ -103,7 +103,8 @@ function createApplicationConfiguration(opts) {
                                             '@babel/react'
                                         ].concat(options.babelPresets)
                                     ),
-                                    only: ['src']
+                                    only: ['src'],
+                                    ...options.babelOptions
                                 }
                             }
                         },
@@ -180,6 +181,7 @@ const DefaultOptions = {
         css: 'assets/css/',
         static: 'assets/static/'
     },
+    devtool: 'source-map',
     useHashInFileNames: true,
     enableProgressPlugin: true,
     entry: {
@@ -211,7 +213,8 @@ const DefaultOptions = {
     define: {},
     fileExtensions: ['.js', '.jsx', '.ts', '.tsx'],
     babelEnvTargets: '> 0.25%, not dead',
-    babelPresets: []
+    babelPresets: [],
+    babelOptions: undefined
 };
 
 const DefaultLibOptions = {

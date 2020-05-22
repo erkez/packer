@@ -1,6 +1,6 @@
 {
   "name": "@ekz/packer",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "Packer",
   "main": "src/index.js",
   "repository": {
