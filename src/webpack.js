@@ -36,6 +36,11 @@ function createApplicationConfiguration(opts) {
                     isProduction && options.useHashInFileNames
                         ? '[name].[chunkhash:8].js'
                         : '[name].js'
+                ),
+                chunkFilename: pathResolvers.jsAsset(
+                    isProduction && options.useHashInFileNames
+                        ? '[id].[chunkhash:8].js'
+                        : '[id].js'
                 )
             },
             plugins: truthyArray(
@@ -195,13 +200,7 @@ const DefaultOptions = {
     },
     splitChunks: {
         chunks: 'all',
-        cacheGroups: {
-            vendors: {
-                test: /[\\/]node_modules[\\/]/,
-                name: 'common',
-                chunks: 'all'
-            }
-        }
+        automaticNameDelimiter: '.'
     },
     target: 'web',
     plugins: [],
