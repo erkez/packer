@@ -24,6 +24,7 @@ function createApplicationConfiguration(opts) {
             entry: options.entry,
             devtool: isProduction ? undefined : options.devtool,
             target: options.target,
+            node: options.node,
             output: {
                 path: path.resolve(
                     process.env.INIT_CWD,
