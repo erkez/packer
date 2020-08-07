@@ -32,6 +32,7 @@ function createApplicationConfiguration(opts) {
                 library: options.output.library || DefaultOptions.output.library,
                 libraryTarget: options.output.libraryTarget || DefaultOptions.output.libraryTarget,
                 publicPath: options.output.publicPath || DefaultOptions.output.publicPath,
+                globalObject: options.output.globalObject,
                 filename: pathResolvers.jsAsset(
                     isProduction && options.useHashInFileNames
                         ? '[name].[chunkhash:8].js'
@@ -49,10 +50,7 @@ function createApplicationConfiguration(opts) {
                     new CleanWebpackPlugin(),
                     hasModule(typescriptConfigPath)
                         ? new ForkTsCheckerWebpackPlugin({
-                              typescript: path.resolve(
-                                  process.env.INIT_CWD,
-                                  'node_modules/typescript'
-                              )
+                              typescript: true
                           })
                         : null,
                     new ProvidePlugin(options.provide),
