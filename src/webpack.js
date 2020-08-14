@@ -153,7 +153,7 @@ function createApplicationConfiguration(opts) {
             },
             optimization: {
                 minimize: isProduction,
-                minimizer: [new TerserPlugin()],
+                minimizer: [new TerserPlugin(options.terserOptions)],
                 splitChunks: options.splitChunks
             },
             devServer: Object.assign(
@@ -212,7 +212,8 @@ const DefaultOptions = {
     fileExtensions: ['.js', '.jsx', '.ts', '.tsx'],
     babelEnvTargets: '> 0.25%, not dead',
     babelPresets: [],
-    babelOptions: undefined
+    babelOptions: undefined,
+    terserOptions: undefined
 };
 
 const DefaultLibOptions = {
