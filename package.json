@@ -1,6 +1,6 @@
 {
   "name": "@ekz/packer",
-  "version": "0.12.0-rc.1",
+  "version": "0.12.0-rc.2",
   "description": "Packer",
   "main": "src/index.js",
   "repository": {
@@ -27,7 +27,7 @@
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-flow": "^7.12.1",
     "@babel/preset-react": "^7.12.1",
-    "@ekz/eslint-config-packer": "^0.2.0",
+    "@ekz/eslint-config-packer": "^0.3.0",
     "@typescript-eslint/eslint-plugin": "^4.5.0",
     "@typescript-eslint/parser": "^4.5.0",
     "babel-eslint": "^10.1.0",
