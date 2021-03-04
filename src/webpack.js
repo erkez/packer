@@ -40,9 +40,7 @@ function createApplicationConfiguration(opts) {
                         : '[name].js'
                 ),
                 chunkFilename: pathResolvers.jsAsset(
-                    isProduction && options.useHashInFileNames
-                        ? '[id].[chunkhash:8].js'
-                        : '[id].js'
+                    isProduction && options.useHashInFileNames ? '[id].[chunkhash:8].js' : '[id].js'
                 )
             },
             plugins: truthyArray(
@@ -57,13 +55,18 @@ function createApplicationConfiguration(opts) {
                     new ProvidePlugin(options.provide),
                     new DefinePlugin(options.define),
                     options.html != null && new HtmlWebpackPlugin(options.html),
-                    new MiniCssExtractPlugin({
-                        filename: pathResolvers.cssAsset(
-                            isProduction && options.useHashInFileNames
-                                ? '[name].[chunkhash:8].css'
-                                : '[name].css'
+                    new MiniCssExtractPlugin(
+                        Object.assign(
+                            {
+                                filename: pathResolvers.cssAsset(
+                                    isProduction && options.useHashInFileNames
+                                        ? '[name].[chunkhash:8].css'
+                                        : '[name].css'
+                                )
+                            },
+                            options.miniCssExtractPluginOptions
                         )
-                    })
+                    )
                 ].concat(options.plugins)
             ),
             resolve: {
@@ -90,28 +93,6 @@ function createApplicationConfiguration(opts) {
                                 emitWarning: !isProduction
                             }
                         },
-                        {
-                            test: /\.(js|jsx)$/,
-                            use: {
-                                loader: 'babel-loader',
-                                options: {
-                                    presets: truthyArray(
-                                        [
-                                            [
-                                                '@babel/env',
-                                                {
-                                                    targets: options.babelEnvTargets
-                                                }
-                                            ],
-                                            '@babel/flow',
-                                            '@babel/react'
-                                        ].concat(options.babelPresets)
-                                    ),
-                                    only: ['src'],
-                                    ...options.babelOptions
-                                }
-                            }
-                        },
                         typescriptConfigPath && {
                             test: /\.tsx?$/,
                             loader: 'ts-loader',
@@ -121,8 +102,39 @@ function createApplicationConfiguration(opts) {
                             }
                         },
                         {
+                            test: /\.(jsx?|tsx?)$/,
+                            use: {
+                                loader: 'babel-loader',
+                                options: Object.assign(
+                                    {
+                                        presets: truthyArray(
+                                            [
+                                                [
+                                                    '@babel/env',
+                                                    {
+                                                        targets: options.babelEnvTargets
+                                                    }
+                                                ],
+                                                '@babel/flow',
+                                                '@babel/react',
+                                                '@babel/typescript'
+                                            ].concat(options.babelPresets)
+                                        ),
+                                        plugins: truthyArray(
+                                            [
+                                                "@babel/proposal-class-properties",
+                                                "@babel/proposal-object-rest-spread"
+                                            ].concat(options.babelPlugins)
+                                        ),
+                                        only: ['src']
+                                    },
+                                    options.babelOptions
+                                )
+                            }
+                        },
+                        {
                             test: /\.node$/,
-                            loader: 'node-loader',
+                            loader: 'node-loader'
                         },
                         {
                             test: /\.(woff|woff2|ttf|eot|svg|png|jpg|gif|ico)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -144,7 +156,7 @@ function createApplicationConfiguration(opts) {
                                 {
                                     loader: 'postcss-loader',
                                     options: {
-                                        config: {
+                                        postcssOptions: {
                                             path: __dirname
                                         }
                                     }
@@ -216,8 +228,10 @@ const DefaultOptions = {
     fileExtensions: ['.js', '.jsx', '.ts', '.tsx'],
     babelEnvTargets: '> 0.25%, not dead',
     babelPresets: [],
+    babelPlugins: [],
     babelOptions: undefined,
-    terserOptions: undefined
+    terserOptions: undefined,
+    miniCssExtractPluginOptions: undefined
 };
 
 const DefaultLibOptions = {
@@ -245,7 +259,7 @@ function hasModule(path) {
 }
 
 function truthyArray(array) {
-    return array.filter(item => item != null && item !== false);
+    return array.filter((item) => item != null && item !== false);
 }
 
 function makePathResolvers(config) {
