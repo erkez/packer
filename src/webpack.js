@@ -5,6 +5,7 @@ const { ProgressPlugin, ProvidePlugin, DefinePlugin } = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
 function createApplicationConfiguration(opts) {
@@ -45,6 +46,17 @@ function createApplicationConfiguration(opts) {
             },
             plugins: truthyArray(
                 [
+                    new ESLintPlugin(
+                        Object.assign(
+                            {
+                                extensions: ['js', 'jsx', 'ts', 'tsx'],
+                                failOnError: isProduction,
+                                failOnWarning: isProduction,
+                                emitWarning: !isProduction
+                            },
+                            options.eslint
+                        )
+                    ),
                     options.enableProgressPlugin && new ProgressPlugin(),
                     new CleanWebpackPlugin(),
                     hasModule(typescriptConfigPath)
@@ -82,17 +94,6 @@ function createApplicationConfiguration(opts) {
             module: {
                 rules: truthyArray(
                     [
-                        {
-                            enforce: 'pre',
-                            test: /\.(jsx?|tsx?)$/,
-                            exclude: /node_modules/,
-                            loader: 'eslint-loader',
-                            options: {
-                                failOnError: isProduction,
-                                failOnWarning: isProduction,
-                                emitWarning: !isProduction
-                            }
-                        },
                         typescriptConfigPath && {
                             test: /\.tsx?$/,
                             loader: 'ts-loader',
@@ -122,8 +123,8 @@ function createApplicationConfiguration(opts) {
                                         ),
                                         plugins: truthyArray(
                                             [
-                                                "@babel/proposal-class-properties",
-                                                "@babel/proposal-object-rest-spread"
+                                                '@babel/proposal-class-properties',
+                                                '@babel/proposal-object-rest-spread'
                                             ].concat(options.babelPlugins)
                                         ),
                                         only: ['src']
@@ -201,6 +202,7 @@ const DefaultOptions = {
         css: 'assets/css/',
         static: 'assets/static/'
     },
+    eslint: {},
     devtool: 'source-map',
     useHashInFileNames: true,
     enableProgressPlugin: true,

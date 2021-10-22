@@ -16,7 +16,7 @@
                 "singleQuote": true,
                 "trailingComma": "none",
                 "bracketSpacing": true,
-                "jsxBracketSameLine": true,
+                "bracketSameLine": true,
                 "tabWidth": 4,
                 "parser": "babel"
             }
@@ -32,7 +32,6 @@
     },
     "extends": [
         "eslint:recommended",
-        "prettier",
-        "prettier/standard"
+        "prettier"
     ]
 }
