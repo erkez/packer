@@ -1265,10 +1265,10 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.5.tgz#9283c9ce5b289a3c4f61c12757469e59377f81f3"
   integrity sha512-6nFkfkmSeV/rqSaS4oWHgmpnYw194f6hmWF5is6b0J1naJZoiD0NTc9AiUwPHvWsowkjuHErCZT1wa0jg+BLIA==
 
-"@erkez/eslint-config-packer@0.4.1":
-  version "0.4.1"
-  resolved "https://npm.pkg.github.com/download/@erkez/eslint-config-packer/0.4.1/b1145afa4dfa6d10d64d41b540754c9b9890bd2e264ec2f90aae349301fcdd9e#6964910f567df95fc8f096ebcec05498fee14d5c"
-  integrity sha512-6ZH6rTZEu9jBhoCU8AUN5qEp+OkJX9YBPSnPbJs0GiqC5ngkM/SX5v9vV6fsdzXpxXXdydqZPXsI2aqpqQKdpQ==
+"@ekz/eslint-config-packer@0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@ekz/eslint-config-packer/-/eslint-config-packer-0.4.0.tgz#f0f725ce6ef2dfbbf5ff16613a56beafcdffedf1"
+  integrity sha512-7imk9nPRZrSEKMkMe8ptZ6wqtANXHhuJ6L1KjN7FoMw3+dtXT96n1guZTozhCvEVfGdPvDDii/Z8W3/gV9bSJA==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^5.1.0"
     "@typescript-eslint/parser" "^5.1.0"
