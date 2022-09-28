@@ -180,8 +180,7 @@ function createApplicationConfiguration(opts) {
                     },
                     port: 9000,
                     compress: true,
-                    hot: true,
-                    overlay: true
+                    hot: true
                 },
                 options.devServer
             )
