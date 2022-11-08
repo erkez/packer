@@ -979,10 +979,10 @@
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.5.tgz#9283c9ce5b289a3c4f61c12757469e59377f81f3"
   integrity sha512-6nFkfkmSeV/rqSaS4oWHgmpnYw194f6hmWF5is6b0J1naJZoiD0NTc9AiUwPHvWsowkjuHErCZT1wa0jg+BLIA==
 
-"@erkez/eslint-config-packer@0.4.1":
-  version "0.4.1"
-  resolved "https://npm.pkg.github.com/download/@erkez/eslint-config-packer/0.4.1/b1145afa4dfa6d10d64d41b540754c9b9890bd2e264ec2f90aae349301fcdd9e#6964910f567df95fc8f096ebcec05498fee14d5c"
-  integrity sha512-6ZH6rTZEu9jBhoCU8AUN5qEp+OkJX9YBPSnPbJs0GiqC5ngkM/SX5v9vV6fsdzXpxXXdydqZPXsI2aqpqQKdpQ==
+"@ekz/eslint-config-packer@0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@ekz/eslint-config-packer/-/eslint-config-packer-0.4.0.tgz#f0f725ce6ef2dfbbf5ff16613a56beafcdffedf1"
+  integrity sha512-7imk9nPRZrSEKMkMe8ptZ6wqtANXHhuJ6L1KjN7FoMw3+dtXT96n1guZTozhCvEVfGdPvDDii/Z8W3/gV9bSJA==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^5.1.0"
     "@typescript-eslint/parser" "^5.1.0"
@@ -992,10 +992,10 @@
     eslint-plugin-prettier "^4.0.0"
     eslint-plugin-react "^7.26.1"
 
-"@erkez/packer@^0.13.2":
-  version "0.13.2"
-  resolved "https://npm.pkg.github.com/download/@erkez/packer/0.13.2/2ef4eb6edc8d9166f9edc7a718dc06798f4613c5fc35f139f9e344dea39a7077#4f4841aebf334faa6f12a1ccc637d48b24ecdee0"
-  integrity sha512-NZFfaojjshGoJhZQ/DJOxvKACaji88qnJVgIAn6DaEvK0fJniF0R+2TgjTYHeBwluDadoeXq8SET6V9GFfXUew==
+"@ekz/packer@^0.14.0":
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/@ekz/packer/-/packer-0.14.0.tgz#3879ec258df5adf00657ab9cb18b163d25ff23fd"
+  integrity sha512-UBbgfiDKbkT0VDvgr/hp8dhlczIV5GQwIxe6SE7GVzSuPrvJ9tB+m3weuer+eqemxWJbHjoiHzLCeTfl7lwUFQ==
   dependencies:
     "@babel/core" "^7.15.8"
     "@babel/plugin-proposal-class-properties" "^7.14.5"
@@ -1004,7 +1004,7 @@
     "@babel/preset-flow" "^7.14.5"
     "@babel/preset-react" "^7.14.5"
     "@babel/preset-typescript" "^7.15.0"
-    "@erkez/eslint-config-packer" "0.4.1"
+    "@ekz/eslint-config-packer" "0.4.0"
     "@typescript-eslint/eslint-plugin" "^5.1.0"
     "@typescript-eslint/parser" "^5.1.0"
     babel-eslint "^10.1.0"
@@ -3974,9 +3974,9 @@ loader-runner@^4.2.0:
   integrity sha512-92+huvxMvYlMzMt0iIOukcwYBFpkYJdpl2xsZ7LrlayO7E8SOv+JJUEK17B/dJIHAOLMfh2dZZ/Y18WgmGtYNw==
 
 loader-utils@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-1.4.0.tgz#c579b5e34cb34b1a74edc6c1fb36bfa371d5a613"
-  integrity sha512-qH0WSMBtn/oHuwjy/NucEgbx5dbxxnxup9s4PVXJUDHZBQY+s0NWA9rJf53RBnQZxfch7euUui7hpoAPvALZdA==
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-1.4.1.tgz#278ad7006660bccc4d2c0c1578e17c5c78d5c0e0"
+  integrity sha512-1Qo97Y2oKaU+Ro2xnDMR26g1BwMT29jNbem1EvcujW2jqt+j5COXyscjM7bLQkM9HaxI7pkWeW7gnI072yMI9Q==
   dependencies:
     big.js "^5.2.2"
     emojis-list "^3.0.0"
@@ -4187,7 +4187,12 @@ minimist-options@4.1.0:
     is-plain-obj "^1.1.0"
     kind-of "^6.0.3"
 
-minimist@^1.2.0, minimist@^1.2.5:
+minimist@^1.2.0:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.7.tgz#daa1c4d91f507390437c6a8bc01078e7000c4d18"
+  integrity sha512-bzfL1YUZsP41gmu/qjrEk0Q6i2ix/cVeAhbCbqH9u3zYutS1cLg00qhrD0M2MVdCcx4Sc0UpP2eBWo9rotpq6g==
+
+minimist@^1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
   integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
