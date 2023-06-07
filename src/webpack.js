@@ -81,15 +81,18 @@ function createApplicationConfiguration(opts) {
                     )
                 ].concat(options.plugins)
             ),
-            resolve: {
-                alias: Object.assign(
-                    {
-                        '@root': path.resolve(process.env.INIT_CWD, 'src')
-                    },
-                    options.resolve.alias
-                ),
-                extensions: options.fileExtensions
-            },
+            resolve: Object.assign(
+                {
+                    alias: Object.assign(
+                        {
+                            '@root': path.resolve(process.env.INIT_CWD, 'src')
+                        },
+                        options.resolve.alias
+                    ),
+                    extensions: options.fileExtensions
+                },
+                options.resolve
+            ),
             externals: options.externals,
             module: {
                 rules: truthyArray(
