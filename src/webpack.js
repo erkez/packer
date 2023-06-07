@@ -59,11 +59,7 @@ function createApplicationConfiguration(opts) {
                     ),
                     options.enableProgressPlugin && new ProgressPlugin(),
                     new CleanWebpackPlugin(),
-                    hasModule(typescriptConfigPath)
-                        ? new ForkTsCheckerWebpackPlugin({
-                              typescript: true
-                          })
-                        : null,
+                    hasModule(typescriptConfigPath) ? new ForkTsCheckerWebpackPlugin() : null,
                     new ProvidePlugin(options.provide),
                     new DefinePlugin(options.define),
                     options.html != null && new HtmlWebpackPlugin(options.html),
