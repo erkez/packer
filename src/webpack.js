@@ -31,6 +31,11 @@ function createApplicationConfiguration(opts) {
                     process.env.INIT_CWD,
                     options.output.path || DefaultOptions.output.path
                 ),
+                assetModuleFilename: pathResolvers.staticAsset(
+                    isProduction && options.useHashInFileNames
+                        ? '[name].[hash:8][ext][query]'
+                        : '[name][ext][query]'
+                ),
                 library: options.output.library || DefaultOptions.output.library,
                 libraryTarget: options.output.libraryTarget || DefaultOptions.output.libraryTarget,
                 publicPath: options.output.publicPath || DefaultOptions.output.publicPath,
@@ -137,32 +142,18 @@ function createApplicationConfiguration(opts) {
                             loader: 'node-loader'
                         },
                         {
-                            test: /\.(woff|woff2|ttf|eot|svg|png|jpg|gif|ico)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                            loader: 'file-loader',
-                            options: {
-                                outputPath: pathResolvers.staticAsset(''),
-                                name: options.useHashInFileNames
-                                    ? '[name].[contenthash:8].[ext]'
-                                    : '[name].[ext]'
-                            }
-                        },
-                        {
                             test: /\.(css|s[ac]ss)$/i,
                             use: [
                                 {
                                     loader: MiniCssExtractPlugin.loader
                                 },
                                 'css-loader',
-                                {
-                                    loader: 'postcss-loader',
-                                    options: {
-                                        postcssOptions: {
-                                            path: __dirname
-                                        }
-                                    }
-                                },
                                 'sass-loader'
                             ]
+                        },
+                        {
+                            test: /\.(woff|woff2|ttf|eot|svg|png|jpg|gif|ico)(\?\w+)?$/,
+                            type: 'asset/resource'
                         }
                     ].concat(options.loaders)
                 )
