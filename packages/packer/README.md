@@ -8,7 +8,7 @@ and maintenance needed to create a React application.
 * Minimum configuration to create a proper React application
 * Automatic (or template based) HTML generation using `html-webpack-plugin`
 * ESLint support out of the box
-* Typescript and Flowtype support out of the box
+* Typescript support out of the box
 * `webpack-dev-server` included
 
 ## Installation
@@ -40,7 +40,6 @@ For ESLint, create the file `.eslintrc` in your application root directory:
     "extends": [
         "@ekz/packer/recommended",
         // "@ekz/packer/typescript" for Typescript
-        // "@ekz/packer/flowtype" for Flowtype
     ]
 }
 ```

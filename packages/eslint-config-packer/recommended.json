@@ -1,0 +1,53 @@
+{
+    "parser": "babel-eslint",
+    "plugins": [
+        "prettier",
+        "react",
+        "react-hooks"
+    ],
+    "ignorePatterns": [
+        "bin/",
+        "dist/",
+        "node_modules/"
+    ],
+    "rules": {
+        "react/display-name": 0,
+        "react/prop-types": 0,
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "no-console": 1,
+        "prettier/prettier": [
+            "error",
+            {
+                "printWidth": 100,
+                "singleQuote": true,
+                "trailingComma": "none",
+                "bracketSpacing": true,
+                "tabWidth": 4,
+                "parser": "babel"
+            }
+        ],
+        "eqeqeq": [
+            2,
+            "allow-null"
+        ]
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
+    "env": {
+        "es6": true,
+        "node": true,
+        "browser": true
+    },
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "prettier"
+    ]
+}
