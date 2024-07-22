@@ -1,6 +1,6 @@
 {
   "name": "@ekz/packer",
-  "version": "0.16.0-rc.0",
+  "version": "0.16.0",
   "packageManager": "yarn@4.3.1",
   "description": "Packer",
   "main": "src/index.js",
