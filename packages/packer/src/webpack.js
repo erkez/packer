@@ -120,7 +120,6 @@ function createApplicationConfiguration(opts) {
                                                         targets: options.babelEnvTargets
                                                     }
                                                 ],
-                                                '@babel/flow',
                                                 '@babel/react',
                                                 '@babel/typescript'
                                             ].concat(options.babelPresets)
