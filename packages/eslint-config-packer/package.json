@@ -1,6 +1,6 @@
 {
   "name": "@ekz/eslint-config-packer",
-  "version": "0.16.0-rc.0",
+  "version": "0.16.0",
   "license": "MIT",
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^7.16.1",
