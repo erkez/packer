@@ -34,10 +34,14 @@ The example depends on `@ekz/packer` via `workspace:^`, so it always uses the lo
 
 ```json
 "devDependencies": {
-    "@ekz/packer": "^1.0.0",
+    "@ekz/packer": "beta",
     "typescript": "^6.0.3"
 }
 ```
+
+Pin an exact beta if you prefer: `"@ekz/packer": "1.0.0-beta.0"`.
+
+In `tsconfig.json`, change the `extends` path to `./node_modules/@ekz/packer/tsconfig/recommended.json` (the monorepo example uses `../../node_modules/...` because dependencies are hoisted to the repo root).
 
 3. Install dependencies from the app root (this creates its own `yarn.lock` or `package-lock.json`):
 
@@ -70,6 +74,6 @@ The config files (`webpack.config.js`, `eslint.config.js`, `tsconfig.json`) are 
 ## Requirements
 
 - Node.js **24+**
-- `@ekz/packer` **1.0.0** or later (when used outside the monorepo)
+- `@ekz/packer` **1.0.0-beta** or later (when used outside the monorepo; use `@beta` until stable)
 
 See the [main Packer README](../../packages/packer/README.md) for installation details and migration notes from 0.16.

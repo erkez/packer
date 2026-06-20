@@ -37,9 +37,19 @@ Dual purpose: `workspace:^` in-repo; users copy out and pin `"@ekz/packer": "^x.
 
 Do not add nested `yarn.lock` or `bin/setup-node` — use `.nvmrc` + `nvm use`.
 
-## Release
+## CI and release
 
-Bump `@ekz/packer` and `@ekz/eslint-config-packer` versions together. Consumer-facing changelog and migration notes go in `packages/packer/README.md`.
+- **CI** (`.github/workflows/ci.yml`): on PR/push — `yarn build`, `yarn lint`, `my-app build:prod`
+- **Release** (`.github/workflows/release.yml`): Changesets on `master` → version PR or npm publish
+- Packages are **fixed** in `.changeset/config.json` — they always share a version
+- Requires **npm trusted publishing** configured on npmjs.com for `@ekz/packer` and `@ekz/eslint-config-packer` (GitHub Actions → repo `erkez/packer`, workflow **`release.yml`** — filename must match exactly)
+- No `NPM_TOKEN` — publish uses OIDC (`id-token: write` in release workflow)
+- **Pre-release**: repo is in Changesets `beta` mode (`.changeset/pre.json`) — publishes `@beta`, not `latest`
+- **GA 1.0.0**: run `yarn changeset pre exit`, add changeset if needed, merge release PR → `latest`
+
+Contributor flow: `yarn changeset` → PR → merge → release PR merges → npm publish (beta tag while in pre mode).
+
+Consumer-facing changelog and migration notes go in `packages/packer/README.md`.
 
 ## Pitfalls
 
