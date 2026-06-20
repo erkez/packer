@@ -1,6 +1,6 @@
 {
   "name": "@ekz/packer",
-  "version": "0.16.0",
+  "version": "1.0.0-beta.0",
   "description": "Packer",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
