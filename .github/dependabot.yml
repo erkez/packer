@@ -7,14 +7,23 @@ updates:
       day: monday
     open-pull-requests-limit: 10
     groups:
-      npm-production:
-        dependency-type: production
+      npm-minor-patch:
+        applies-to: version-updates
         patterns:
-          - '*'
-      npm-development:
-        dependency-type: development
+          - "*"
+        update-types:
+          - minor
+          - patch
+      npm-major:
+        applies-to: version-updates
         patterns:
-          - '*'
+          - "*"
+        update-types:
+          - major
+      npm-security:
+        applies-to: security-updates
+        patterns:
+          - "*"
     commit-message:
       prefix: deps
       include: scope
@@ -27,9 +36,23 @@ updates:
       interval: weekly
       day: monday
     groups:
-      github-actions:
+      github-actions-minor-patch:
+        applies-to: version-updates
         patterns:
-          - '*'
+          - "*"
+        update-types:
+          - minor
+          - patch
+      github-actions-major:
+        applies-to: version-updates
+        patterns:
+          - "*"
+        update-types:
+          - major
+      github-actions-security:
+        applies-to: security-updates
+        patterns:
+          - "*"
     commit-message:
       prefix: deps
       include: scope
