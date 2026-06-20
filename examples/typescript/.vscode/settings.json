@@ -1,38 +1,12 @@
 {
-    "editor.formatOnSave": true,
-    "eslint.autoFixOnSave": true,
+    "editor.formatOnSave": false,
     "editor.codeActionsOnSave": {
-        "source.fixAll": "explicit",
-        "source.fixAll.eslint": "explicit"
-    },
-    "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-        {
-            "language": "typescript",
-            "autoFix": true
-        },
-        {
-            "language": "typescriptreact",
-            "autoFix": true
-        }
-    ],
-    "[javascript]": {
-        "editor.formatOnSave": false,
-    },
-    "[javascriptreact]": {
-        "editor.formatOnSave": false,
-    },
-    "[typescript]": {
-        "editor.formatOnSave": false,
-    },
-    "[typescriptreact]": {
-        "editor.formatOnSave": false,
+        "source.fixAll.eslint": "always"
     },
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
     "typescript.tsdk": "node_modules/typescript/lib",
     "path-intellisense.mappings": {
-        "@root": "${workspaceRoot}/src"
+        "@root": "${workspaceFolder}/src"
     }
 }

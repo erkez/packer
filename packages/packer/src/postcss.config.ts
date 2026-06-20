@@ -1,4 +1,4 @@
-module.exports = {
+const postcssConfig = {
     plugins: {
         'postcss-preset-env': {
             browsers: 'last 2 versions'
@@ -6,3 +6,5 @@ module.exports = {
         cssnano: {}
     }
 };
+
+export default postcssConfig;

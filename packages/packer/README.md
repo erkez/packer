@@ -33,15 +33,54 @@ const Packer = require('@ekz/packer');
 module.exports = Packer.webpack.createApplicationConfiguration();
 ```
 
-For ESLint, create the file `.eslintrc` in your application root directory:
+For ESLint, create `eslint.config.js` in your application root directory:
 
-```json
-{
-    "extends": [
-        "@ekz/packer/recommended",
-        // "@ekz/packer/typescript" for Typescript
-    ]
-}
+```js
+const recommended = require('@ekz/packer/recommended');
+
+module.exports = [...recommended];
+```
+
+For TypeScript, add the typescript config:
+
+```js
+const recommended = require('@ekz/packer/recommended');
+const typescript = require('@ekz/packer/typescript');
+
+module.exports = [...recommended, ...typescript];
+```
+
+### Migrating from 0.16
+
+1.0.0 is a breaking release. The last published version used `.eslintrc` and shipped JavaScript from `src/`. This release is written in TypeScript, ships compiled output from `dist/`, requires Node.js 24+, and uses ESLint 10 flat config.
+
+**ESLint**
+
+1. Delete `.eslintrc`
+2. Add `eslint.config.js` (see above)
+3. Update your lint script to `"lint": "npx eslint ."`
+
+**Node.js**
+
+Requires Node.js 24 or later (see `.nvmrc` in your project or use `nvm use`).
+
+**Custom ESLint rules**
+
+If you had rule overrides in `.eslintrc`, move them into `eslint.config.js` as an additional config object after the Packer spreads:
+
+```js
+const recommended = require('@ekz/packer/recommended');
+const typescript = require('@ekz/packer/typescript');
+
+module.exports = [
+    ...recommended,
+    ...typescript,
+    {
+        rules: {
+            // your overrides
+        }
+    }
+];
 ```
 
 ## package.json configuration
@@ -52,7 +91,7 @@ It is useful to add the following commands to your `scripts` property in `packag
 {
     // ... other properties in package.json
     "scripts": {
-        "lint": "eslint --ext .js --ext .jsx --ext .ts --ext .tsx .",
+        "lint": "npx eslint .",
         "lint:fix": "yarn lint --fix",
         "build": "yarn build:dev",
         "build:dev": "webpack --mode=development",
@@ -93,3 +132,7 @@ module.exports = Packer.webpack.createApplicationConfiguration({
     }
 });
 ```
+
+## Example application
+
+See [`examples/typescript`](../../examples/typescript) for a minimal React + TypeScript app. That folder can be run inside this monorepo for development, or copied as a starter template — see its [README](../../examples/typescript/README.md) for both workflows.

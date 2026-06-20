@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 const Packer = require('@ekz/packer');
 
 module.exports = Packer.webpack.createApplicationConfiguration({
