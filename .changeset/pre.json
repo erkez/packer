@@ -3,7 +3,11 @@
   "tag": "beta",
   "initialVersions": {
     "@ekz/eslint-config-packer": "0.16.0",
-    "@ekz/packer": "0.16.0"
+    "@ekz/packer": "0.16.0",
+    "packer-docs": "0.0.0",
+    "my-app": "1.0.0"
   },
-  "changesets": []
+  "changesets": [
+    "major-1-0-beta"
+  ]
 }
