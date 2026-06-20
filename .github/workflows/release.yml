@@ -18,18 +18,20 @@ jobs:
         with:
           fetch-depth: 0
 
+      - run: corepack enable
+
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: yarn
           registry-url: https://registry.npmjs.org
 
-      - run: corepack enable
-
       # npm >= 11.5.1 required for OIDC trusted publishing
       - run: npm install -g npm@latest
 
-      - run: yarn install:ci
+      - run: yarn install --immutable
+
+      - run: yarn dedupe --check
 
       - name: Create release pull request or publish
         uses: changesets/action@v1

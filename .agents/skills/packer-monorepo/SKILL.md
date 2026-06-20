@@ -27,7 +27,6 @@ Workspaces: `packages/*`, `examples/*`. One root `yarn.lock`.
 
 ```sh
 yarn install && yarn dedupe   # after adding deps; commit yarn.lock
-yarn install:ci               # CI equivalent: immutable install + dedupe --check
 yarn workspace @ekz/packer build
 yarn workspace @ekz/packer lint
 yarn workspace my-app lint   # when webpack or eslint surface changes
