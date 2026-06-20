@@ -1,0 +1,33 @@
+.app {
+    max-width: 32rem;
+    margin: 3rem auto;
+    padding: 0 1rem;
+    text-align: center;
+}
+
+.app__logo {
+    display: block;
+    margin: 0 auto 1rem;
+}
+
+.app__title {
+    margin: 0 0 0.5rem;
+    font-size: 1.75rem;
+}
+
+.app__hint {
+    margin: 0 0 1.5rem;
+    color: #555;
+}
+
+.app__button {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    background: #fff;
+    cursor: pointer;
+}
+
+.app__button:hover {
+    border-color: #888;
+}

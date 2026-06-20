@@ -1,11 +1,26 @@
-# TypeScript + React example
+# React + TypeScript example
 
-A minimal React application that uses `@ekz/packer` for webpack, ESLint, and TypeScript configuration.
+A React application that exercises the main `@ekz/packer` application workflow: TypeScript/TSX, SCSS, static assets, ESLint flat config, and webpack dev/production builds.
 
 This folder serves two purposes:
 
-- **In the monorepo** — integration test for `@ekz/packer` changes (lint, build, dev server).
+- **In the monorepo** — integration test for `@ekz/packer` (lint, typecheck via ForkTsChecker, dev + prod webpack).
 - **Outside the repo** — starter template you can copy into your own project.
+
+## What CI validates
+
+| Feature | How |
+|---------|-----|
+| TypeScript + TSX | `src/index.tsx`, `src/App.tsx`, `ts-loader`, ForkTsChecker |
+| React + hooks | `useState` in `App.tsx`; ESLint react-hooks rules |
+| SCSS + CSS extract | `index.scss` (normalize.css), `App.scss` |
+| Static assets | SVG import via webpack `asset/resource` |
+| `@root` alias | `@root/App`, `@root/assets/logo.svg` |
+| ESLint flat config | `eslint.config.js` with recommended + typescript overlays |
+| HTML template | `public/index.html` via `html-webpack-plugin` |
+| Production build | `build:prod` in CI (minify, hashed filenames, ESLint fail-on-error) |
+
+Not covered here (see README sample config instead): custom `publicPath`, dev-server proxy, library/UMD builds via `createLibraryConfiguration()`.
 
 ## Running inside the monorepo
 
@@ -66,9 +81,7 @@ The config files (`webpack.config.js`, `eslint.config.js`, `tsconfig.json`) are 
 | `webpack.config.js` | Webpack config via `Packer.webpack.createApplicationConfiguration()` |
 | `eslint.config.js` | ESLint flat config from `@ekz/packer/recommended` and `/typescript` |
 | `tsconfig.json` | TypeScript config extending `@ekz/packer/tsconfig/recommended` |
-| `.nvmrc` | Node.js version for `nvm use` |
-| `.vscode/` | Recommended extensions and editor settings (ESLint on save) |
-| `src/` | Application source |
+| `src/` | TSX app entry, component, SCSS, and static asset |
 | `public/` | HTML template for `html-webpack-plugin` |
 
 ## Requirements
