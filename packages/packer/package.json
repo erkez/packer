@@ -17,6 +17,7 @@
     "type": "git",
     "url": "https://github.com/erkez/packer.git"
   },
+  "homepage": "https://packer.ekz.io",
   "license": "MIT",
   "publishConfig": {
     "access": "public"

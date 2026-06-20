@@ -26,6 +26,8 @@ Workspaces: `packages/*`, `examples/*`. One root `yarn.lock`.
 - Node `>=24` (`.nvmrc` in repo root and each example)
 
 ```sh
+yarn install && yarn dedupe   # after adding deps; commit yarn.lock
+yarn install:ci               # CI equivalent: immutable install + dedupe --check
 yarn workspace @ekz/packer build
 yarn workspace @ekz/packer lint
 yarn workspace my-app lint   # when webpack or eslint surface changes
@@ -39,7 +41,8 @@ Do not add nested `yarn.lock` or `bin/setup-node` — use `.nvmrc` + `nvm use`.
 
 ## CI and release
 
-- **CI** (`.github/workflows/ci.yml`): on PR/push — `yarn build`, `yarn lint`, `my-app build:prod`
+- **CI** (`.github/workflows/ci.yml`): on PR/push — `yarn build`, `yarn lint`, `yarn docs:build`, `my-app build:prod`
+- **Docs** (`.github/workflows/docs.yml`): Docusaurus → GitHub Pages at `https://packer.ekz.io/` (custom domain; `docs/static/CNAME`)
 - **Release** (`.github/workflows/release.yml`): Changesets on `master` → version PR or npm publish
 - Packages are **fixed** in `.changeset/config.json` — they always share a version
 - Requires **npm trusted publishing** configured on npmjs.com for `@ekz/packer` and `@ekz/eslint-config-packer` (GitHub Actions → repo `erkez/packer`, workflow **`release.yml`** — filename must match exactly)

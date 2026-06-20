@@ -3,6 +3,8 @@
 Packer is an opinionated webpack based bundler that does its best to reduce the amount of configuration
 and maintenance needed to create a React application.
 
+**Documentation:** [packer.ekz.io](https://packer.ekz.io/)
+
 ## Features
 
 * Minimum configuration to create a proper React application

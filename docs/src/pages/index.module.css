@@ -1,0 +1,57 @@
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.heroBanner {
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme='dark'] .heroBanner {
+  --ifm-hero-background-color: #2563eb;
+  background-color: #2563eb;
+}
+
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 2rem;
+  }
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* Solid CTA — white on primary hero (~8.6:1 on #2563eb) */
+.buttonPrimary {
+  --ifm-button-background-color: #ffffff;
+  --ifm-button-border-color: #ffffff;
+  --ifm-button-color: #1e3a8a;
+}
+
+.buttonPrimary:hover {
+  --ifm-button-background-color: #eff6ff;
+  --ifm-button-border-color: #eff6ff;
+  --ifm-button-color: #1e3a8a;
+}
+
+/* Outline CTA — white text/border on primary hero (~8.6:1) */
+.buttonOutline {
+  background-color: transparent;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+
+.buttonOutline:hover {
+  background-color: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  border-color: #ffffff;
+  text-decoration: none;
+}
