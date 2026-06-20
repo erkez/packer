@@ -47,6 +47,7 @@ Do not add nested `yarn.lock` or `bin/setup-node` — use `.nvmrc` + `nvm use`.
 - **Docs** (`.github/workflows/docs.yml`): Docusaurus → GitHub Pages at `https://packer.ekz.io/` (custom domain; `docs/static/CNAME`)
 - **Release** (`.github/workflows/release.yml`): Changesets on `master` → version PR or npm publish
 - Packages are **fixed** in `.changeset/config.json` — they always share a version
+- **License**: MIT, copyright erkez — root `LICENSE` plus a copy in each published package; keep `LICENSE` in each package's `files` array
 - Requires **npm trusted publishing** configured on npmjs.com for `@ekz/packer` and `@ekz/eslint-config-packer` (GitHub Actions → repo `erkez/packer`, workflow **`release.yml`** — filename must match exactly)
 - No `NPM_TOKEN` — publish uses OIDC (`id-token: write` in release workflow)
 - **Pre-release**: repo is in Changesets `beta` mode (`.changeset/pre.json`) — publishes `@beta`, not `latest`

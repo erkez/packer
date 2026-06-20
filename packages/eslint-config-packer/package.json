@@ -11,6 +11,7 @@
     "access": "public"
   },
   "files": [
+    "LICENSE",
     "recommended.js",
     "typescript.js",
     "prettier.js"
