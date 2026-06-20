@@ -1,34 +1,41 @@
-const path = require('path');
+import path from 'path';
 
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const { ProgressPlugin, ProvidePlugin, DefinePlugin } = require('webpack');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import { ProgressPlugin, ProvidePlugin, DefinePlugin } from 'webpack';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ESLintPlugin from 'eslint-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
 
-function createApplicationConfiguration(opts) {
-    const options = Object.assign({}, DefaultOptions, opts);
+import type {
+    AssetPaths,
+    PackerOptions,
+    ResolvedPackerOptions,
+    WebpackConfigFactory
+} from './types';
 
-    return function configure(env, argv) {
+function createApplicationConfiguration(opts: PackerOptions = {}): WebpackConfigFactory {
+    const options = Object.assign({}, DefaultOptions, opts) as ResolvedPackerOptions;
+
+    return function configure(_env, argv) {
         const isProduction = argv.mode === 'production';
 
         const pathResolvers = makePathResolvers(
             Object.assign({}, DefaultOptions.assetPaths, options.assetPaths)
         );
 
-        const typescriptConfigPath = path.resolve(process.env.INIT_CWD, 'tsconfig.json');
+        const typescriptConfigPath = path.resolve(process.env.INIT_CWD!, 'tsconfig.json');
 
         return {
-            mode: argv.mode,
+            mode: argv.mode as 'development' | 'production' | undefined,
             entry: options.entry,
             devtool: isProduction ? undefined : options.devtool,
             target: options.target,
             node: options.node,
             output: {
                 path: path.resolve(
-                    process.env.INIT_CWD,
+                    process.env.INIT_CWD!,
                     options.output.path || DefaultOptions.output.path
                 ),
                 assetModuleFilename: pathResolvers.staticAsset(
@@ -80,15 +87,15 @@ function createApplicationConfiguration(opts) {
                             options.miniCssExtractPluginOptions
                         )
                     )
-                ].concat(options.plugins)
+                ].concat(options.plugins as [])
             ),
             resolve: Object.assign(
                 {
                     alias: Object.assign(
                         {
-                            '@root': path.resolve(process.env.INIT_CWD, 'src')
+                            '@root': path.resolve(process.env.INIT_CWD!, 'src')
                         },
-                        options.resolve.alias
+                        options.resolve?.alias
                     ),
                     extensions: options.fileExtensions
                 },
@@ -122,13 +129,13 @@ function createApplicationConfiguration(opts) {
                                                 ],
                                                 '@babel/react',
                                                 '@babel/typescript'
-                                            ].concat(options.babelPresets)
+                                            ].concat(options.babelPresets as [])
                                         ),
                                         plugins: truthyArray(
                                             [
-                                                '@babel/proposal-class-properties',
-                                                '@babel/proposal-object-rest-spread'
-                                            ].concat(options.babelPlugins)
+                                                '@babel/plugin-transform-class-properties',
+                                                '@babel/plugin-transform-object-rest-spread'
+                                            ].concat(options.babelPlugins as string[])
                                         ),
                                         only: ['src']
                                     },
@@ -154,7 +161,7 @@ function createApplicationConfiguration(opts) {
                             test: /\.(woff|woff2|ttf|eot|svg|png|jpg|gif|ico)(\?\w+)?$/,
                             type: 'asset/resource'
                         }
-                    ].concat(options.loaders)
+                    ].concat(options.loaders as [])
                 )
             },
             optimization: {
@@ -177,14 +184,17 @@ function createApplicationConfiguration(opts) {
     };
 }
 
-function createLibraryConfiguration(libraryName, opts = {}) {
+function createLibraryConfiguration(
+    libraryName: string,
+    opts: PackerOptions = {}
+): WebpackConfigFactory {
     const output = Object.assign({}, DefaultOptions.output, DefaultLibOptions.output, opts.output, {
         library: libraryName
     });
     return createApplicationConfiguration(Object.assign({}, DefaultLibOptions, opts, { output }));
 }
 
-const DefaultOptions = {
+const DefaultOptions: ResolvedPackerOptions = {
     assetPaths: {
         js: 'assets/js/',
         css: 'assets/css/',
@@ -221,10 +231,11 @@ const DefaultOptions = {
     babelPlugins: [],
     babelOptions: undefined,
     terserOptions: undefined,
-    miniCssExtractPluginOptions: undefined
+    miniCssExtractPluginOptions: undefined,
+    devServer: undefined
 };
 
-const DefaultLibOptions = {
+const DefaultLibOptions: PackerOptions = {
     useHashInFileNames: false,
     output: {
         libraryTarget: 'umd'
@@ -238,34 +249,31 @@ const DefaultLibOptions = {
     html: null
 };
 
-function hasModule(path) {
+function hasModule(modulePath: string): boolean {
     try {
-        require.resolve(path);
+        require.resolve(modulePath);
         return true;
-    } catch (e) {
-        // module not found
+    } catch {
         return false;
     }
 }
 
-function truthyArray(array) {
-    return array.filter((item) => item != null && item !== false);
+function truthyArray<T>(array: (T | false | null | undefined)[]): T[] {
+    return array.filter((item): item is T => item != null && item !== false);
 }
 
-function makePathResolvers(config) {
+function makePathResolvers(config: AssetPaths) {
     return {
-        jsAsset(value) {
+        jsAsset(value: string) {
             return path.join(config.js, value);
         },
-        cssAsset(value) {
+        cssAsset(value: string) {
             return path.join(config.css, value);
         },
-        staticAsset(value) {
+        staticAsset(value: string) {
             return path.join(config.static, value);
         }
     };
 }
 
-module.exports.createApplicationConfiguration = createApplicationConfiguration;
-
-module.exports.createLibraryConfiguration = createLibraryConfiguration;
+export { createApplicationConfiguration, createLibraryConfiguration };

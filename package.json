@@ -2,9 +2,10 @@
   "name": "packer-monorepo",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "yarn@4.3.1",
+  "packageManager": "yarn@4.17.0",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples/*"
   ],
   "description": "Packer",
   "main": "src/index.js",
@@ -13,11 +14,11 @@
     "url": "https://github.com/erkez/packer.git"
   },
   "devDependencies": {
-    "@lerna-lite/cli": "^3.7.1",
-    "@lerna-lite/version": "^3.7.1"
+    "@lerna-lite/cli": "^5.3.0",
+    "@lerna-lite/version": "^5.3.0"
   },
   "license": "MIT",
   "engines": {
-    "node": ">=18.12"
+    "node": ">=24"
   }
 }

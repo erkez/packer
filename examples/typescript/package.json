@@ -4,7 +4,7 @@
   "main": "src/index.js",
   "private": true,
   "scripts": {
-    "lint": "eslint --ext .js --ext .jsx --ext .ts --ext .tsx .",
+    "lint": "npx eslint .",
     "lint:fix": "yarn lint --fix",
     "build": "yarn build:dev",
     "build:dev": "webpack --mode=development",
@@ -13,12 +13,12 @@
     "start": "yarn build:watch"
   },
   "devDependencies": {
-    "@ekz/packer": "^0.16.0",
-    "typescript": "^5.5.3"
+    "@ekz/packer": "workspace:^",
+    "typescript": "^6.0.3"
   },
   "dependencies": {
     "normalize.css": "^8.0.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
   }
 }

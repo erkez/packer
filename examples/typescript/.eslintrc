@@ -1,6 +1,0 @@
-{
-    "extends": [
-        "@ekz/packer/recommended",
-        "@ekz/packer/typescript"
-    ]
-}
