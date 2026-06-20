@@ -19,7 +19,6 @@
     "lint": "yarn workspace @ekz/packer lint && yarn workspace my-app lint",
     "docs:dev": "yarn workspace packer-docs start",
     "docs:build": "yarn workspace packer-docs build",
-    "install:ci": "yarn install --immutable && yarn dedupe --check",
     "audit": "yarn npm audit -A -R --severity high",
     "changeset": "changeset",
     "version-packages": "changeset version",
