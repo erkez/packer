@@ -1,6 +1,6 @@
 {
   "name": "@ekz/packer",
-  "version": "1.0.0",
+  "version": "0.16.0",
   "description": "Packer",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -18,6 +18,9 @@
     "url": "https://github.com/erkez/packer.git"
   },
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "dist/**",
     "config/**",

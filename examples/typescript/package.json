@@ -7,9 +7,9 @@
     "lint": "npx eslint .",
     "lint:fix": "yarn lint --fix",
     "build": "yarn build:dev",
-    "build:dev": "webpack --mode=development",
-    "build:prod": "webpack --mode=production",
-    "build:watch": "webpack-dev-server --mode=development",
+    "build:dev": "npx webpack --mode=development",
+    "build:prod": "npx webpack --mode=production",
+    "build:watch": "npx webpack-dev-server --mode=development",
     "start": "yarn build:watch"
   },
   "devDependencies": {

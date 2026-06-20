@@ -3,3 +3,4 @@ node_modules/
 .yarn/
 /.pnp.*
 packages/packer/dist/
+examples/typescript/dist/

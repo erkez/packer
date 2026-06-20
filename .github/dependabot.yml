@@ -5,9 +5,14 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm" # See documentation for possible values
+  - package-ecosystem: npm
     directories:
-      - "/"
-      - "packages/*"
+      - /
+      - packages/*
     schedule:
-      interval: "weekly"
+      interval: weekly
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

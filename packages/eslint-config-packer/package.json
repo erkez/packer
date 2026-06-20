@@ -1,7 +1,20 @@
 {
   "name": "@ekz/eslint-config-packer",
-  "version": "1.0.0",
+  "version": "0.16.0",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/erkez/packer.git",
+    "directory": "packages/eslint-config-packer"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "recommended.js",
+    "typescript.js",
+    "prettier.js"
+  ],
   "exports": {
     "./recommended": "./recommended.js",
     "./typescript": "./typescript.js"
