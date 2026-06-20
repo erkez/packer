@@ -27,6 +27,7 @@ Verify provenance on npm when installing.
 
 ## Dependency updates
 
-- [Dependabot](https://github.com/erkez/packer/blob/master/.github/dependabot.yml) opens weekly update PRs for npm and GitHub Actions.
+- [Dependabot](https://github.com/erkez/packer/blob/master/.github/dependabot.yml) opens weekly **grouped** update PRs for npm and GitHub Actions (minor/patch, major, and security advisories batched per ecosystem).
+- Minor, patch, and security Dependabot PRs are **auto-merged** when CI and dependency review pass (see [dependabot-automerge.yml](https://github.com/erkez/packer/blob/master/.github/workflows/dependabot-automerge.yml)); major updates require manual review.
 - Pull requests run [dependency review](https://github.com/erkez/packer/blob/master/.github/workflows/dependency-review.yml) and block merges that introduce **high** or **critical** vulnerabilities.
 - Yarn enforces a 7-day [minimum package age](https://yarnpkg.com/configuration/yarnrc#npmMinimalAgeGate) for newly published npm versions (`.yarnrc.yml`).
