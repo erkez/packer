@@ -42,6 +42,8 @@ Do not add nested `yarn.lock` or `bin/setup-node` — use `.nvmrc` + `nvm use`.
 ## CI and release
 
 - **CI** (`.github/workflows/ci.yml`): on PR/push — `yarn build`, `yarn lint`, `yarn docs:build`, `my-app build:prod`
+- **Dependency review** (`.github/workflows/dependency-review.yml`): blocks PRs that add high/critical vulnerabilities
+- **Dependabot** (`.github/dependabot.yml`): weekly npm + GitHub Actions updates (root lockfile only)
 - **Docs** (`.github/workflows/docs.yml`): Docusaurus → GitHub Pages at `https://packer.ekz.io/` (custom domain; `docs/static/CNAME`)
 - **Release** (`.github/workflows/release.yml`): Changesets on `master` → version PR or npm publish
 - Packages are **fixed** in `.changeset/config.json` — they always share a version
