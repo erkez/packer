@@ -89,4 +89,4 @@ The config files (`webpack.config.js`, `eslint.config.js`, `tsconfig.json`) are 
 - Node.js **24+**
 - `@ekz/packer` **1.0.0-beta** or later (when used outside the monorepo; use `@beta` until stable)
 
-See the [main Packer README](../../packages/packer/README.md) for installation details and migration notes from 0.16.
+See the [Packer documentation](https://packer.ekz.io/docs/guides/example-app) and [main README](../../packages/packer/README.md) for installation and migration notes from 0.16.

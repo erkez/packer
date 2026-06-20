@@ -5,7 +5,8 @@
   "packageManager": "yarn@4.17.0",
   "workspaces": [
     "packages/*",
-    "examples/*"
+    "examples/*",
+    "docs"
   ],
   "description": "Packer",
   "main": "src/index.js",
@@ -16,6 +17,9 @@
   "scripts": {
     "build": "yarn workspace @ekz/packer build",
     "lint": "yarn workspace @ekz/packer lint && yarn workspace my-app lint",
+    "docs:dev": "yarn workspace packer-docs start",
+    "docs:build": "yarn workspace packer-docs build",
+    "install:ci": "yarn install --immutable && yarn dedupe --check",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "yarn build && changeset publish"
