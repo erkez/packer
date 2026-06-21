@@ -75,6 +75,20 @@ module.exports = [...recommended, ...typescript];
 
 Requires Node.js 24 or later (see `.nvmrc` in your project or use `nvm use`).
 
+**Dev server**
+
+1.0 bundles **webpack-dev-server v5** (0.16 used v4). Packer’s built-in defaults are unchanged — port **9000**, hot reload, compression, and a CORS header — so apps that never customized `devServer` need no changes.
+
+If you pass a custom `devServer` block, update it for v5. See the [webpack-dev-server v5 migration guide](https://github.com/webpack/webpack-dev-server/blob/main/migration-v5.md) for the full list.
+
+Use `npx webpack` and `npx webpack-dev-server` in scripts when `@ekz/packer` is your only direct dev dependency (see [Scripts](#packagejson-configuration) below).
+
+Common changes:
+
+- **`proxy`** — must be an array with a `context` property (object keys are no longer accepted)
+- **`https` / `http2`** — use `server: { type: 'https' | 'spdy', options: { ... } }`
+- **`onBeforeSetupMiddleware` / `onAfterSetupMiddleware`** — use `setupMiddlewares`
+
 **Custom ESLint rules**
 
 If you had rule overrides in `.eslintrc`, move them into `eslint.config.js` as an additional config object after the Packer spreads:
@@ -105,13 +119,15 @@ It is useful to add the following commands to your `scripts` property in `packag
         "lint": "npx eslint .",
         "lint:fix": "yarn lint --fix",
         "build": "yarn build:dev",
-        "build:dev": "webpack --mode=development",
-        "build:prod": "webpack --mode=production",
-        "build:watch": "webpack-dev-server --mode=development",
+        "build:dev": "npx webpack --mode=development",
+        "build:prod": "npx webpack --mode=production",
+        "build:watch": "npx webpack-dev-server --mode=development",
         "start": "yarn build:watch"
     }
 }
 ```
+
+Use `npx webpack` and `npx webpack-dev-server` so CLI binaries resolve from hoisted dependencies when `@ekz/packer` is the only direct dev dependency.
 
 ## Sample configuration
 
@@ -134,12 +150,11 @@ module.exports = Packer.webpack.createApplicationConfiguration({
         }
     },
     devServer: {
-        proxy: {
-            '/': {
-                target: 'http://localhost:8080',
-                changeOrigin: true
-            }
-        }
+        proxy: [{
+            context: ['/'],
+            target: 'http://localhost:8080',
+            changeOrigin: true
+        }]
     }
 });
 ```

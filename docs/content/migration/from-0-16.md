@@ -34,6 +34,80 @@ module.exports = Packer.webpack.createApplicationConfiguration();
 
 If you customized webpack via Packer options, review [Configuration](/docs/guides/configuration) — defaults may have changed with dependency upgrades.
 
+## Dev server
+
+1.0 bundles **webpack-dev-server v5** (0.16 used v4). Packer’s built-in defaults are unchanged — port **9000**, hot reload, compression, and a CORS header — so apps that never customized `devServer` need no changes.
+
+If you pass a custom `devServer` block, update it for v5. See the [webpack-dev-server v5 migration guide](https://github.com/webpack/webpack-dev-server/blob/main/migration-v5.md) for the full list.
+
+**Scripts**
+
+Use `npx` so CLI binaries resolve from `@ekz/packer` when it is your only direct dev dependency:
+
+```json
+{
+    "scripts": {
+        "build:dev": "npx webpack --mode=development",
+        "build:prod": "npx webpack --mode=production",
+        "build:watch": "npx webpack-dev-server --mode=development"
+    }
+}
+```
+
+**Proxy**
+
+`proxy` must be an array in v5 (object keys are no longer accepted):
+
+```js
+// 0.16 (v4)
+devServer: {
+    proxy: {
+        '/api': {
+            target: 'http://localhost:8080',
+            changeOrigin: true
+        }
+    }
+}
+
+// 1.0 (v5)
+devServer: {
+    proxy: [{
+        context: ['/api'],
+        target: 'http://localhost:8080',
+        changeOrigin: true
+    }]
+}
+```
+
+**HTTPS and HTTP/2**
+
+Replace `https` / `http2` with the `server` option:
+
+```js
+devServer: {
+    server: {
+        type: 'https', // or 'spdy' for HTTP/2
+        options: {
+            key: './path/to/server.key',
+            cert: './path/to/server.crt'
+        }
+    }
+}
+```
+
+**Custom middleware**
+
+Replace `onBeforeSetupMiddleware` / `onAfterSetupMiddleware` with `setupMiddlewares`:
+
+```js
+devServer: {
+    setupMiddlewares: (middlewares, devServer) => {
+        // add custom middleware before or after defaults
+        return middlewares;
+    }
+}
+```
+
 ## Custom ESLint rules
 
 Move rule overrides from `.eslintrc` into `eslint.config.js` as an additional config object after the Packer spreads. See [ESLint](/docs/getting-started/eslint#custom-rules).
