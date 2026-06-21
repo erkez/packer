@@ -20,13 +20,15 @@ Configs are **CommonJS arrays** exported from `recommended.js` / `typescript.js`
 ## Invariants
 
 - **Flat config only** — no `.eslintrc`; lint with `npx eslint .`
-- **Classic hooks rules only** — do not use `reactHooks.configs.flat.recommended` (v7 adds React Compiler rules). Keep `rules-of-hooks` + `exhaustive-deps` explicitly.
+- **Classic hooks rules only** — do not use `reactHooks.configs.flat.recommended` (v7 adds React Compiler rules). Keep `rules-of-hooks` + `exhaustive-deps` explicitly on `**/*.{js,jsx,mjs,cjs,ts,tsx}`.
+- **react-hooks on TS too** — register the plugin in an unscoped-by-parser block for all React extensions so consumers can override `exhaustive-deps` with a rules-only block (no plugin redeclaration).
 - **Scope TypeScript rules** — every block from `typescript.js` must target `**/*.{ts,tsx}` only, or `@typescript-eslint/no-require-imports` breaks `.js` config files.
 - **Prettier via ESLint** — formatting runs through `eslint-plugin-prettier`, not a separate formatter on save.
+- **`react/prop-types` and `react/display-name` off globally** — 0.16 parity; `react.configs.flat.recommended` enables them, so override in an unscoped block after the React spreads (not JS-only).
 
 ## Temporary: ESLint 10 + eslint-plugin-react
 
-`eslint-plugin-react@7` still uses removed ESLint context APIs. Until upstream fixes land, wrap the plugin with `@eslint/compat` `fixupPluginRules()` in `recommended.js`. Re-check whether this is still needed after major eslint-plugin-react upgrades.
+`eslint-plugin-react@7` still uses removed ESLint context APIs. Until upstream fixes land, wrap **only** `eslint-plugin-react` with `@eslint/compat` `fixupPluginRules()` in `recommended.js`. **Do not** wrap `eslint-plugin-react-hooks` — it works without fixup.
 
 ## Temporary: JSX in `.js` files
 

@@ -52,6 +52,26 @@ module.exports = [
 ];
 ```
 
+For React hooks on TypeScript (e.g. custom `exhaustive-deps` `additionalHooks`), add a **rules-only** block — Packer already registers `eslint-plugin-react-hooks` for `*.{js,jsx,ts,tsx}`:
+
+```js
+module.exports = [
+    ...recommended,
+    ...typescript,
+    {
+        files: ['**/*.{ts,tsx}'],
+        rules: {
+            'react-hooks/exhaustive-deps': [
+                'warn',
+                { additionalHooks: '(useMyHook|useOtherHook)' }
+            ]
+        }
+    }
+];
+```
+
+Do **not** wrap `eslint-plugin-react-hooks` in `fixupPluginRules` — only `eslint-plugin-react` needs `@eslint/compat` today.
+
 ## TypeScript project config
 
 Extend Packer's shared tsconfig:
