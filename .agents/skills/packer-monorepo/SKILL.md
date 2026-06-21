@@ -56,7 +56,7 @@ Formatting runs through ESLint (`eslint-plugin-prettier`), not a separate Pretti
 - **CI** (`.github/workflows/ci.yml`): on PR/push — `yarn build`, `yarn lint`, `yarn docs:build`, `my-app build:prod`
 - **Dependency review** (`.github/workflows/dependency-review.yml`): blocks PRs that add high/critical vulnerabilities
 - **Dependabot** (`.github/dependabot.yml`): weekly grouped npm + GitHub Actions updates (minor/patch, major, and security each in one PR per ecosystem)
-- **Dependabot auto-merge** (`.github/workflows/dependabot-automerge.yml`): squash-merge minor/patch/security PRs after required checks pass; majors stay manual
+- **Dependabot auto-merge** (`.github/workflows/dependabot-automerge.yml`): rebase-merge minor/patch/security PRs after required checks pass; majors stay manual (default-branch ruleset allows rebase only)
 - **Docs** (`.github/workflows/docs.yml`): Docusaurus → GitHub Pages at `https://packer.ekz.io/` (custom domain; `docs/static/CNAME`)
 - **Release** (`.github/workflows/release.yml`): Changesets on `master` → version PR or npm publish via `yarn npm publish` (see `scripts/release.mjs`; **not** `changeset publish`, which leaves `workspace:` ranges on npm). Version PR commits use `commitMode: github-api` so they are GitHub-verified under signed-commit rulesets.
 - Packages are **fixed** in `.changeset/config.json` — they always share a version
