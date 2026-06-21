@@ -4,7 +4,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
     title: 'Packer',
-    tagline: 'Opinionated webpack configuration for React applications',
+    tagline: 'Opinionated bundler configuration for React applications',
     favicon: 'img/favicon.svg',
 
     future: {
@@ -87,6 +87,7 @@ const config = {
                         title: 'Docs',
                         items: [
                             {label: 'Getting started', to: '/docs/getting-started/installation'},
+                            {label: 'Vite', to: '/docs/getting-started/vite'},
                             {label: 'Migration from 0.16', to: '/docs/migration/from-0-16'}
                         ]
                     },

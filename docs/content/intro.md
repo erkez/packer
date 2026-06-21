@@ -5,15 +5,15 @@ slug: /
 
 # Packer
 
-Packer is an opinionated webpack-based bundler that reduces the configuration and maintenance needed to build a React application.
+Packer is an opinionated configuration for bundlers that reduces the setup and maintenance required to build a React application. Webpack support is currently the most stable option; Vite support is available in **alpha** version only.
 
 ## Features
 
 - Minimum configuration for a React app
-- Automatic HTML generation via `html-webpack-plugin`
+- Webpack application and library configuration
+- Vite application configuration
 - ESLint 10 flat config out of the box
 - TypeScript support out of the box
-- `webpack-dev-server` included
 
 ## Quick start
 
@@ -26,6 +26,15 @@ yarn add -D @ekz/packer@beta
 const Packer = require('@ekz/packer');
 
 module.exports = Packer.webpack.createApplicationConfiguration();
+```
+
+Or try Vite:
+
+```js
+// vite.config.js
+const Packer = require('@ekz/packer');
+
+module.exports = Packer.vite.createApplicationConfiguration();
 ```
 
 See [Installation](/docs/getting-started/installation) for beta vs stable tags, ESLint setup, and TypeScript configuration.

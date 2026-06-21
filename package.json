@@ -16,7 +16,7 @@
   },
   "scripts": {
     "build": "yarn workspace @ekz/packer build",
-    "lint": "yarn workspace @ekz/packer lint && yarn workspace my-app lint",
+    "lint": "yarn workspace @ekz/packer lint && yarn workspace my-app lint && yarn workspace my-vite-app lint",
     "docs:dev": "yarn workspace packer-docs start",
     "docs:build": "yarn workspace packer-docs build",
     "audit": "yarn npm audit -A -R --severity high",

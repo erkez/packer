@@ -36,3 +36,5 @@ jobs:
       - run: yarn docs:build
 
       - run: yarn workspace my-app build:prod
+
+      - run: yarn workspace my-vite-app build:prod

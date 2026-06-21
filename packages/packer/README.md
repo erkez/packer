@@ -1,17 +1,16 @@
 # Packer
 
-Packer is an opinionated webpack based bundler that does its best to reduce the amount of configuration
-and maintenance needed to create a React application.
+Packer is opinionated bundler configuration that reduces the setup and maintenance needed to create a React application. Webpack support is the stable path today; Vite support is available as **alpha**.
 
 **Documentation:** [packer.ekz.io](https://packer.ekz.io/)
 
 ## Features
 
-* Minimum configuration to create a proper React application
-* Automatic (or template based) HTML generation using `html-webpack-plugin`
-* ESLint support out of the box
-* Typescript support out of the box
-* `webpack-dev-server` included
+- Minimum configuration to create a proper React application
+- Webpack application and library configuration
+- Vite application configuration
+- ESLint support out of the box
+- TypeScript support out of the box
 
 ## Installation
 
@@ -43,6 +42,16 @@ const Packer = require('@ekz/packer');
 
 module.exports = Packer.webpack.createApplicationConfiguration();
 ```
+
+Or create a `vite.config.js` if you prefer Vite:
+
+```js
+const Packer = require('@ekz/packer');
+
+module.exports = Packer.vite.createApplicationConfiguration();
+```
+
+Vite support is currently **alpha**. The API may change before it is promoted to stable.
 
 For ESLint, create `eslint.config.js` in your application root directory:
 
@@ -122,7 +131,7 @@ module.exports = [
 
 ## package.json configuration
 
-It is useful to add the following commands to your `scripts` property in `package.json`:
+For Webpack applications, add the following commands to your `scripts` property in `package.json`:
 
 ```json
 {
@@ -141,7 +150,25 @@ It is useful to add the following commands to your `scripts` property in `packag
 
 Use `npx webpack` and `npx webpack-dev-server` so CLI binaries resolve from hoisted dependencies when `@ekz/packer` is the only direct dev dependency.
 
+For Vite applications, use Vite's CLI and keep linting separate:
+
+```json
+{
+    "scripts": {
+        "lint": "npx eslint .",
+        "lint:fix": "yarn lint --fix",
+        "build": "yarn build:prod",
+        "build:dev": "npx vite build --mode development",
+        "build:prod": "npx vite build",
+        "preview": "npx vite preview",
+        "start": "npx vite"
+    }
+}
+```
+
 ## Sample configuration
+
+Webpack:
 
 ```js
 const path = require('path');
@@ -171,6 +198,16 @@ module.exports = Packer.webpack.createApplicationConfiguration({
 });
 ```
 
+Vite:
+
+```js
+const Packer = require('@ekz/packer');
+
+module.exports = Packer.vite.createApplicationConfiguration({
+    base: '/my-app/'
+});
+```
+
 ## Example application
 
-See [`examples/typescript`](../../examples/typescript) for a minimal React + TypeScript app. That folder can be run inside this monorepo for development, or copied as a starter template — see its [README](../../examples/typescript/README.md) for both workflows.
+See [`examples/typescript`](../../examples/typescript) for a minimal React + TypeScript Webpack app, or [`examples/typescript-vite`](../../examples/typescript-vite) for the Vite example. Those folders can be run inside this monorepo for development, or copied as starter templates.

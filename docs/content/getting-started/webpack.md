@@ -1,4 +1,10 @@
+---
+sidebar_position: 2
+---
+
 # Webpack
+
+Webpack is Packer's stable bundler path.
 
 Create `webpack.config.js` in your application root:
 
@@ -56,4 +62,4 @@ module.exports = Packer.webpack.createApplicationConfiguration({
 
 Alternatively, add a root `tsconfig.json` that extends your nested config.
 
-See [Configuration](/docs/guides/configuration) for `publicPath`, aliases, proxy, and other options.
+See [Webpack configuration](/docs/guides/webpack-configuration) for `publicPath`, aliases, proxy, library builds, and other options.

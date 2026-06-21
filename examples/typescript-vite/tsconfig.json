@@ -1,0 +1,11 @@
+{
+    "extends": "../../node_modules/@ekz/packer/tsconfig/recommended.json",
+    "include": ["src"],
+    "compilerOptions": {
+        "baseUrl": ".",
+        "ignoreDeprecations": "6.0",
+        "paths": {
+            "@root/*": ["src/*"]
+        }
+    }
+}

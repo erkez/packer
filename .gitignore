@@ -4,3 +4,4 @@ node_modules/
 /.pnp.*
 packages/packer/dist/
 examples/typescript/dist/
+examples/typescript-vite/dist/

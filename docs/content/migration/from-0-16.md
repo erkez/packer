@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 # Migrating from 0.16
 
 1.0.0 is a breaking release. The last published stable version used `.eslintrc` and shipped JavaScript from `src/`. This release:
@@ -32,7 +36,7 @@ const Packer = require('@ekz/packer');
 module.exports = Packer.webpack.createApplicationConfiguration();
 ```
 
-If you customized webpack via Packer options, review [Configuration](/docs/guides/configuration) — defaults may have changed with dependency upgrades.
+If you customized webpack via Packer options, review [Webpack configuration](/docs/guides/webpack-configuration) — defaults may have changed with dependency upgrades.
 
 **TypeScript config location**
 

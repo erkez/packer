@@ -1,3 +1,7 @@
+---
+sidebar_position: 4
+---
+
 # ESLint
 
 Packer ships ESLint 10 **flat config** modules. Legacy `.eslintrc` is not supported in 1.0.
