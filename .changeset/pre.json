@@ -9,6 +9,7 @@
   },
   "changesets": [
     "fix-npm-publish-workspace-protocol",
-    "fix-react-rules-typescript"
+    "fix-react-rules-typescript",
+    "tsconfig-path-option"
   ]
 }

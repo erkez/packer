@@ -1,5 +1,15 @@
 # @ekz/packer
 
+## 1.0.0-beta.4
+
+### Minor Changes
+
+- 808001d: Add `tsconfigPath` option to point Packer at a non-root `tsconfig.json`, so `.tsx` is transpiled with `ts-loader` instead of Babel. Document the production `jsxDEV` pitfall when TypeScript config is not found, and expand dev-server v5 migration notes.
+
+### Patch Changes
+
+- @ekz/eslint-config-packer@1.0.0-beta.4
+
 ## 1.0.0-beta.3
 
 ### Patch Changes
