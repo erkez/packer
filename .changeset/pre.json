@@ -8,6 +8,6 @@
     "my-app": "1.0.0"
   },
   "changesets": [
-    "webpack-build-performance"
+    "fix-npm-publish-workspace-protocol"
   ]
 }
