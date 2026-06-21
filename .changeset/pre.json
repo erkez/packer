@@ -8,6 +8,7 @@
     "my-app": "1.0.0"
   },
   "changesets": [
-    "fix-npm-publish-workspace-protocol"
+    "fix-npm-publish-workspace-protocol",
+    "fix-react-rules-typescript"
   ]
 }
