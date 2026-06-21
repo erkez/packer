@@ -36,6 +36,20 @@ module.exports = Packer.webpack.createApplicationConfiguration({
 
 Packer sets `@root` → `./src`. Use it in imports and mirror it in `tsconfig.json` `paths` for TypeScript.
 
+## TypeScript config
+
+| Option | Default |
+|--------|---------|
+| `tsconfigPath` | `tsconfig.json` (app root) |
+
+Packer enables `ts-loader` and ForkTsChecker when the config file exists. Set `tsconfigPath` when your `tsconfig.json` is not at the app root — otherwise `.tsx` files fall through to Babel, which can emit `jsxDEV` and crash in production.
+
+```js
+module.exports = Packer.webpack.createApplicationConfiguration({
+    tsconfigPath: 'src/main/web/tsconfig.json'
+});
+```
+
 ## Library builds
 
 For UMD/library output, use `Packer.webpack.createLibraryConfiguration(name, options)` instead. Application defaults (HTML plugin, split chunks) are adjusted for library mode.

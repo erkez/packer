@@ -38,6 +38,19 @@ Dual purpose: `workspace:^` in-repo; users copy out and pin `"@ekz/packer": "^x.
 
 Do not add nested `yarn.lock` or `bin/setup-node` — use `.nvmrc` + `nvm use`.
 
+## Before finishing
+
+After editing source or config, run lint on affected workspaces before marking the task done. Use Node from `.nvmrc` (`nvm use`) — lint fails on older Node versions.
+
+```sh
+nvm use
+yarn workspace @ekz/packer lint        # packages/packer/src, eslint-config-packer
+yarn workspace my-app lint             # examples/typescript when webpack/eslint surface changes
+yarn workspace @ekz/packer lint:fix    # auto-fix Prettier and other fixable rules
+```
+
+Formatting runs through ESLint (`eslint-plugin-prettier`), not a separate Prettier pass. Fix reported issues or run `lint:fix`; do not leave lint errors for CI.
+
 ## CI and release
 
 - **CI** (`.github/workflows/ci.yml`): on PR/push — `yarn build`, `yarn lint`, `yarn docs:build`, `my-app build:prod`

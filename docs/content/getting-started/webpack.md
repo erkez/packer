@@ -10,12 +10,12 @@ module.exports = Packer.webpack.createApplicationConfiguration();
 
 This enables:
 
-- Babel for JS/JSX in `src/` (and TS/TSX when no `tsconfig.json`)
-- `ts-loader` (transpile-only) for TS/TSX when `tsconfig.json` is present — typechecking runs separately via ForkTsChecker
+- Babel for JS/JSX in `src/` (and TS/TSX when no `tsconfig.json` is found)
+- `ts-loader` (transpile-only) for TS/TSX when a TypeScript config is found — typechecking runs separately via ForkTsChecker
 - SCSS and CSS extraction
 - Static assets (images, fonts, SVG)
 - ESLint during webpack builds (lints changed modules only in development)
-- ForkTsChecker when `tsconfig.json` is present
+- ForkTsChecker when a TypeScript config is found
 - Webpack filesystem cache and fast dev source maps (`eval-cheap-module-source-map`)
 - Dev server on port **9000** with hot reload
 
@@ -41,5 +41,19 @@ module.exports = Packer.webpack.createApplicationConfiguration({
     }
 });
 ```
+
+## TypeScript config location
+
+Packer looks for `tsconfig.json` in the application root (where you run webpack). When found, `.ts`/`.tsx` files are transpiled with `ts-loader` using your `jsx` setting (typically `react-jsx`). Without it, TypeScript sources go through Babel instead, which can emit development-only `jsxDEV` calls and break production bundles.
+
+If your `tsconfig.json` lives elsewhere — for example `src/main/web/tsconfig.json` — point Packer at it:
+
+```js
+module.exports = Packer.webpack.createApplicationConfiguration({
+    tsconfigPath: 'src/main/web/tsconfig.json'
+});
+```
+
+Alternatively, add a root `tsconfig.json` that extends your nested config.
 
 See [Configuration](/docs/guides/configuration) for `publicPath`, aliases, proxy, and other options.

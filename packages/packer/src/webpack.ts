@@ -25,8 +25,11 @@ function createApplicationConfiguration(opts: PackerOptions = {}): WebpackConfig
             Object.assign({}, DefaultOptions.assetPaths, options.assetPaths)
         );
 
-        const typescriptConfigPath = path.resolve(process.env.INIT_CWD!, 'tsconfig.json');
-        const hasTypeScript = hasModule(typescriptConfigPath);
+        const typescriptConfigPath = resolveTypeScriptConfigPath(
+            options.tsconfigPath,
+            process.env.INIT_CWD!
+        );
+        const hasTypeScript = typescriptConfigPath != null;
 
         return {
             mode: argv.mode as 'development' | 'production' | undefined,
@@ -123,7 +126,8 @@ function createApplicationConfiguration(opts: PackerOptions = {}): WebpackConfig
                             loader: 'ts-loader',
                             options: {
                                 transpileOnly: true,
-                                experimentalWatchApi: true
+                                experimentalWatchApi: true,
+                                configFile: typescriptConfigPath
                             }
                         },
                         {
@@ -223,7 +227,8 @@ const DefaultOptions: ResolvedPackerOptions = {
     babelOptions: undefined,
     terserOptions: undefined,
     miniCssExtractPluginOptions: undefined,
-    devServer: undefined
+    devServer: undefined,
+    tsconfigPath: undefined
 };
 
 const DefaultLibOptions: PackerOptions = {
@@ -270,6 +275,21 @@ function createBabelLoaderOptions(
         },
         options.babelOptions
     );
+}
+
+function resolveTypeScriptConfigPath(tsconfigPath: string | undefined, cwd: string): string | null {
+    const explicit = tsconfigPath != null;
+    const configPath = path.resolve(cwd, tsconfigPath ?? 'tsconfig.json');
+
+    if (hasModule(configPath)) {
+        return configPath;
+    }
+
+    if (explicit) {
+        throw new Error(`TypeScript config not found: ${configPath}`);
+    }
+
+    return null;
 }
 
 function hasModule(modulePath: string): boolean {
