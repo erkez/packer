@@ -26,11 +26,16 @@ function createApplicationConfiguration(opts: PackerOptions = {}): WebpackConfig
         );
 
         const typescriptConfigPath = path.resolve(process.env.INIT_CWD!, 'tsconfig.json');
+        const hasTypeScript = hasModule(typescriptConfigPath);
 
         return {
             mode: argv.mode as 'development' | 'production' | undefined,
             entry: options.entry,
             devtool: isProduction ? undefined : options.devtool,
+            cache: {
+                type: 'filesystem',
+                cacheDirectory: path.resolve(process.env.INIT_CWD!, 'node_modules/.cache/webpack')
+            },
             target: options.target,
             node: options.node,
             output: {
@@ -64,14 +69,21 @@ function createApplicationConfiguration(opts: PackerOptions = {}): WebpackConfig
                                 extensions: ['js', 'jsx', 'ts', 'tsx'],
                                 failOnError: isProduction,
                                 failOnWarning: isProduction,
-                                emitWarning: !isProduction
+                                emitWarning: !isProduction,
+                                lintDirtyModulesOnly: !isProduction
                             },
                             options.eslint
                         )
                     ),
                     options.enableProgressPlugin && new ProgressPlugin(),
                     new CleanWebpackPlugin(),
-                    hasModule(typescriptConfigPath) ? new ForkTsCheckerWebpackPlugin() : null,
+                    hasTypeScript
+                        ? new ForkTsCheckerWebpackPlugin({
+                              typescript: {
+                                  configFile: typescriptConfigPath
+                              }
+                          })
+                        : null,
                     new ProvidePlugin(options.provide),
                     new DefinePlugin(options.define),
                     options.html != null && new HtmlWebpackPlugin(options.html),
@@ -105,8 +117,9 @@ function createApplicationConfiguration(opts: PackerOptions = {}): WebpackConfig
             module: {
                 rules: truthyArray(
                     [
-                        typescriptConfigPath && {
+                        hasTypeScript && {
                             test: /\.tsx?$/,
+                            exclude: /node_modules/,
                             loader: 'ts-loader',
                             options: {
                                 transpileOnly: true,
@@ -114,33 +127,11 @@ function createApplicationConfiguration(opts: PackerOptions = {}): WebpackConfig
                             }
                         },
                         {
-                            test: /\.(jsx?|tsx?)$/,
+                            test: hasTypeScript ? /\.jsx?$/ : /\.(jsx?|tsx?)$/,
+                            exclude: /node_modules/,
                             use: {
                                 loader: 'babel-loader',
-                                options: Object.assign(
-                                    {
-                                        presets: truthyArray(
-                                            [
-                                                [
-                                                    '@babel/env',
-                                                    {
-                                                        targets: options.babelEnvTargets
-                                                    }
-                                                ],
-                                                '@babel/react',
-                                                '@babel/typescript'
-                                            ].concat(options.babelPresets as [])
-                                        ),
-                                        plugins: truthyArray(
-                                            [
-                                                '@babel/plugin-transform-class-properties',
-                                                '@babel/plugin-transform-object-rest-spread'
-                                            ].concat(options.babelPlugins as string[])
-                                        ),
-                                        only: ['src']
-                                    },
-                                    options.babelOptions
-                                )
+                                options: createBabelLoaderOptions(options, !hasTypeScript)
                             }
                         },
                         {
@@ -201,7 +192,7 @@ const DefaultOptions: ResolvedPackerOptions = {
         static: 'assets/static/'
     },
     eslint: {},
-    devtool: 'source-map',
+    devtool: 'eval-cheap-module-source-map',
     useHashInFileNames: true,
     enableProgressPlugin: true,
     entry: {
@@ -248,6 +239,38 @@ const DefaultLibOptions: PackerOptions = {
     splitChunks: {},
     html: null
 };
+
+function createBabelLoaderOptions(
+    options: ResolvedPackerOptions,
+    includeTypeScriptPreset: boolean
+): Record<string, unknown> {
+    return Object.assign(
+        {
+            presets: truthyArray(
+                [
+                    [
+                        '@babel/env',
+                        {
+                            targets: options.babelEnvTargets
+                        }
+                    ],
+                    '@babel/react',
+                    includeTypeScriptPreset && '@babel/typescript'
+                ].concat(options.babelPresets as [])
+            ),
+            plugins: truthyArray(
+                [
+                    '@babel/plugin-transform-class-properties',
+                    '@babel/plugin-transform-object-rest-spread'
+                ].concat(options.babelPlugins as string[])
+            ),
+            only: ['src'],
+            cacheDirectory: true,
+            cacheCompression: false
+        },
+        options.babelOptions
+    );
+}
 
 function hasModule(modulePath: string): boolean {
     try {

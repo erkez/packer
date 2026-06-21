@@ -10,11 +10,13 @@ module.exports = Packer.webpack.createApplicationConfiguration();
 
 This enables:
 
-- Babel for JS/JSX/TS/TSX in `src/`
+- Babel for JS/JSX in `src/` (and TS/TSX when no `tsconfig.json`)
+- `ts-loader` (transpile-only) for TS/TSX when `tsconfig.json` is present — typechecking runs separately via ForkTsChecker
 - SCSS and CSS extraction
 - Static assets (images, fonts, SVG)
-- ESLint during webpack builds
+- ESLint during webpack builds (lints changed modules only in development)
 - ForkTsChecker when `tsconfig.json` is present
+- Webpack filesystem cache and fast dev source maps (`eval-cheap-module-source-map`)
 - Dev server on port **9000** with hot reload
 
 ## Custom HTML template
