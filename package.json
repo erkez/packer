@@ -22,7 +22,7 @@
     "audit": "yarn npm audit -A -R --severity high",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "yarn build && changeset publish"
+    "release": "node scripts/release.mjs"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8"
