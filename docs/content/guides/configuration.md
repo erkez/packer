@@ -23,12 +23,11 @@ module.exports = Packer.webpack.createApplicationConfiguration({
         }
     },
     devServer: {
-        proxy: {
-            '/': {
-                target: 'http://localhost:8080',
-                changeOrigin: true
-            }
-        }
+        proxy: [{
+            context: ['/'],
+            target: 'http://localhost:8080',
+            changeOrigin: true
+        }]
     }
 });
 ```
@@ -49,6 +48,9 @@ For UMD/library output, use `Packer.webpack.createLibraryConfiguration(name, opt
 | Output path | `dist` |
 | Public path | `/` |
 | Dev server port | `9000` |
+| Dev server hot reload | `true` |
+| Dev server compression | `true` |
+| Dev server headers | `Access-Control-Allow-Origin: *` |
 | Asset paths | `assets/js/`, `assets/css/`, `assets/static/` |
 | Production filenames | Content hash when `--mode=production` |
 
