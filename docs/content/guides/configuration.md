@@ -1,71 +1,25 @@
+---
+sidebar_position: 1
+---
+
 # Configuration
 
-`createApplicationConfiguration(options)` merges your options with Packer defaults. Pass a factory that receives webpack `(env, argv)` — mode comes from `--mode=development|production`.
+Packer exposes separate configuration APIs for Webpack and Vite. Use the guide for the bundler your app runs:
 
-## Sample configuration
+- [Webpack configuration](/docs/guides/webpack-configuration) — application and library builds.
+- [Vite configuration](/docs/guides/vite-configuration) — application builds.
 
-```js
-const path = require('path');
-const Packer = require('@ekz/packer');
+Both APIs set `@root` → `./src` by default. Mirror that alias in `tsconfig.json` `paths` for TypeScript:
 
-module.exports = Packer.webpack.createApplicationConfiguration({
-    entry: {
-        'my-app': './src/index.tsx'
-    },
-    output: {
-        path: 'dist',
-        publicPath: '/my-app/'
-    },
-    resolve: {
-        alias: {
-            react: path.resolve(__dirname, 'node_modules/react'),
-            'react-dom': path.resolve(__dirname, 'node_modules/react-dom')
+```json
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@root/*": ["src/*"]
         }
-    },
-    devServer: {
-        proxy: [{
-            context: ['/'],
-            target: 'http://localhost:8080',
-            changeOrigin: true
-        }]
     }
-});
+}
 ```
-
-## Built-in alias
-
-Packer sets `@root` → `./src`. Use it in imports and mirror it in `tsconfig.json` `paths` for TypeScript.
-
-## TypeScript config
-
-| Option | Default |
-|--------|---------|
-| `tsconfigPath` | `tsconfig.json` (app root) |
-
-Packer enables `ts-loader` and ForkTsChecker when the config file exists. Set `tsconfigPath` when your `tsconfig.json` is not at the app root — otherwise `.tsx` files fall through to Babel, which can emit `jsxDEV` and crash in production.
-
-```js
-module.exports = Packer.webpack.createApplicationConfiguration({
-    tsconfigPath: 'src/main/web/tsconfig.json'
-});
-```
-
-## Library builds
-
-For UMD/library output, use `Packer.webpack.createLibraryConfiguration(name, options)` instead. Application defaults (HTML plugin, split chunks) are adjusted for library mode.
-
-## Defaults reference
-
-| Option | Default |
-|--------|---------|
-| Entry | `{ main: './src/index.js' }` |
-| Output path | `dist` |
-| Public path | `/` |
-| Dev server port | `9000` |
-| Dev server hot reload | `true` |
-| Dev server compression | `true` |
-| Dev server headers | `Access-Control-Allow-Origin: *` |
-| Asset paths | `assets/js/`, `assets/css/`, `assets/static/` |
-| Production filenames | Content hash when `--mode=production` |
 
 See the `@ekz/packer` TypeScript types in `dist/` for the full options surface.

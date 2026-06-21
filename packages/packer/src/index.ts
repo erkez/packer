@@ -1,10 +1,12 @@
 import * as webpack from './webpack';
+import * as vite from './vite';
 
-export { webpack };
+export { vite, webpack };
 export type {
     AssetPaths,
     PackerOptions,
     PackerOutputOptions,
+    VitePackerOptions,
     WebpackArgv,
     WebpackConfigFactory
 } from './types';

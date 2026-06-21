@@ -7,8 +7,12 @@ import styles from './index.module.css';
 
 const features = [
     {
-        title: 'Minimal setup',
-        description: 'One webpack.config.js and sensible defaults for React, Babel, and assets.'
+        title: 'Webpack stable',
+        description: 'Application and library configuration with sensible defaults for React, Babel, TypeScript, assets, and webpack-dev-server.'
+    },
+    {
+        title: 'Vite alpha',
+        description: 'Try the alpha Vite path for React apps with @vitejs/plugin-react, the @root alias, SCSS, assets, and Vite builds.'
     },
     {
         title: 'ESLint 10 flat config',
@@ -16,7 +20,7 @@ const features = [
     },
     {
         title: 'TypeScript ready',
-        description: 'ts-loader, ForkTsChecker, and a shared tsconfig preset out of the box.'
+        description: 'Shared tsconfig presets, Webpack typechecking support, and Vite TypeScript transpilation out of the box.'
     }
 ];
 
@@ -36,6 +40,11 @@ function HomepageHeader() {
                     </Link>
                     <Link
                         className={clsx('button button--lg', styles.buttonOutline)}
+                        to="/docs/getting-started/vite">
+                        Try Vite alpha
+                    </Link>
+                    <Link
+                        className={clsx('button button--lg', styles.buttonOutline)}
                         to="/docs/migration/from-0-16">
                         Migrate from 0.16
                     </Link>
@@ -51,7 +60,7 @@ function HomepageFeatures() {
             <div className="container">
                 <div className="row">
                     {features.map(({title, description}) => (
-                        <div key={title} className={clsx('col col--4')}>
+                        <div key={title} className={clsx('col col--3')}>
                             <div className="text--center padding-horiz--md padding-vert--lg">
                                 <Heading as="h3">{title}</Heading>
                                 <p>{description}</p>

@@ -1,3 +1,4 @@
+import type { UserConfig } from 'vite' with { 'resolution-mode': 'import' };
 import type { Configuration, Entry, Externals, RuleSetRule, WebpackPluginInstance } from 'webpack';
 
 export interface AssetPaths {
@@ -88,3 +89,21 @@ export type WebpackArgv = {
 };
 
 export type WebpackConfigFactory = (env: unknown, argv: WebpackArgv) => Configuration;
+
+export interface VitePackerOptions extends Omit<
+    UserConfig,
+    'build' | 'plugins' | 'resolve' | 'server'
+> {
+    assetPaths?: Partial<AssetPaths>;
+    /** Vite entry point relative to the app root. Defaults to `index.html`. */
+    entry?: string | Record<string, string>;
+    /** Output directory relative to the app root. Defaults to `dist`. */
+    outDir?: string;
+    useHashInFileNames?: boolean;
+    /** Pass `false` to skip Packer's default React plugin. */
+    react?: false | Record<string, unknown>;
+    plugins?: UserConfig['plugins'];
+    resolve?: UserConfig['resolve'];
+    server?: UserConfig['server'];
+    build?: UserConfig['build'];
+}

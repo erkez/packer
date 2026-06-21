@@ -50,6 +50,7 @@
     "@babel/preset-react": "^8.0.1",
     "@babel/preset-typescript": "^8.0.1",
     "@ekz/eslint-config-packer": "workspace:^",
+    "@vitejs/plugin-react": "^6.0.2",
     "babel-loader": "^10.1.1",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^7.1.4",
@@ -67,6 +68,7 @@
     "sass-loader": "^17.0.0",
     "terser-webpack-plugin": "^5.6.1",
     "ts-loader": "^9.6.1",
+    "vite": "^8.0.16",
     "webpack": "^5.107.2",
     "webpack-cli": "^7.0.3",
     "webpack-dev-server": "^5.2.5"
