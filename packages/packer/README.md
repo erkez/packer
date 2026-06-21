@@ -75,6 +75,18 @@ module.exports = [...recommended, ...typescript];
 
 Requires Node.js 24 or later (see `.nvmrc` in your project or use `nvm use`).
 
+**TypeScript config location**
+
+Packer looks for `tsconfig.json` at the app root. If yours is elsewhere (for example `src/main/web/tsconfig.json`), set `tsconfigPath` or add a root config that extends it:
+
+```js
+module.exports = Packer.webpack.createApplicationConfiguration({
+    tsconfigPath: 'src/main/web/tsconfig.json'
+});
+```
+
+Without a discoverable TypeScript config, `.tsx` is transpiled by Babel instead of `ts-loader`, which can emit development-only `jsxDEV` and crash in production.
+
 **Dev server**
 
 1.0 bundles **webpack-dev-server v5** (0.16 used v4). Packer’s built-in defaults are unchanged — port **9000**, hot reload, compression, and a CORS header — so apps that never customized `devServer` need no changes.

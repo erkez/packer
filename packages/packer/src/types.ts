@@ -40,6 +40,8 @@ export interface PackerOptions {
     terserOptions?: Record<string, unknown> | undefined;
     miniCssExtractPluginOptions?: Record<string, unknown> | undefined;
     devServer?: Record<string, unknown> | undefined;
+    /** Path to tsconfig.json relative to the app root (INIT_CWD). Defaults to `tsconfig.json`. */
+    tsconfigPath?: string | undefined;
 }
 
 export type ResolvedPackerOptions = Required<
@@ -69,7 +71,12 @@ export type ResolvedPackerOptions = Required<
 > &
     Pick<
         PackerOptions,
-        'node' | 'babelOptions' | 'terserOptions' | 'miniCssExtractPluginOptions' | 'devServer'
+        | 'node'
+        | 'babelOptions'
+        | 'terserOptions'
+        | 'miniCssExtractPluginOptions'
+        | 'devServer'
+        | 'tsconfigPath'
     > & {
         output: Required<Pick<PackerOutputOptions, 'path' | 'publicPath'>> &
             Pick<PackerOutputOptions, 'library' | 'libraryTarget' | 'globalObject'>;

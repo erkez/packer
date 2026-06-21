@@ -34,6 +34,18 @@ module.exports = Packer.webpack.createApplicationConfiguration();
 
 If you customized webpack via Packer options, review [Configuration](/docs/guides/configuration) — defaults may have changed with dependency upgrades.
 
+**TypeScript config location**
+
+Packer looks for `tsconfig.json` at the app root. If yours lives in a subdirectory (for example `src/main/web/tsconfig.json`), either add a root config or set `tsconfigPath`:
+
+```js
+module.exports = Packer.webpack.createApplicationConfiguration({
+    tsconfigPath: 'src/main/web/tsconfig.json'
+});
+```
+
+Without a discoverable TypeScript config, `.tsx` is transpiled by Babel instead of `ts-loader`. Babel can emit development-only `jsxDEV` calls that crash in production (`jsxDEV is not a function`). Prefer `ts-loader` with `jsx: react-jsx` in your tsconfig.
+
 ## Dev server
 
 1.0 bundles **webpack-dev-server v5** (0.16 used v4). Packer’s built-in defaults are unchanged — port **9000**, hot reload, compression, and a CORS header — so apps that never customized `devServer` need no changes.
