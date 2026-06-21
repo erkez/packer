@@ -13,6 +13,9 @@ const { prettierRule } = require('./prettier');
 
 const reactPlugin = fixupPluginRules(react);
 
+const reactFiles = ['**/*.{js,jsx,mjs,cjs,ts,tsx}'];
+const jsFiles = ['**/*.{js,jsx,mjs,cjs}'];
+
 module.exports = [
     {
         ignores: ['**/bin/**', '**/dist/**', '**/node_modules/**']
@@ -36,9 +39,25 @@ module.exports = [
             }
         }
     },
+    {
+        rules: {
+            'react/display-name': 'off',
+            'react/prop-types': 'off'
+        }
+    },
     eslintConfigPrettier,
     {
-        files: ['**/*.{js,jsx,mjs,cjs}'],
+        files: reactFiles,
+        plugins: {
+            'react-hooks': reactHooks
+        },
+        rules: {
+            'react-hooks/rules-of-hooks': 'error',
+            'react-hooks/exhaustive-deps': 'warn'
+        }
+    },
+    {
+        files: jsFiles,
         languageOptions: {
             parser: babelParser,
             parserOptions: {
@@ -62,8 +81,7 @@ module.exports = [
             }
         },
         plugins: {
-            prettier,
-            'react-hooks': reactHooks
+            prettier
         },
         settings: {
             react: {
@@ -71,10 +89,6 @@ module.exports = [
             }
         },
         rules: {
-            'react/display-name': 'off',
-            'react/prop-types': 'off',
-            'react-hooks/rules-of-hooks': 'error',
-            'react-hooks/exhaustive-deps': 'warn',
             'no-console': 'warn',
             'prettier/prettier': prettierRule,
             eqeqeq: ['error', 'allow-null']
