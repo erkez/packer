@@ -39,5 +39,6 @@ jobs:
           publish: yarn release
           title: Version packages
           commit: Version packages
+          commitMode: github-api
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

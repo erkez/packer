@@ -45,7 +45,7 @@ Do not add nested `yarn.lock` or `bin/setup-node` — use `.nvmrc` + `nvm use`.
 - **Dependabot** (`.github/dependabot.yml`): weekly grouped npm + GitHub Actions updates (minor/patch, major, and security each in one PR per ecosystem)
 - **Dependabot auto-merge** (`.github/workflows/dependabot-automerge.yml`): squash-merge minor/patch/security PRs after required checks pass; majors stay manual
 - **Docs** (`.github/workflows/docs.yml`): Docusaurus → GitHub Pages at `https://packer.ekz.io/` (custom domain; `docs/static/CNAME`)
-- **Release** (`.github/workflows/release.yml`): Changesets on `master` → version PR or npm publish via `yarn npm publish` (see `scripts/release.mjs`; **not** `changeset publish`, which leaves `workspace:` ranges on npm)
+- **Release** (`.github/workflows/release.yml`): Changesets on `master` → version PR or npm publish via `yarn npm publish` (see `scripts/release.mjs`; **not** `changeset publish`, which leaves `workspace:` ranges on npm). Version PR commits use `commitMode: github-api` so they are GitHub-verified under signed-commit rulesets.
 - Packages are **fixed** in `.changeset/config.json` — they always share a version
 - **License**: MIT, copyright erkez — root `LICENSE` plus a copy in each published package; keep `LICENSE` in each package's `files` array
 - Requires **npm trusted publishing** configured on npmjs.com for `@ekz/packer` and `@ekz/eslint-config-packer` (GitHub Actions → repo `erkez/packer`, workflow **`release.yml`** — filename must match exactly)
