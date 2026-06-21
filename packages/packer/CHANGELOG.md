@@ -1,5 +1,13 @@
 # @ekz/packer
 
+## 1.0.0-beta.2
+
+### Patch Changes
+
+- 9a1c556: Fix npm publishing for Yarn workspaces: release now uses `yarn npm publish` so `@ekz/eslint-config-packer` is published as a semver range instead of the broken `workspace:^` protocol left by `changeset publish`.
+- Updated dependencies [9a1c556]
+  - @ekz/eslint-config-packer@1.0.0-beta.2
+
 ## 1.0.0-beta.1
 
 ### Patch Changes
