@@ -1,5 +1,8 @@
 # Packer
 
+[![CI](https://github.com/erkez/packer/actions/workflows/ci.yml/badge.svg)](https://github.com/erkez/packer/actions/workflows/ci.yml)
+[![Release](https://github.com/erkez/packer/actions/workflows/release.yml/badge.svg)](https://github.com/erkez/packer/actions/workflows/release.yml)
+
 Opinionated webpack bundler for React applications — minimal configuration, ESLint and TypeScript support out of the box.
 
 **Documentation:** [packer.ekz.io](https://packer.ekz.io/)
