@@ -8,6 +8,6 @@
     "my-app": "1.0.0"
   },
   "changesets": [
-    "major-1-0-beta"
+    "webpack-build-performance"
   ]
 }

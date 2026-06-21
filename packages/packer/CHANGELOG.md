@@ -1,5 +1,22 @@
 # @ekz/packer
 
+## 1.0.0-beta.1
+
+### Patch Changes
+
+- Webpack build performance improvements:
+
+  - Split TypeScript and JavaScript transpilation (`.ts`/`.tsx` via `ts-loader` only; `.js`/`.jsx` via Babel) to avoid double transpiling TypeScript sources
+  - Enable webpack filesystem cache (`node_modules/.cache/webpack`)
+  - Use faster dev source maps (`eval-cheap-module-source-map` by default)
+  - Enable Babel loader disk cache
+  - Lint changed modules only during development (`eslint-webpack-plugin`)
+  - Pass explicit `configFile` to ForkTsCheckerWebpackPlugin
+  - Exclude `node_modules` from JS/TS loader rules
+
+- Updated dependencies
+  - @ekz/eslint-config-packer@1.0.0-beta.1
+
 ## 1.0.0-beta.0
 
 ### Major Changes
