@@ -1,5 +1,15 @@
 # @ekz/packer
 
+## 1.0.0-beta.5
+
+### Minor Changes
+
+- ba75dfd: Add alpha Vite support alongside the existing Webpack API via `Packer.vite.createApplicationConfiguration()`. Includes Vite dependencies, a React + TypeScript Vite example app, Webpack-to-Vite migration guidance, expanded bundler-specific configuration docs, and refreshed Packer icon assets.
+
+### Patch Changes
+
+- @ekz/eslint-config-packer@1.0.0-beta.5
+
 ## 1.0.0-beta.4
 
 ### Minor Changes
