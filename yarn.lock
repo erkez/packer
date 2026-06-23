@@ -2733,7 +2733,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@changesets/cli@npm:^2.29.8":
+"@changesets/cli@npm:^2.31.0":
   version: 2.31.0
   resolution: "@changesets/cli@npm:2.31.0"
   dependencies:
@@ -4862,7 +4862,7 @@ __metadata:
     eslint-plugin-react: "npm:^7.37.5"
     eslint-plugin-react-hooks: "npm:^7.1.1"
     eslint-webpack-plugin: "npm:^6.0.0"
-    globals: "npm:^17.4.0"
+    globals: "npm:^17.6.0"
     prettier: "npm:^3.8.4"
     typescript: "npm:^6.0.3"
     typescript-eslint: "npm:^8.61.1"
@@ -5525,7 +5525,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mdx-js/react@npm:^3.0.0":
+"@mdx-js/react@npm:^3.0.0, @mdx-js/react@npm:^3.1.1":
   version: 3.1.1
   resolution: "@mdx-js/react@npm:3.1.1"
   dependencies:
@@ -7120,7 +7120,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^19.2.7":
+"@types/react@npm:*, @types/react@npm:^19.2.17":
   version: 19.2.17
   resolution: "@types/react@npm:19.2.17"
   dependencies:
@@ -8656,7 +8656,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:^2.0.0":
+"clsx@npm:^2.0.0, clsx@npm:^2.1.1":
   version: 2.1.1
   resolution: "clsx@npm:2.1.1"
   checksum: 10c0/c4c8eb865f8c82baab07e71bfa8897c73454881c4f99d6bc81585aecd7c441746c1399d08363dc096c550cceaf97bd4ce1e8854e1771e9998d9f94c4fe075839
@@ -11129,7 +11129,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globals@npm:^17.4.0":
+"globals@npm:^17.6.0":
   version: 17.6.0
   resolution: "globals@npm:17.6.0"
   checksum: 10c0/cf94fb4329cc5c68cf81018fd68324f413181ee169f0235b0b33b82bc93fe7825a21beea951f83a80e8e4bbdad9c0c80515a145b5fd4b5cb52f2a80db899a93f
@@ -14214,7 +14214,7 @@ __metadata:
   resolution: "my-app@workspace:examples/typescript"
   dependencies:
     "@ekz/packer": "workspace:^"
-    "@types/react": "npm:^19.2.7"
+    "@types/react": "npm:^19.2.17"
     "@types/react-dom": "npm:^19.2.3"
     normalize.css: "npm:^8.0.1"
     react: "npm:^19.2.7"
@@ -14228,7 +14228,7 @@ __metadata:
   resolution: "my-vite-app@workspace:examples/typescript-vite"
   dependencies:
     "@ekz/packer": "workspace:^"
-    "@types/react": "npm:^19.2.7"
+    "@types/react": "npm:^19.2.17"
     "@types/react-dom": "npm:^19.2.3"
     normalize.css: "npm:^8.0.1"
     react: "npm:^19.2.7"
@@ -14769,12 +14769,12 @@ __metadata:
     "@docusaurus/module-type-aliases": "npm:3.10.1"
     "@docusaurus/preset-classic": "npm:3.10.1"
     "@docusaurus/types": "npm:3.10.1"
-    "@mdx-js/react": "npm:^3.0.0"
-    "@types/react": "npm:^19.2.7"
-    clsx: "npm:^2.0.0"
-    prism-react-renderer: "npm:^2.3.0"
-    react: "npm:^19.0.0"
-    react-dom: "npm:^19.0.0"
+    "@mdx-js/react": "npm:^3.1.1"
+    "@types/react": "npm:^19.2.17"
+    clsx: "npm:^2.1.1"
+    prism-react-renderer: "npm:^2.4.1"
+    react: "npm:^19.2.7"
+    react-dom: "npm:^19.2.7"
   languageName: unknown
   linkType: soft
 
@@ -14782,7 +14782,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "packer-monorepo@workspace:."
   dependencies:
-    "@changesets/cli": "npm:^2.29.8"
+    "@changesets/cli": "npm:^2.31.0"
   languageName: unknown
   linkType: soft
 
@@ -16580,7 +16580,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prism-react-renderer@npm:^2.3.0":
+"prism-react-renderer@npm:^2.3.0, prism-react-renderer@npm:^2.4.1":
   version: 2.4.1
   resolution: "prism-react-renderer@npm:2.4.1"
   dependencies:
@@ -16779,7 +16779,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^19.0.0, react-dom@npm:^19.2.7":
+"react-dom@npm:^19.2.7":
   version: 19.2.7
   resolution: "react-dom@npm:19.2.7"
   dependencies:
@@ -16900,7 +16900,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^19.0.0, react@npm:^19.2.7":
+"react@npm:^19.2.7":
   version: 19.2.7
   resolution: "react@npm:19.2.7"
   checksum: 10c0/0bd0e2f1bbd4ba97561c6597bf8a5fec05e6476fe61e165c1065598d16668efc6715205599c94d3ddd49d36cb0f21cbf1b9bcc18ee840b805ce222c3e8d558ac
