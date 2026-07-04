@@ -4,7 +4,7 @@ sidebar_position: 3
 
 # Vite
 
-Vite support in `@ekz/packer` is currently **alpha**. The API may change before it is promoted to stable. If you are moving an existing app from Webpack, start with [Migrating from Webpack to Vite](/docs/migration/from-webpack-to-vite).
+If you are moving an existing app from Webpack, start with [Migrating from Webpack to Vite](/docs/migration/from-webpack-to-vite).
 
 Create `vite.config.js` in your application root:
 

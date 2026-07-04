@@ -1,6 +1,6 @@
 # Packer
 
-Packer is opinionated bundler configuration that reduces the setup and maintenance needed to create a React application. Webpack support is the stable path today; Vite support is available as **alpha**.
+Packer is opinionated bundler configuration that reduces the setup and maintenance needed to create a React application. It supports both Webpack and Vite.
 
 **Documentation:** [packer.ekz.io](https://packer.ekz.io/)
 
@@ -50,8 +50,6 @@ const Packer = require('@ekz/packer');
 
 module.exports = Packer.vite.createApplicationConfiguration();
 ```
-
-Vite support is currently **alpha**. The API may change before it is promoted to stable.
 
 For ESLint, create `eslint.config.js` in your application root directory:
 

@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Migrating from Webpack to Vite
 
-Vite support in `@ekz/packer` is currently **alpha**. Treat the migration as an application-level change: keep the Webpack build working until the Vite build, lint, and local development flow are verified.
+Treat the migration as an application-level change: keep the Webpack build working until the Vite build, lint, and local development flow are verified.
 
 ## Quick checklist
 

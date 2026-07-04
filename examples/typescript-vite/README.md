@@ -2,8 +2,6 @@
 
 A React application that exercises `@ekz/packer` Vite support: TypeScript/TSX, SCSS, static assets, ESLint flat config, and Vite dev/production builds.
 
-Vite support in `@ekz/packer` is currently **alpha**. The API may change before it is promoted to stable.
-
 This folder serves two purposes:
 
 - **In the monorepo** — integration test for `@ekz/packer` Vite support.

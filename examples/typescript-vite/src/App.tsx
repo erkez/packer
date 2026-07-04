@@ -12,7 +12,7 @@ export function App() {
             <img className="app__logo" src={logoUrl} alt="" width={48} height={48} />
             <h1 className="app__title">Packer Vite example</h1>
             <p className="app__hint">
-                React, TypeScript, SCSS, static assets, ESLint, and Vite alpha support.
+                React, TypeScript, SCSS, static assets, ESLint, and Vite support.
             </p>
             <button
                 className="app__button"

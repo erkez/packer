@@ -7,12 +7,12 @@ import styles from './index.module.css';
 
 const features = [
     {
-        title: 'Webpack stable',
+        title: 'Webpack',
         description: 'Application and library configuration with sensible defaults for React, Babel, TypeScript, assets, and webpack-dev-server.'
     },
     {
-        title: 'Vite alpha',
-        description: 'Try the alpha Vite path for React apps with @vitejs/plugin-react, the @root alias, SCSS, assets, and Vite builds.'
+        title: 'Vite',
+        description: 'Application configuration for React apps with @vitejs/plugin-react, the @root alias, SCSS, assets, and Vite builds.'
     },
     {
         title: 'ESLint 10 flat config',
@@ -41,7 +41,7 @@ function HomepageHeader() {
                     <Link
                         className={clsx('button button--lg', styles.buttonOutline)}
                         to="/docs/getting-started/vite">
-                        Try Vite alpha
+                        Try Vite
                     </Link>
                     <Link
                         className={clsx('button button--lg', styles.buttonOutline)}

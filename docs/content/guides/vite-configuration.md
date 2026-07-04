@@ -4,8 +4,6 @@ sidebar_position: 3
 
 # Vite configuration
 
-Vite support in `@ekz/packer` is currently **alpha**. The API may change before it is promoted to stable.
-
 Use `Packer.vite.createApplicationConfiguration(options)` from `vite.config.js`.
 
 ```js
