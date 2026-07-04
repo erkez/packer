@@ -15,6 +15,7 @@
     "tsconfig-path-option",
     "upgrade-dependencies",
     "vite-esm-config-exports",
-    "vite-out-of-alpha"
+    "vite-out-of-alpha",
+    "vite-typecheck"
   ]
 }

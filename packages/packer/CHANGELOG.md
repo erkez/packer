@@ -1,5 +1,15 @@
 # @ekz/packer
 
+## 1.0.0-beta.7
+
+### Minor Changes
+
+- b1301f7: Add automatic TypeScript typechecking to the Vite path via `vite-plugin-checker`, matching Webpack's `ForkTsCheckerWebpackPlugin` behavior. When a `tsconfig.json` is found (or pointed to via the new `tsconfigPath` option), `vite build` and the dev server now report type errors — previously Vite silently transpiled without checking types. Adds no bundle/runtime cost and doesn't block the dev server, but adds real time to `vite build`. Pass `typecheck: false` to opt out.
+
+### Patch Changes
+
+- @ekz/eslint-config-packer@1.0.0-beta.7
+
 ## 1.0.0-beta.6
 
 ### Minor Changes
