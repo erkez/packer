@@ -51,7 +51,7 @@
     "@babel/preset-react": "^8.0.1",
     "@babel/preset-typescript": "^8.0.1",
     "@ekz/eslint-config-packer": "workspace:^",
-    "@vitejs/plugin-react": "^6.0.2",
+    "@vitejs/plugin-react": "^6.0.3",
     "babel-loader": "^10.1.1",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^7.1.4",
@@ -64,18 +64,18 @@
     "postcss": "^8.5.15",
     "postcss-loader": "^8.2.1",
     "postcss-preset-env": "^11.3.1",
-    "prettier": "^3.8.4",
+    "prettier": "^3.9.0",
     "sass": "^1.101.0",
     "sass-loader": "^17.0.0",
     "terser-webpack-plugin": "^5.6.1",
-    "ts-loader": "^9.6.1",
-    "vite": "^8.0.16",
-    "webpack": "^5.107.2",
-    "webpack-cli": "^7.0.3",
+    "ts-loader": "^9.6.2",
+    "vite": "^8.1.0",
+    "webpack": "^5.108.1",
+    "webpack-cli": "^7.1.0",
     "webpack-dev-server": "^5.2.5"
   },
   "devDependencies": {
-    "@types/node": "^26.0.0",
+    "@types/node": "^26.0.1",
     "typescript": "^6.0.3"
   }
 }
