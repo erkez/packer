@@ -18,6 +18,13 @@ function createApplicationConfiguration(opts: VitePackerOptions = {}): UserConfi
         }
     );
     const reactPlugin = reactPluginModule.default;
+    const checkerModule = nodeRequire('vite-plugin-checker') as typeof import(
+        'vite-plugin-checker',
+        {
+            with: { 'resolution-mode': 'import' }
+        }
+    );
+    const checker = checkerModule.default;
 
     const {
         assetPaths,
@@ -29,16 +36,26 @@ function createApplicationConfiguration(opts: VitePackerOptions = {}): UserConfi
         resolve,
         root = '.',
         server,
+        tsconfigPath,
+        typecheck = true,
         useHashInFileNames = true,
         ...viteOptions
     } = opts;
 
     const appRoot = path.resolve(process.env.INIT_CWD ?? process.cwd(), root);
     const resolvedAssetPaths = Object.assign({}, DefaultAssetPaths, assetPaths);
+    const typescriptConfigPath = typecheck
+        ? resolveTypeScriptConfigPath(tsconfigPath, process.env.INIT_CWD ?? process.cwd())
+        : null;
 
     const defaultConfig: UserConfig = {
         root: appRoot,
-        plugins: truthyArray([react !== false && reactPlugin(react), ...asArray(plugins)]),
+        plugins: truthyArray([
+            react !== false && reactPlugin(react),
+            typescriptConfigPath != null &&
+                checker({ typescript: { tsconfigPath: typescriptConfigPath } }),
+            ...asArray(plugins)
+        ]),
         resolve: Object.assign(
             {
                 alias: Object.assign(
@@ -122,6 +139,30 @@ function asArray<T>(value: T | T[] | undefined): T[] {
 
 function truthyArray<T>(array: (T | false | null | undefined)[]): T[] {
     return array.filter((item): item is T => item != null && item !== false);
+}
+
+function resolveTypeScriptConfigPath(tsconfigPath: string | undefined, cwd: string): string | null {
+    const explicit = tsconfigPath != null;
+    const configPath = path.resolve(cwd, tsconfigPath ?? 'tsconfig.json');
+
+    if (hasModule(configPath)) {
+        return configPath;
+    }
+
+    if (explicit) {
+        throw new Error(`TypeScript config not found: ${configPath}`);
+    }
+
+    return null;
+}
+
+function hasModule(modulePath: string): boolean {
+    try {
+        require.resolve(modulePath);
+        return true;
+    } catch {
+        return false;
+    }
 }
 
 export { createApplicationConfiguration };

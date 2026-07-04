@@ -106,4 +106,8 @@ export interface VitePackerOptions extends Omit<
     resolve?: UserConfig['resolve'];
     server?: UserConfig['server'];
     build?: UserConfig['build'];
+    /** Path to tsconfig.json relative to the app root (INIT_CWD). Defaults to `tsconfig.json`. */
+    tsconfigPath?: string | undefined;
+    /** Pass `false` to disable automatic TypeScript typechecking via `vite-plugin-checker`. Defaults to `true`. */
+    typecheck?: boolean;
 }

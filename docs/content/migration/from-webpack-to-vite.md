@@ -97,6 +97,8 @@ Keep linting separate. Vite builds do not run ESLint automatically:
 }
 ```
 
+TypeScript typechecking, on the other hand, carries over automatically: Packer's Vite config wires up `vite-plugin-checker` against the same `tsconfig.json` Webpack's ForkTsChecker used, so `vite build` and `vite` (dev server) both fail/report on type errors without any extra script. This adds no bundle/runtime cost and doesn't slow down the dev server (it runs in a background worker, so HMR is unaffected), but it does add real time to `vite build` — proportional to your TypeScript program size — and will surface type errors in apps that previously built cleanly under Vite despite having them. If that's disruptive during migration, set `typecheck: false` until the backlog is cleared. See [Vite configuration](/docs/guides/vite-configuration#typescript-typechecking) for measured numbers.
+
 ## 4. Translate common options
 
 | Webpack option | Vite equivalent |
@@ -111,8 +113,9 @@ Keep linting separate. Vite builds do not run ESLint automatically:
 | `devServer.proxy` | `server.proxy` |
 | `define` | Native Vite `define` |
 | `plugins` | Vite `plugins` |
+| `tsconfigPath` | `tsconfigPath` |
 
-Webpack-only options such as `loaders`, `babelOptions`, `splitChunks`, `terserOptions`, `miniCssExtractPluginOptions`, `html`, and `tsconfigPath` do not carry over directly. Use native Vite or Rollup options where needed.
+Webpack-only options such as `loaders`, `babelOptions`, `splitChunks`, `terserOptions`, `miniCssExtractPluginOptions`, and `html` do not carry over directly. Use native Vite or Rollup options where needed.
 
 ## 5. Check source compatibility
 
