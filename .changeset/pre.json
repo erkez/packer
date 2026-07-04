@@ -12,6 +12,9 @@
     "alpha-vite-support",
     "fix-npm-publish-workspace-protocol",
     "fix-react-rules-typescript",
-    "tsconfig-path-option"
+    "tsconfig-path-option",
+    "upgrade-dependencies",
+    "vite-esm-config-exports",
+    "vite-out-of-alpha"
   ]
 }

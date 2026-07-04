@@ -1,5 +1,11 @@
 # @ekz/eslint-config-packer
 
+## 1.0.0-beta.6
+
+### Patch Changes
+
+- e2dba47: Upgrade dependencies (Vite, webpack, ts-loader, ESLint/typescript-eslint, prettier, and others) to their latest patch/minor releases.
+
 ## 1.0.0-beta.5
 
 ## 1.0.0-beta.4

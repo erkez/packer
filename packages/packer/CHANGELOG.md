@@ -1,5 +1,18 @@
 # @ekz/packer
 
+## 1.0.0-beta.6
+
+### Minor Changes
+
+- 878d206: Promote Vite support out of alpha. It's now documented and presented as an equally supported bundler alongside Webpack — no API changes, just dropping the alpha caveat from the README, docs site, and examples now that it's been verified in a real application migration.
+
+### Patch Changes
+
+- e2dba47: Upgrade dependencies (Vite, webpack, ts-loader, ESLint/typescript-eslint, prettier, and others) to their latest patch/minor releases.
+- da8f20e: Add an `import` condition to the package's `exports` map so `@ekz/packer` can be consumed from an ESM `vite.config.mjs`/`vite.config.ts` (e.g. `import Packer from '@ekz/packer'`). Previously only `require` was exported, so loading an ESM Vite config failed with `No known conditions for "." specifier in "@ekz/packer" package`.
+- Updated dependencies [e2dba47]
+  - @ekz/eslint-config-packer@1.0.0-beta.6
+
 ## 1.0.0-beta.5
 
 ### Minor Changes
