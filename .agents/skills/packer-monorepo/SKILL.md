@@ -70,6 +70,21 @@ Contributor flow: `yarn changeset` → PR → merge → release PR merges → np
 
 Consumer-facing changelog and migration notes go in `packages/packer/README.md`.
 
+### Merging your own signed commits
+
+Do **not** use the GitHub web "Rebase and merge" button for your own PRs — it replays each commit as a new, unsigned object (GitHub can't sign with your personal key, and won't sign as itself for rebase specifically — a long-standing GitHub limitation), so your verified signatures are lost even though `required_signatures` is on the ruleset. Squash-merge avoids that but collapses the PR into one GitHub-signed commit, losing per-commit history — not worth it given one-commit-per-change/changeset conventions here.
+
+Instead, merge locally and push directly (repo admin bypasses the ruleset's PR requirement):
+
+```sh
+git checkout master
+git pull --ff-only
+git merge --ff-only <branch>
+git push
+```
+
+A fast-forward creates no new commit objects, so nothing needs re-signing — original signatures ride along intact. This only works if `master` can fast-forward to `<branch>` (i.e. `<branch>` was rebased on latest `master`, not merged); rebase it locally first if not.
+
 ## Pitfalls
 
 - Package scope is **`@ekz/*`**, not `@erkez/*`
