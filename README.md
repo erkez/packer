@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/erkez/packer/actions/workflows/ci.yml/badge.svg)](https://github.com/erkez/packer/actions/workflows/ci.yml)
 [![Release](https://github.com/erkez/packer/actions/workflows/release.yml/badge.svg)](https://github.com/erkez/packer/actions/workflows/release.yml)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/erkez/packer/badge)](https://securityscorecards.dev/viewer/?uri=github.com/erkez/packer)
 
 Opinionated bundler config for React applications - Webpack and Vite support.
 
