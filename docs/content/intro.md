@@ -18,7 +18,7 @@ Packer is an opinionated configuration for bundlers that reduces the setup and m
 ## Quick start
 
 ```sh
-yarn add -D @ekz/packer@beta
+yarn add -D @ekz/packer
 ```
 
 ```js
@@ -37,9 +37,9 @@ const Packer = require('@ekz/packer');
 module.exports = Packer.vite.createApplicationConfiguration();
 ```
 
-See [Installation](/docs/getting-started/installation) for beta vs stable tags, ESLint setup, and TypeScript configuration.
+See [Installation](/docs/getting-started/installation) for ESLint setup and TypeScript configuration.
 
 ## Requirements
 
 - Node.js **24+**
-- `@ekz/packer` **1.0.0-beta** or later (install with `@beta` until stable `1.0.0` on `latest`)
+- `@ekz/packer` **1.0.0** or later

@@ -10,10 +10,8 @@ sidebar_position: 1
 - Requires Node.js **24+**
 - Uses ESLint **10** flat config only
 
-Install the beta while 1.0 is in pre-release:
-
 ```sh
-yarn add -D @ekz/packer@beta
+yarn add -D @ekz/packer
 ```
 
 ## ESLint

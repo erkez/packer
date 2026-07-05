@@ -46,7 +46,7 @@ yarn workspace my-vite-app build:prod
 
 ```json
 "devDependencies": {
-    "@ekz/packer": "beta",
+    "@ekz/packer": "^1.0.0",
     "typescript": "^6.0.3"
 }
 ```

@@ -63,10 +63,9 @@ Formatting runs through ESLint (`eslint-plugin-prettier`), not a separate Pretti
 - **License**: MIT, copyright erkez — root `LICENSE` plus a copy in each published package; keep `LICENSE` in each package's `files` array
 - Requires **npm trusted publishing** configured on npmjs.com for `@ekz/packer` and `@ekz/eslint-config-packer` (GitHub Actions → repo `erkez/packer`, workflow **`release.yml`** — filename must match exactly)
 - No `NPM_TOKEN` — publish uses OIDC (`id-token: write` in release workflow)
-- **Pre-release**: repo is in Changesets `beta` mode (`.changeset/pre.json`) — publishes `@beta`, not `latest`
-- **GA 1.0.0**: run `yarn changeset pre exit`, add changeset if needed, merge release PR → `latest`
+- GA'd at 1.0.0 — no longer in Changesets pre-release mode; publishes to `latest`
 
-Contributor flow: `yarn changeset` → PR → merge → release PR merges → npm publish (beta tag while in pre mode).
+Contributor flow: `yarn changeset` → PR → merge → release PR merges → npm publish (`latest` tag).
 
 Consumer-facing changelog and migration notes go in `packages/packer/README.md`.
 

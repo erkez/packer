@@ -9,10 +9,8 @@ Opinionated bundler config for React applications - Webpack and Vite support.
 
 ## Install
 
-The 1.0 release is in **beta**:
-
 ```sh
-yarn add -D @ekz/packer@beta
+yarn add -D @ekz/packer
 ```
 
 Create `webpack.config.js` in your application root:

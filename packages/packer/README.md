@@ -14,19 +14,6 @@ Packer is opinionated bundler configuration that reduces the setup and maintenan
 
 ## Installation
 
-The 1.0 release is currently in **beta**. Install the beta tag for early access:
-
-```sh
-yarn add -D @ekz/packer@beta
-# or pin exactly: yarn add -D @ekz/packer@1.0.0-beta.0
-```
-
-```sh
-npm install --save-dev @ekz/packer@beta
-```
-
-When 1.0.0 is stable on `latest`, the default install commands apply:
-
 ```sh
 yarn add -D @ekz/packer
 ```

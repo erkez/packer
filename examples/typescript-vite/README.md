@@ -47,7 +47,7 @@ The example depends on `@ekz/packer` via `workspace:^`, so it always uses the lo
 
 ```json
 "devDependencies": {
-    "@ekz/packer": "beta",
+    "@ekz/packer": "^1.0.0",
     "typescript": "^6.0.3"
 }
 ```
@@ -83,4 +83,4 @@ The config files (`vite.config.js`, `eslint.config.js`, `tsconfig.json`) are rea
 ## Requirements
 
 - Node.js **24+**
-- `@ekz/packer` **1.0.0-beta** or later (when used outside the monorepo; use `@beta` until stable)
+- `@ekz/packer` **1.0.0** or later (when used outside the monorepo)
