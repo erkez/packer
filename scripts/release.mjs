@@ -26,6 +26,7 @@ const publishFlags = [
     '--access',
     'public',
     '--tolerate-republish',
+    '--provenance',
     ...(distTag === 'latest' ? [] : ['--tag', distTag])
 ].join(' ');
 

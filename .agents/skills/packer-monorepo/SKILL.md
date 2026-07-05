@@ -59,12 +59,14 @@ Formatting runs through ESLint (`eslint-plugin-prettier`), not a separate Pretti
 - **Dependabot auto-merge** (`.github/workflows/dependabot-automerge.yml`): rebase-merge minor/patch/security PRs after required checks pass; majors stay manual (default-branch ruleset allows rebase only)
 - **Docs** (`.github/workflows/docs.yml`): Docusaurus → GitHub Pages at `https://packer.ekz.io/` (custom domain via `docs/static/CNAME`; DNS `packer.ekz.io` CNAME → `erkez.github.io`, HTTPS in GitHub Pages settings)
 - **Scorecard** (`.github/workflows/scorecard.yml`): OSSF Scorecard on push to `master` + weekly schedule, publishes publicly (`publish_results: true`) and uploads SARIF to code scanning; badge in `README.md`. Only scores `master` — a feature branch won't update it.
-- **Release** (`.github/workflows/release.yml`): Changesets on `master` → version PR or npm publish via `yarn npm publish` (see `scripts/release.mjs`; **not** `changeset publish`, which leaves `workspace:` ranges on npm). Version PR commits use `commitMode: github-api` so they are GitHub-verified under signed-commit rulesets.
+- **CodeQL** (`.github/workflows/codeql.yml`): SAST on push to `master`, PRs, and a weekly schedule; JS/TS analysis uploaded to code scanning.
+- **Release** (`.github/workflows/release.yml`): Changesets on `master` → version PR or npm publish via `yarn npm publish --provenance` (see `scripts/release.mjs`; **not** `changeset publish`, which leaves `workspace:` ranges on npm). Version PR commits use `commitMode: github-api` so they are GitHub-verified under signed-commit rulesets. After a real publish, it also packs both workspaces, generates a build provenance attestation (`actions/attest-build-provenance`), and uploads it as an asset on both GitHub Releases (which `changesets/action` creates automatically from the tags).
 - Packages are **fixed** in `.changeset/config.json` — they always share a version
 - **License**: MIT, copyright erkez — root `LICENSE` plus a copy in each published package; keep `LICENSE` in each package's `files` array
 - Requires **npm trusted publishing** configured on npmjs.com for `@ekz/packer` and `@ekz/eslint-config-packer` (GitHub Actions → repo `erkez/packer`, workflow **`release.yml`** — filename must match exactly)
 - No `NPM_TOKEN` — publish uses OIDC (`id-token: write` in release workflow)
 - GA'd at 1.0.0 — no longer in Changesets pre-release mode; publishes to `latest`
+- All GitHub Actions across workflows are **pinned to commit SHA** with a `# vX` comment (OpenSSF Scorecard Pinned-Dependencies) — Dependabot bumps both the SHA and comment
 
 Contributor flow: `yarn changeset` → PR → merge → release PR merges → npm publish (`latest` tag).
 
