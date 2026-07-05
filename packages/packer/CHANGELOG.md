@@ -1,5 +1,29 @@
 # @ekz/packer
 
+## 1.0.0
+
+### Minor Changes
+
+- ba75dfd: Add alpha Vite support alongside the existing Webpack API via `Packer.vite.createApplicationConfiguration()`. Includes Vite dependencies, a React + TypeScript Vite example app, Webpack-to-Vite migration guidance, expanded bundler-specific configuration docs, and refreshed Packer icon assets.
+- 808001d: Add `tsconfigPath` option to point Packer at a non-root `tsconfig.json`, so `.tsx` is transpiled with `ts-loader` instead of Babel. Document the production `jsxDEV` pitfall when TypeScript config is not found, and expand dev-server v5 migration notes.
+- 878d206: Promote Vite support out of alpha. It's now documented and presented as an equally supported bundler alongside Webpack — no API changes, just dropping the alpha caveat from the README, docs site, and examples now that it's been verified in a real application migration.
+- b1301f7: Add automatic TypeScript typechecking to the Vite path via `vite-plugin-checker`, matching Webpack's `ForkTsCheckerWebpackPlugin` behavior. When a `tsconfig.json` is found (or pointed to via the new `tsconfigPath` option), `vite build` and the dev server now report type errors — previously Vite silently transpiled without checking types. Adds no bundle/runtime cost and doesn't block the dev server, but adds real time to `vite build`. Pass `typecheck: false` to opt out.
+
+### Patch Changes
+
+- 9a1c556: Fix npm publishing for Yarn workspaces: release now uses `yarn npm publish` so `@ekz/eslint-config-packer` is published as a semver range instead of the broken `workspace:^` protocol left by `changeset publish`.
+- 659a473: ESLint flat config fixes for TypeScript React consumers:
+
+  - Restore 0.16 behavior: turn off `react/prop-types` and `react/display-name` globally (not JS-only) after extending `@ekz/packer/recommended`.
+  - Register `eslint-plugin-react-hooks` for `**/*.{js,jsx,mjs,cjs,ts,tsx}` so consumers can override `react-hooks/exhaustive-deps` with a rules-only block — no plugin redeclaration or `fixupPluginRules` wrapper required.
+
+- e2dba47: Upgrade dependencies (Vite, webpack, ts-loader, ESLint/typescript-eslint, prettier, and others) to their latest patch/minor releases.
+- da8f20e: Add an `import` condition to the package's `exports` map so `@ekz/packer` can be consumed from an ESM `vite.config.mjs`/`vite.config.ts` (e.g. `import Packer from '@ekz/packer'`). Previously only `require` was exported, so loading an ESM Vite config failed with `No known conditions for "." specifier in "@ekz/packer" package`.
+- Updated dependencies [9a1c556]
+- Updated dependencies [659a473]
+- Updated dependencies [e2dba47]
+  - @ekz/eslint-config-packer@1.0.0
+
 ## 1.0.0-beta.7
 
 ### Minor Changes

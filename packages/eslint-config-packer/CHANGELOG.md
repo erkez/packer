@@ -1,5 +1,17 @@
 # @ekz/eslint-config-packer
 
+## 1.0.0
+
+### Patch Changes
+
+- 9a1c556: Fix npm publishing for Yarn workspaces: release now uses `yarn npm publish` so `@ekz/eslint-config-packer` is published as a semver range instead of the broken `workspace:^` protocol left by `changeset publish`.
+- 659a473: ESLint flat config fixes for TypeScript React consumers:
+
+  - Restore 0.16 behavior: turn off `react/prop-types` and `react/display-name` globally (not JS-only) after extending `@ekz/packer/recommended`.
+  - Register `eslint-plugin-react-hooks` for `**/*.{js,jsx,mjs,cjs,ts,tsx}` so consumers can override `react-hooks/exhaustive-deps` with a rules-only block — no plugin redeclaration or `fixupPluginRules` wrapper required.
+
+- e2dba47: Upgrade dependencies (Vite, webpack, ts-loader, ESLint/typescript-eslint, prettier, and others) to their latest patch/minor releases.
+
 ## 1.0.0-beta.7
 
 ## 1.0.0-beta.6
