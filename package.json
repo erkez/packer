@@ -27,6 +27,11 @@
   "devDependencies": {
     "@changesets/cli": "^2.31.0"
   },
+  "resolutions": {
+    "serialize-javascript": "^7.0.5",
+    "uuid": "^11.1.1",
+    "ip-address": "^10.1.1"
+  },
   "license": "MIT",
   "engines": {
     "node": ">=24"
