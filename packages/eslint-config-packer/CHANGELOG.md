@@ -1,5 +1,11 @@
 # @ekz/eslint-config-packer
 
+## 1.0.1
+
+### Patch Changes
+
+- 36a06df: Publish with npm provenance attestations, so releases are verifiably built from this repository's GitHub Actions workflow. Also upgrades webpack, webpack-cli, and postcss-preset-env to their latest patch/minor releases.
+
 ## 1.0.0
 
 ### Patch Changes
