@@ -27,6 +27,8 @@ jobs:
 
       - run: yarn install --immutable
 
+      - run: yarn audit
+
       - run: yarn dedupe --check
 
       - run: yarn build
