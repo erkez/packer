@@ -56,25 +56,22 @@ function createApplicationConfiguration(opts: VitePackerOptions = {}): UserConfi
                 checker({ typescript: { tsconfigPath: typescriptConfigPath } }),
             ...asArray(plugins)
         ]),
-        resolve: Object.assign(
+        resolve: mergeConfig(
             {
-                alias: Object.assign(
-                    {
-                        '@root': path.resolve(appRoot, 'src')
-                    },
-                    resolve?.alias
-                )
+                alias: {
+                    '@root': path.resolve(appRoot, 'src')
+                }
             },
-            resolve
+            resolve ?? {}
         ),
-        server: Object.assign(
+        server: mergeConfig(
             {
                 headers: {
                     'Access-Control-Allow-Origin': '*'
                 },
                 port: 9000
             },
-            server
+            server ?? {}
         ),
         build: mergeConfig(
             {

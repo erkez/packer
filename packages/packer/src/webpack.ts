@@ -8,6 +8,8 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 
+import type { Configuration } from 'webpack';
+
 import type {
     AssetPaths,
     PackerOptions,
@@ -104,18 +106,12 @@ function createApplicationConfiguration(opts: PackerOptions = {}): WebpackConfig
                     )
                 ].concat(options.plugins as [])
             ),
-            resolve: Object.assign(
-                {
-                    alias: Object.assign(
-                        {
-                            '@root': path.resolve(process.env.INIT_CWD!, 'src')
-                        },
-                        options.resolve?.alias
-                    ),
-                    extensions: options.fileExtensions
-                },
-                options.resolve
-            ),
+            resolve: Object.assign({ extensions: options.fileExtensions }, options.resolve, {
+                alias: mergeAlias(
+                    { '@root': path.resolve(process.env.INIT_CWD!, 'src') },
+                    options.resolve?.alias
+                )
+            }),
             externals: options.externals,
             module: {
                 rules: truthyArray(
@@ -166,14 +162,17 @@ function createApplicationConfiguration(opts: PackerOptions = {}): WebpackConfig
             },
             devServer: Object.assign(
                 {
-                    headers: {
-                        'Access-Control-Allow-Origin': '*'
-                    },
                     port: 9000,
                     compress: true,
                     hot: true
                 },
-                options.devServer
+                options.devServer,
+                {
+                    headers: mergeHeaders(
+                        { 'Access-Control-Allow-Origin': '*' },
+                        options.devServer?.headers
+                    )
+                }
             )
         };
     };
@@ -303,6 +302,45 @@ function hasModule(modulePath: string): boolean {
 
 function truthyArray<T>(array: (T | false | null | undefined)[]): T[] {
     return array.filter((item): item is T => item != null && item !== false);
+}
+
+type ResolveAlias = NonNullable<Configuration['resolve']>['alias'];
+
+function mergeAlias(defaults: Record<string, string>, alias: ResolveAlias): ResolveAlias {
+    if (alias == null) {
+        return defaults;
+    }
+
+    if (Array.isArray(alias)) {
+        return alias.concat(
+            Object.entries(defaults).map(([name, aliasPath]) => ({ name, alias: aliasPath }))
+        );
+    }
+
+    return Object.assign({}, defaults, alias);
+}
+
+type DevServerHeader = { key: string; value: string };
+
+function mergeHeaders(defaults: Record<string, string>, headers: unknown): unknown {
+    if (headers == null) {
+        return defaults;
+    }
+
+    if (Array.isArray(headers)) {
+        const overridden = new Set((headers as DevServerHeader[]).map((header) => header.key));
+
+        return Object.entries(defaults)
+            .filter(([key]) => !overridden.has(key))
+            .map(([key, value]): DevServerHeader => ({ key, value }))
+            .concat(headers as DevServerHeader[]);
+    }
+
+    if (typeof headers === 'function') {
+        return headers;
+    }
+
+    return Object.assign({}, defaults, headers);
 }
 
 function makePathResolvers(config: AssetPaths) {
