@@ -65,7 +65,16 @@ jobs:
         if: steps.changesets.outputs.published == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BUNDLE_PATH: ${{ steps.attest.outputs.bundle-path }}
         run: |
-          version=$(node -p "require('./packages/packer/package.json').version")
-          gh release upload "@ekz/packer@$version" "${{ steps.attest.outputs.bundle-path }}" --clobber
-          gh release upload "@ekz/eslint-config-packer@$version" "${{ steps.attest.outputs.bundle-path }}" --clobber
+          # OpenSSF Scorecard matches release assets on filename suffix alone:
+          # .sigstore.json scores as signed, .intoto.jsonl as provenance.
+          cp "$BUNDLE_PATH" /tmp/provenance/provenance.sigstore.json
+          jq -ce '.dsseEnvelope' "$BUNDLE_PATH" > /tmp/provenance/provenance.intoto.jsonl
+
+          for pkg in packer eslint-config-packer; do
+            version=$(node -p "require('./packages/$pkg/package.json').version")
+            gh release upload "@ekz/$pkg@$version" \
+              /tmp/provenance/provenance.sigstore.json \
+              /tmp/provenance/provenance.intoto.jsonl --clobber
+          done
