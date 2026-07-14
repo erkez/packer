@@ -8,7 +8,7 @@
     "examples/*",
     "docs"
   ],
-  "description": "Packer",
+  "description": "Opinionated Webpack and Vite configuration for React applications, with built-in ESLint and TypeScript support.",
   "main": "src/index.js",
   "repository": {
     "type": "git",
