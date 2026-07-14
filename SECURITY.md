@@ -11,7 +11,12 @@
 
 Please **do not** open a public GitHub issue for security reports.
 
-Email security concerns to the maintainers of `@ekz/packer` (see npm maintainer contacts or your internal security channel). Include:
+Report privately through either channel:
+
+- [GitHub private vulnerability reporting](https://github.com/erkez/packer/security/advisories/new) — preferred, and keeps the report attached to the repository.
+- Email **security@ekz.io**.
+
+Include:
 
 - Package and version affected
 - Steps to reproduce
