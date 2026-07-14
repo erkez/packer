@@ -15,5 +15,5 @@ Build static files:
 
 ```sh
 yarn docs:build
-yarn workspace packer-docs serve
+yarn workspace @ekz/packer-docs serve
 ```

@@ -4870,6 +4870,24 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@ekz/packer-docs@workspace:docs":
+  version: 0.0.0-use.local
+  resolution: "@ekz/packer-docs@workspace:docs"
+  dependencies:
+    "@docusaurus/core": "npm:3.10.1"
+    "@docusaurus/faster": "npm:3.10.1"
+    "@docusaurus/module-type-aliases": "npm:3.10.1"
+    "@docusaurus/preset-classic": "npm:3.10.1"
+    "@docusaurus/types": "npm:3.10.1"
+    "@mdx-js/react": "npm:^3.1.1"
+    "@types/react": "npm:^19.2.17"
+    clsx: "npm:^2.1.1"
+    prism-react-renderer: "npm:^2.4.1"
+    react: "npm:^19.2.7"
+    react-dom: "npm:^19.2.7"
+  languageName: unknown
+  linkType: soft
+
 "@ekz/packer@workspace:^, @ekz/packer@workspace:packages/packer":
   version: 0.0.0-use.local
   resolution: "@ekz/packer@workspace:packages/packer"
@@ -14456,24 +14474,6 @@ __metadata:
   checksum: 10c0/247991de461b9e731f3463b7dae9ce187e53095b7b94d7d96eec039abf418b61ccf74464bec1d0c11d97311f33472e77baccd4c5898f77358da4b5b33395e0b1
   languageName: node
   linkType: hard
-
-"packer-docs@workspace:docs":
-  version: 0.0.0-use.local
-  resolution: "packer-docs@workspace:docs"
-  dependencies:
-    "@docusaurus/core": "npm:3.10.1"
-    "@docusaurus/faster": "npm:3.10.1"
-    "@docusaurus/module-type-aliases": "npm:3.10.1"
-    "@docusaurus/preset-classic": "npm:3.10.1"
-    "@docusaurus/types": "npm:3.10.1"
-    "@mdx-js/react": "npm:^3.1.1"
-    "@types/react": "npm:^19.2.17"
-    clsx: "npm:^2.1.1"
-    prism-react-renderer: "npm:^2.4.1"
-    react: "npm:^19.2.7"
-    react-dom: "npm:^19.2.7"
-  languageName: unknown
-  linkType: soft
 
 "packer-monorepo@workspace:.":
   version: 0.0.0-use.local

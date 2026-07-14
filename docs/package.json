@@ -1,5 +1,5 @@
 {
-  "name": "packer-docs",
+  "name": "@ekz/packer-docs",
   "version": "0.0.0",
   "private": true,
   "scripts": {
