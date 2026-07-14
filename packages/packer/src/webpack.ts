@@ -18,14 +18,17 @@ import type {
 } from './types';
 
 function createApplicationConfiguration(opts: PackerOptions = {}): WebpackConfigFactory {
-    const options = Object.assign({}, DefaultOptions, opts) as ResolvedPackerOptions;
+    // Unlike the options handed to a plugin wholesale, assetPaths and output are read field by
+    // field, so their defaults must be merged in here or a caller's partial object drops the rest.
+    const options = Object.assign({}, DefaultOptions, opts, {
+        assetPaths: Object.assign({}, DefaultOptions.assetPaths, opts.assetPaths),
+        output: Object.assign({}, DefaultOptions.output, opts.output)
+    }) as ResolvedPackerOptions;
 
     return function configure(_env, argv) {
         const isProduction = argv.mode === 'production';
 
-        const pathResolvers = makePathResolvers(
-            Object.assign({}, DefaultOptions.assetPaths, options.assetPaths)
-        );
+        const pathResolvers = makePathResolvers(options.assetPaths);
 
         const typescriptConfigPath = resolveTypeScriptConfigPath(
             options.tsconfigPath,
@@ -44,18 +47,15 @@ function createApplicationConfiguration(opts: PackerOptions = {}): WebpackConfig
             target: options.target,
             node: options.node,
             output: {
-                path: path.resolve(
-                    process.env.INIT_CWD!,
-                    options.output.path || DefaultOptions.output.path
-                ),
+                path: path.resolve(process.env.INIT_CWD!, options.output.path),
                 assetModuleFilename: pathResolvers.staticAsset(
                     isProduction && options.useHashInFileNames
                         ? '[name].[hash:8][ext][query]'
                         : '[name][ext][query]'
                 ),
-                library: options.output.library || DefaultOptions.output.library,
-                libraryTarget: options.output.libraryTarget || DefaultOptions.output.libraryTarget,
-                publicPath: options.output.publicPath || DefaultOptions.output.publicPath,
+                library: options.output.library,
+                libraryTarget: options.output.libraryTarget,
+                publicPath: options.output.publicPath,
                 globalObject: options.output.globalObject,
                 filename: pathResolvers.jsAsset(
                     isProduction && options.useHashInFileNames

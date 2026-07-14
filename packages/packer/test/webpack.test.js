@@ -131,6 +131,18 @@ test('output defaults resolve against INIT_CWD', () => {
     assert.ok(config.cache.cacheDirectory.endsWith('/ts-app/node_modules/.cache/webpack'));
 });
 
+test('a partial output merges with the defaults', () => {
+    const config = webpackConfig({ output: { path: 'build' } });
+
+    assert.ok(config.output.path.endsWith('/ts-app/build'));
+    assert.equal(config.output.publicPath, '/', 'the fields not supplied keep their defaults');
+});
+
+test('an empty publicPath is honoured rather than replaced by the default', () => {
+    // webpack reads '' as "emit relative asset URLs", so it must survive as an explicit choice.
+    assert.equal(webpackConfig({ output: { publicPath: '' } }).output.publicPath, '');
+});
+
 test('entry, target, node and splitChunks pass through', () => {
     assert.deepEqual(webpackConfig().entry, { main: './src/index.js' });
     assert.deepEqual(webpackConfig({ entry: { app: './src/app.js' } }).entry, {
