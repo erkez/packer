@@ -7,6 +7,8 @@ slug: /
 
 Packer is an opinionated configuration for bundlers that reduces the setup and maintenance required to build a React application. It supports both Webpack and Vite.
 
+See [Why Packer](/docs/why-packer) for how it compares to hand-rolled config, Create React App, and meta-frameworks like Next.js.
+
 ## Features
 
 - Minimum configuration for a React app

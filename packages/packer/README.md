@@ -1,5 +1,8 @@
 # Packer
 
+[![npm version](https://img.shields.io/npm/v/%40ekz%2Fpacker)](https://www.npmjs.com/package/@ekz/packer)
+[![npm downloads](https://img.shields.io/npm/dm/%40ekz%2Fpacker)](https://www.npmjs.com/package/@ekz/packer)
+
 Opinionated Webpack and Vite configuration for React applications, with built-in ESLint and TypeScript support.
 
 **Documentation:** [packer.ekz.io](https://packer.ekz.io/)
