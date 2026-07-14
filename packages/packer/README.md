@@ -1,6 +1,6 @@
 # Packer
 
-Packer is opinionated bundler configuration that reduces the setup and maintenance needed to create a React application. It supports both Webpack and Vite.
+Opinionated Webpack and Vite configuration for React applications, with built-in ESLint and TypeScript support.
 
 **Documentation:** [packer.ekz.io](https://packer.ekz.io/)
 
