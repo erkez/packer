@@ -1,0 +1,468 @@
+exports[`snapshot: JavaScript-only production config 1`] = `
+{
+  "cache": {
+    "cacheDirectory": "<root>/node_modules/.cache/webpack",
+    "type": "filesystem"
+  },
+  "devServer": {
+    "compress": true,
+    "headers": {
+      "Access-Control-Allow-Origin": "*"
+    },
+    "hot": true,
+    "port": 9000
+  },
+  "entry": {
+    "main": "./src/index.js"
+  },
+  "externals": {},
+  "mode": "production",
+  "module": {
+    "rules": [
+      {
+        "exclude": "/node_modules/",
+        "test": "/\\\\.(jsx?|tsx?)$/",
+        "use": {
+          "loader": "babel-loader",
+          "options": {
+            "cacheCompression": false,
+            "cacheDirectory": true,
+            "only": [
+              "src"
+            ],
+            "plugins": [
+              "@babel/plugin-transform-class-properties",
+              "@babel/plugin-transform-object-rest-spread"
+            ],
+            "presets": [
+              [
+                "@babel/env",
+                {
+                  "targets": "> 0.25%, not dead"
+                }
+              ],
+              "@babel/react",
+              "@babel/typescript"
+            ]
+          }
+        }
+      },
+      {
+        "loader": "node-loader",
+        "test": "/\\\\.node$/"
+      },
+      {
+        "test": "/\\\\.(css|s[ac]ss)$/i",
+        "use": [
+          {
+            "loader": "<repo>/node_modules/mini-css-extract-plugin/dist/loader.js"
+          },
+          "css-loader",
+          "sass-loader"
+        ]
+      },
+      {
+        "test": "/\\\\.(woff|woff2|ttf|eot|svg|png|jpg|gif|ico)(\\\\?\\\\w+)?$/",
+        "type": "asset/resource"
+      }
+    ]
+  },
+  "optimization": {
+    "minimize": true,
+    "minimizer": [
+      "[TerserPlugin]"
+    ],
+    "splitChunks": {
+      "automaticNameDelimiter": ".",
+      "chunks": "all"
+    }
+  },
+  "output": {
+    "assetModuleFilename": "assets/static/[name].[hash:8][ext][query]",
+    "chunkFilename": "assets/js/[id].[chunkhash:8].js",
+    "filename": "assets/js/[name].[chunkhash:8].js",
+    "path": "<root>/dist",
+    "publicPath": "/"
+  },
+  "plugins": [
+    "[ESLintWebpackPlugin]",
+    "[ProgressPlugin]",
+    "[CleanWebpackPlugin]",
+    "[ProvidePlugin]",
+    "[DefinePlugin]",
+    "[HtmlWebpackPlugin]",
+    "[MiniCssExtractPlugin]"
+  ],
+  "resolve": {
+    "alias": {
+      "@root": "<root>/src"
+    },
+    "extensions": [
+      ".js",
+      ".jsx",
+      ".ts",
+      ".tsx"
+    ]
+  },
+  "target": "web"
+}
+`;
+
+exports[`snapshot: default development config 1`] = `
+{
+  "cache": {
+    "cacheDirectory": "<root>/node_modules/.cache/webpack",
+    "type": "filesystem"
+  },
+  "devServer": {
+    "compress": true,
+    "headers": {
+      "Access-Control-Allow-Origin": "*"
+    },
+    "hot": true,
+    "port": 9000
+  },
+  "devtool": "eval-cheap-module-source-map",
+  "entry": {
+    "main": "./src/index.js"
+  },
+  "externals": {},
+  "mode": "development",
+  "module": {
+    "rules": [
+      {
+        "exclude": "/node_modules/",
+        "loader": "ts-loader",
+        "options": {
+          "configFile": "<root>/tsconfig.json",
+          "experimentalWatchApi": true,
+          "transpileOnly": true
+        },
+        "test": "/\\\\.tsx?$/"
+      },
+      {
+        "exclude": "/node_modules/",
+        "test": "/\\\\.jsx?$/",
+        "use": {
+          "loader": "babel-loader",
+          "options": {
+            "cacheCompression": false,
+            "cacheDirectory": true,
+            "only": [
+              "src"
+            ],
+            "plugins": [
+              "@babel/plugin-transform-class-properties",
+              "@babel/plugin-transform-object-rest-spread"
+            ],
+            "presets": [
+              [
+                "@babel/env",
+                {
+                  "targets": "> 0.25%, not dead"
+                }
+              ],
+              "@babel/react"
+            ]
+          }
+        }
+      },
+      {
+        "loader": "node-loader",
+        "test": "/\\\\.node$/"
+      },
+      {
+        "test": "/\\\\.(css|s[ac]ss)$/i",
+        "use": [
+          {
+            "loader": "<repo>/node_modules/mini-css-extract-plugin/dist/loader.js"
+          },
+          "css-loader",
+          "sass-loader"
+        ]
+      },
+      {
+        "test": "/\\\\.(woff|woff2|ttf|eot|svg|png|jpg|gif|ico)(\\\\?\\\\w+)?$/",
+        "type": "asset/resource"
+      }
+    ]
+  },
+  "optimization": {
+    "minimize": false,
+    "minimizer": [
+      "[TerserPlugin]"
+    ],
+    "splitChunks": {
+      "automaticNameDelimiter": ".",
+      "chunks": "all"
+    }
+  },
+  "output": {
+    "assetModuleFilename": "assets/static/[name][ext][query]",
+    "chunkFilename": "assets/js/[id].js",
+    "filename": "assets/js/[name].js",
+    "path": "<root>/dist",
+    "publicPath": "/"
+  },
+  "plugins": [
+    "[ESLintWebpackPlugin]",
+    "[ProgressPlugin]",
+    "[CleanWebpackPlugin]",
+    "[ForkTsCheckerWebpackPlugin]",
+    "[ProvidePlugin]",
+    "[DefinePlugin]",
+    "[HtmlWebpackPlugin]",
+    "[MiniCssExtractPlugin]"
+  ],
+  "resolve": {
+    "alias": {
+      "@root": "<root>/src"
+    },
+    "extensions": [
+      ".js",
+      ".jsx",
+      ".ts",
+      ".tsx"
+    ]
+  },
+  "target": "web"
+}
+`;
+
+exports[`snapshot: default production config 1`] = `
+{
+  "cache": {
+    "cacheDirectory": "<root>/node_modules/.cache/webpack",
+    "type": "filesystem"
+  },
+  "devServer": {
+    "compress": true,
+    "headers": {
+      "Access-Control-Allow-Origin": "*"
+    },
+    "hot": true,
+    "port": 9000
+  },
+  "entry": {
+    "main": "./src/index.js"
+  },
+  "externals": {},
+  "mode": "production",
+  "module": {
+    "rules": [
+      {
+        "exclude": "/node_modules/",
+        "loader": "ts-loader",
+        "options": {
+          "configFile": "<root>/tsconfig.json",
+          "experimentalWatchApi": true,
+          "transpileOnly": true
+        },
+        "test": "/\\\\.tsx?$/"
+      },
+      {
+        "exclude": "/node_modules/",
+        "test": "/\\\\.jsx?$/",
+        "use": {
+          "loader": "babel-loader",
+          "options": {
+            "cacheCompression": false,
+            "cacheDirectory": true,
+            "only": [
+              "src"
+            ],
+            "plugins": [
+              "@babel/plugin-transform-class-properties",
+              "@babel/plugin-transform-object-rest-spread"
+            ],
+            "presets": [
+              [
+                "@babel/env",
+                {
+                  "targets": "> 0.25%, not dead"
+                }
+              ],
+              "@babel/react"
+            ]
+          }
+        }
+      },
+      {
+        "loader": "node-loader",
+        "test": "/\\\\.node$/"
+      },
+      {
+        "test": "/\\\\.(css|s[ac]ss)$/i",
+        "use": [
+          {
+            "loader": "<repo>/node_modules/mini-css-extract-plugin/dist/loader.js"
+          },
+          "css-loader",
+          "sass-loader"
+        ]
+      },
+      {
+        "test": "/\\\\.(woff|woff2|ttf|eot|svg|png|jpg|gif|ico)(\\\\?\\\\w+)?$/",
+        "type": "asset/resource"
+      }
+    ]
+  },
+  "optimization": {
+    "minimize": true,
+    "minimizer": [
+      "[TerserPlugin]"
+    ],
+    "splitChunks": {
+      "automaticNameDelimiter": ".",
+      "chunks": "all"
+    }
+  },
+  "output": {
+    "assetModuleFilename": "assets/static/[name].[hash:8][ext][query]",
+    "chunkFilename": "assets/js/[id].[chunkhash:8].js",
+    "filename": "assets/js/[name].[chunkhash:8].js",
+    "path": "<root>/dist",
+    "publicPath": "/"
+  },
+  "plugins": [
+    "[ESLintWebpackPlugin]",
+    "[ProgressPlugin]",
+    "[CleanWebpackPlugin]",
+    "[ForkTsCheckerWebpackPlugin]",
+    "[ProvidePlugin]",
+    "[DefinePlugin]",
+    "[HtmlWebpackPlugin]",
+    "[MiniCssExtractPlugin]"
+  ],
+  "resolve": {
+    "alias": {
+      "@root": "<root>/src"
+    },
+    "extensions": [
+      ".js",
+      ".jsx",
+      ".ts",
+      ".tsx"
+    ]
+  },
+  "target": "web"
+}
+`;
+
+exports[`snapshot: library config 1`] = `
+{
+  "cache": {
+    "cacheDirectory": "<root>/node_modules/.cache/webpack",
+    "type": "filesystem"
+  },
+  "devServer": {
+    "compress": true,
+    "headers": {
+      "Access-Control-Allow-Origin": "*"
+    },
+    "hot": true,
+    "port": 9000
+  },
+  "entry": {
+    "main": "./src/index.js"
+  },
+  "externals": {},
+  "mode": "production",
+  "module": {
+    "rules": [
+      {
+        "exclude": "/node_modules/",
+        "loader": "ts-loader",
+        "options": {
+          "configFile": "<root>/tsconfig.json",
+          "experimentalWatchApi": true,
+          "transpileOnly": true
+        },
+        "test": "/\\\\.tsx?$/"
+      },
+      {
+        "exclude": "/node_modules/",
+        "test": "/\\\\.jsx?$/",
+        "use": {
+          "loader": "babel-loader",
+          "options": {
+            "cacheCompression": false,
+            "cacheDirectory": true,
+            "only": [
+              "src"
+            ],
+            "plugins": [
+              "@babel/plugin-transform-class-properties",
+              "@babel/plugin-transform-object-rest-spread"
+            ],
+            "presets": [
+              [
+                "@babel/env",
+                {
+                  "targets": "> 0.25%, not dead"
+                }
+              ],
+              "@babel/react"
+            ]
+          }
+        }
+      },
+      {
+        "loader": "node-loader",
+        "test": "/\\\\.node$/"
+      },
+      {
+        "test": "/\\\\.(css|s[ac]ss)$/i",
+        "use": [
+          {
+            "loader": "<repo>/node_modules/mini-css-extract-plugin/dist/loader.js"
+          },
+          "css-loader",
+          "sass-loader"
+        ]
+      },
+      {
+        "test": "/\\\\.(woff|woff2|ttf|eot|svg|png|jpg|gif|ico)(\\\\?\\\\w+)?$/",
+        "type": "asset/resource"
+      }
+    ]
+  },
+  "optimization": {
+    "minimize": true,
+    "minimizer": [
+      "[TerserPlugin]"
+    ],
+    "splitChunks": {}
+  },
+  "output": {
+    "assetModuleFilename": "[name][ext][query]",
+    "chunkFilename": "[id].js",
+    "filename": "[name].js",
+    "library": "MyLib",
+    "libraryTarget": "umd",
+    "path": "<root>/dist",
+    "publicPath": "/"
+  },
+  "plugins": [
+    "[ESLintWebpackPlugin]",
+    "[ProgressPlugin]",
+    "[CleanWebpackPlugin]",
+    "[ForkTsCheckerWebpackPlugin]",
+    "[ProvidePlugin]",
+    "[DefinePlugin]",
+    "[MiniCssExtractPlugin]"
+  ],
+  "resolve": {
+    "alias": {
+      "@root": "<root>/src"
+    },
+    "extensions": [
+      ".js",
+      ".jsx",
+      ".ts",
+      ".tsx"
+    ]
+  },
+  "target": "web"
+}
+`;

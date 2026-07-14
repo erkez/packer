@@ -22,11 +22,28 @@ Common tasks:
 | Command | Purpose |
 | --- | --- |
 | `yarn build` | Build `@ekz/packer` |
+| `yarn test` | Rebuild, then run the test suite |
 | `yarn lint` | Lint the package and the example apps |
 | `yarn audit` | Fail on high-severity advisories in the dependency tree |
 | `yarn docs:dev` | Run the documentation site locally |
 
 The `examples/` workspaces consume the local build, so `yarn workspace my-app build:prod` is a useful end-to-end check that a config change actually produces a working bundle.
+
+## Tests
+
+`packages/packer/test/` covers the emitted Webpack and Vite configurations, using Node's built-in test runner — there is no test framework to install.
+
+**Any change to how a configuration is generated needs a test.** New options, changed defaults, and changed merge behaviour are all user-visible, and an assertion on the emitted config is the cheapest way to keep them that way. Bug fixes should come with a test that fails without the fix.
+
+Tests run against the built `dist/`, which is what users consume, so `yarn test` rebuilds first — never run `node --test` directly, or you will be testing the previous build.
+
+Some behaviour is only observable inside a plugin instance rather than on the config object (the `eslint`, `define`, `provide` and `html` options, for example). Assert on the specific fields Packer sets — `findPlugin(config, 'DefinePlugin').definitions` — rather than snapshotting a whole plugin's options, which would churn whenever that plugin's own defaults change.
+
+Snapshots cover overall config shape. Regenerate them deliberately, and read the diff:
+
+```sh
+yarn workspace @ekz/packer test --test-update-snapshots
+```
 
 ## Submitting changes
 

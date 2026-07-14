@@ -1,0 +1,132 @@
+exports[`snapshot: config without react or typechecking 1`] = `
+{
+  "build": {
+    "outDir": "dist",
+    "rollupOptions": {
+      "input": "<root>/index.html",
+      "output": {
+        "assetFileNames": "[Function]",
+        "chunkFileNames": "assets/js/[name]-[hash].js",
+        "entryFileNames": "assets/js/[name]-[hash].js"
+      }
+    }
+  },
+  "plugins": [],
+  "resolve": {
+    "alias": {
+      "@root": "<root>/src"
+    }
+  },
+  "root": "<root>",
+  "server": {
+    "headers": {
+      "Access-Control-Allow-Origin": "*"
+    },
+    "port": 9000
+  }
+}
+`;
+
+exports[`snapshot: default config 1`] = `
+{
+  "build": {
+    "outDir": "dist",
+    "rollupOptions": {
+      "input": "<root>/index.html",
+      "output": {
+        "assetFileNames": "[Function]",
+        "chunkFileNames": "assets/js/[name]-[hash].js",
+        "entryFileNames": "assets/js/[name]-[hash].js"
+      }
+    }
+  },
+  "plugins": [
+    [
+      {
+        "config": "[Function]",
+        "configResolved": "[Function]",
+        "enforce": "pre",
+        "name": "vite:react-babel",
+        "options": "[Function]"
+      },
+      {
+        "apply": "serve",
+        "applyToEnvironment": "[Function]",
+        "name": "vite:react:refresh-wrapper"
+      },
+      {
+        "config": "[Function]",
+        "enforce": "post",
+        "name": "vite:react:config-post"
+      },
+      {
+        "enforce": "pre",
+        "name": "vite:react-refresh-fbm",
+        "transformIndexHtml": {
+          "handler": "[Function]",
+          "order": "pre"
+        }
+      },
+      {
+        "config": "[Function]",
+        "enforce": "pre",
+        "load": {
+          "filter": {
+            "id": "/^\\\\/@react\\\\-refresh$/"
+          },
+          "handler": "[Function]"
+        },
+        "name": "vite:react-refresh",
+        "resolveId": {
+          "filter": {
+            "id": "/^\\\\/@react\\\\-refresh$/"
+          },
+          "handler": "[Function]"
+        },
+        "transformIndexHtml": "[Function]"
+      },
+      {
+        "load": {
+          "filter": {
+            "id": "/^\\u0000@vitejs\\\\/plugin\\\\-react\\\\/preamble$/"
+          },
+          "handler": "[Function]"
+        },
+        "name": "vite:react-virtual-preamble",
+        "resolveId": {
+          "filter": {
+            "id": "/^@vitejs\\\\/plugin\\\\-react\\\\/preamble$/"
+          },
+          "handler": "[Function]",
+          "order": "pre"
+        }
+      }
+    ],
+    {
+      "__internal__checker": "[Function]",
+      "buildEnd": "[Function]",
+      "buildStart": "[Function]",
+      "config": "[Function]",
+      "configResolved": "[Function]",
+      "configureServer": "[Function]",
+      "enforce": "pre",
+      "load": "[Function]",
+      "name": "vite-plugin-checker",
+      "resolveId": "[Function]",
+      "transformIndexHtml": "[Function]"
+    }
+  ],
+  "resolve": {
+    "alias": {
+      "@root": "<root>/src"
+    }
+  },
+  "root": "<root>",
+  "server": {
+    "headers": {
+      "Access-Control-Allow-Origin": "*"
+    },
+    "port": 9000
+  }
+}
+`;

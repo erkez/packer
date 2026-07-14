@@ -33,6 +33,8 @@ jobs:
 
       - run: yarn build
 
+      - run: yarn test
+
       - run: yarn lint
 
       - run: yarn docs:build
