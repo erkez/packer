@@ -41,6 +41,16 @@ const Packer = require('@ekz/packer');
 module.exports = Packer.vite.createApplicationConfiguration();
 ```
 
+### Entry points
+
+`@ekz/packer` exports both bundlers, so importing it loads Webpack and Vite. Use `@ekz/packer/vite` or `@ekz/packer/webpack` to load only the one you configure:
+
+```js
+const Packer = require('@ekz/packer/vite');
+
+module.exports = Packer.createApplicationConfiguration();
+```
+
 For ESLint, create `eslint.config.js` in your application root directory:
 
 ```js

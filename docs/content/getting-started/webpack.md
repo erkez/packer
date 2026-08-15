@@ -14,6 +14,14 @@ const Packer = require('@ekz/packer');
 module.exports = Packer.webpack.createApplicationConfiguration();
 ```
 
+`@ekz/packer` exports both bundlers, so this loads Vite too. Import `@ekz/packer/webpack` to load only the Webpack half:
+
+```js
+const Packer = require('@ekz/packer/webpack');
+
+module.exports = Packer.createApplicationConfiguration();
+```
+
 This enables:
 
 - Babel for JS/JSX in `src/` (and TS/TSX when no `tsconfig.json` is found)

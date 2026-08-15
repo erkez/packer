@@ -14,6 +14,14 @@ const Packer = require('@ekz/packer');
 module.exports = Packer.vite.createApplicationConfiguration();
 ```
 
+`@ekz/packer` exports both bundlers, so this loads Webpack too. Import `@ekz/packer/vite` to load only the Vite half:
+
+```js
+const Packer = require('@ekz/packer/vite');
+
+module.exports = Packer.createApplicationConfiguration();
+```
+
 This enables:
 
 - React support via `@vitejs/plugin-react`

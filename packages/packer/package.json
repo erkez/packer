@@ -11,6 +11,16 @@
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
+    "./vite": {
+      "require": "./dist/vite.js",
+      "import": "./dist/vite.js",
+      "types": "./dist/vite.d.ts"
+    },
+    "./webpack": {
+      "require": "./dist/webpack.js",
+      "import": "./dist/webpack.js",
+      "types": "./dist/webpack.d.ts"
+    },
     "./recommended": "./config/eslint/recommended.js",
     "./typescript": "./config/eslint/typescript.js",
     "./tsconfig/*": "./tsconfig/*"

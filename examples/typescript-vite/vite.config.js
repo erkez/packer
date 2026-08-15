@@ -1,3 +1,3 @@
-const Packer = require('@ekz/packer');
+const Packer = require('@ekz/packer/vite');
 
-module.exports = Packer.vite.createApplicationConfiguration();
+module.exports = Packer.createApplicationConfiguration();
