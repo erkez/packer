@@ -4872,12 +4872,10 @@ __metadata:
     eslint-plugin-prettier: "npm:^5.5.6"
     eslint-plugin-react: "npm:^7.37.5"
     eslint-plugin-react-hooks: "npm:^7.1.1"
-    eslint-webpack-plugin: "npm:^6.0.0"
     globals: "npm:^17.9.0"
     prettier: "npm:^3.9.6"
     typescript: "npm:^6.0.3"
     typescript-eslint: "npm:^8.62.0"
-    webpack: "npm:^5.109.2"
   languageName: unknown
   linkType: soft
 
@@ -4916,6 +4914,8 @@ __metadata:
     clean-webpack-plugin: "npm:^4.0.0"
     css-loader: "npm:^7.1.4"
     cssnano: "npm:^8.0.2"
+    eslint: "npm:^10.8.0"
+    eslint-webpack-plugin: "npm:^6.0.0"
     file-loader: "npm:^6.2.0"
     fork-ts-checker-webpack-plugin: "npm:^9.1.0"
     html-webpack-plugin: "npm:^5.6.8"

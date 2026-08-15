@@ -58,6 +58,8 @@
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^7.1.4",
     "cssnano": "^8.0.2",
+    "eslint": "^10.8.0",
+    "eslint-webpack-plugin": "^6.0.0",
     "file-loader": "^6.2.0",
     "fork-ts-checker-webpack-plugin": "^9.1.0",
     "html-webpack-plugin": "^5.6.8",
