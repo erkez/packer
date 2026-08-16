@@ -1,5 +1,20 @@
 # @ekz/packer
 
+## 1.1.0
+
+### Minor Changes
+
+- 0961e52: Add `@ekz/packer/vite` and `@ekz/packer/webpack` subpath exports. The root entry point re-exports both bundlers, so configuring one still loads the other along with all of its loaders and plugins. The subpaths load only the half you configure; the root entry point is unchanged.
+- f0f0300: Upgrade to webpack-dev-server v6. Packer's own defaults are unchanged — port 9000, hot reload, compression, and the CORS header — and `npx webpack-dev-server --mode=development` still works, because the v6 binary is the same shim that delegates to `webpack-cli serve`.
+
+  Applications that pass a custom `devServer` block may need changes. v6 moves to Express 5 and drops several options: `proxy.bypass` (use `router` or `context`), SockJS (`webSocketServer: 'sockjs'`), and `server.type: 'spdy'` (use `'http2'`). It also requires Node.js 22.15 or later, which Packer's own Node 24 floor already satisfies. See the [v6 release notes](https://github.com/webpack/webpack-dev-server/releases/tag/v6.0.0) for the full list.
+
+### Patch Changes
+
+- 3cc7171: Declare `eslint-webpack-plugin` (and `eslint`) as dependencies of `@ekz/packer`. `dist/webpack.js` has always required the plugin, but it was declared by `@ekz/eslint-config-packer` instead, which never used it. npm's flat hoisting made that resolve by accident; under Yarn 4 the plugin nests out of Packer's resolution path and `require('@ekz/packer')` fails with `Cannot find module 'eslint-webpack-plugin'` — including for Vite-only consumers. `@ekz/eslint-config-packer` drops the plugin and its `webpack` dev dependency, which existed only to satisfy the plugin's peer range.
+- Updated dependencies [3cc7171]
+  - @ekz/eslint-config-packer@1.1.0
+
 ## 1.0.3
 
 ### Patch Changes

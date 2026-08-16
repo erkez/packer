@@ -1,8 +1,17 @@
 {
   "name": "@ekz/packer",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Opinionated Webpack and Vite configuration for React applications, with built-in ESLint and TypeScript support.",
-  "keywords": ["react", "webpack", "vite", "bundler", "build-tool", "eslint", "typescript", "config"],
+  "keywords": [
+    "react",
+    "webpack",
+    "vite",
+    "bundler",
+    "build-tool",
+    "eslint",
+    "typescript",
+    "config"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
