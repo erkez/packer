@@ -38,14 +38,32 @@ jobs:
 
       - name: Create release pull request or publish
         id: changesets
-        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1
+        uses: changesets/action@22ccf9aa43179fe9e27dc62e575971d28cce197c # v2
         with:
-          publish: yarn release
-          title: Version packages
-          commit: Version packages
-          commitMode: github-api
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          publish-script: yarn release
+          pr-title: Version packages
+          commit-message: Version packages
+
+      # A publish that succeeds while the action fails to read its CHANGESETS_OUTPUT report leaves
+      # published=false, which skips tagging, the GitHub Releases and every provenance step below
+      # without failing the job. On npm but untagged is the signature of that half-release.
+      - name: Fail on a publish that was not tagged
+        if: steps.changesets.outputs.published != 'true'
+        run: |
+          version=$(node -p "require('./packages/packer/package.json').version")
+
+          if ! npm view "@ekz/packer@$version" version > /dev/null 2>&1; then
+            echo "@ekz/packer@$version is not on npm — nothing was published."
+            exit 0
+          fi
+
+          if git rev-parse -q --verify "refs/tags/@ekz/packer@$version" > /dev/null; then
+            echo "@ekz/packer@$version is published and tagged."
+            exit 0
+          fi
+
+          echo "::error::@ekz/packer@$version is on npm but has no git tag. The release step reported published=false, so tags, GitHub Releases and provenance attestations were all skipped."
+          exit 1
 
       - name: Pack published packages for provenance
         if: steps.changesets.outputs.published == 'true'

@@ -36,4 +36,4 @@ for (const workspace of ['@ekz/eslint-config-packer', '@ekz/packer']) {
     run(`yarn workspace ${workspace} npm publish ${publishFlags}`);
 }
 
-run('yarn changeset tag');
+run('yarn changeset git-tag');
