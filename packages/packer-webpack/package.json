@@ -1,6 +1,6 @@
 {
   "name": "@ekz/packer-webpack",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Opinionated Webpack configuration for React applications, with built-in ESLint and TypeScript support.",
   "keywords": [
     "react",

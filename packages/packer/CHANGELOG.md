@@ -1,5 +1,19 @@
 # @ekz/packer
 
+## 1.2.0
+
+### Minor Changes
+
+- 1ea5eb3: Stop sending `Access-Control-Allow-Origin: *` from the Vite and webpack dev servers. Both servers already allow `localhost` origins by default, and the wildcard switched off the cross-origin protections each of them ships — Vite's origin allowlist and webpack-dev-server's `Cross-Origin-Resource-Policy: same-origin` — so any site open in the browser could read source from a running dev server. Apps that load the dev server from a non-localhost origin now have to set `server.headers` (Vite) or `devServer.headers` (webpack) themselves.
+- 96235af: Publish each bundler's configuration as its own package: `@ekz/packer-vite` and `@ekz/packer-webpack`. `@ekz/packer` now depends on both and re-exports them, so its API, subpaths and ESLint/tsconfig exports are unchanged. An app that only uses Vite can install `@ekz/packer-vite` alone and skip the webpack toolchain — 42 packages instead of 831 in a fresh npm install. `@ekz/eslint-config-packer` now declares `prettier`, which its Prettier plugin needs, instead of relying on `@ekz/packer` to provide it. `postcss`, `postcss-loader`, `postcss-preset-env` and `cssnano` are no longer dependencies: nothing in the webpack configuration used them.
+
+### Patch Changes
+
+- Updated dependencies [96235af]
+  - @ekz/packer-vite@1.2.0
+  - @ekz/packer-webpack@1.2.0
+  - @ekz/eslint-config-packer@1.2.0
+
 ## 1.1.0
 
 ### Minor Changes
