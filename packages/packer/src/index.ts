@@ -1,12 +1,12 @@
-import * as webpack from './webpack';
-import * as vite from './vite';
+import * as webpack from '@ekz/packer-webpack';
+import * as vite from '@ekz/packer-vite';
 
 export { vite, webpack };
 export type {
     AssetPaths,
     PackerOptions,
     PackerOutputOptions,
-    VitePackerOptions,
     WebpackArgv,
     WebpackConfigFactory
-} from './types';
+} from '@ekz/packer-webpack';
+export type { VitePackerOptions } from '@ekz/packer-vite';

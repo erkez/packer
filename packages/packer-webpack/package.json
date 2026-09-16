@@ -1,0 +1,82 @@
+{
+  "name": "@ekz/packer-webpack",
+  "version": "1.1.0",
+  "description": "Opinionated Webpack configuration for React applications, with built-in ESLint and TypeScript support.",
+  "keywords": [
+    "react",
+    "webpack",
+    "bundler",
+    "build-tool",
+    "eslint",
+    "typescript",
+    "config"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./tsconfig/*": "./tsconfig/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/erkez/packer.git",
+    "directory": "packages/packer-webpack"
+  },
+  "homepage": "https://packer.ekz.io",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist/**",
+    "tsconfig/**",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "yarn build",
+    "test": "yarn build && node --test 'test/**/*.test.js'",
+    "lint": "npx eslint .",
+    "lint:fix": "yarn lint --fix"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "peerDependencies": {
+    "typescript": "*"
+  },
+  "dependencies": {
+    "@babel/core": "^8.0.1",
+    "@babel/plugin-transform-class-properties": "^8.0.1",
+    "@babel/plugin-transform-object-rest-spread": "^8.0.1",
+    "@babel/preset-env": "^8.0.2",
+    "@babel/preset-react": "^8.0.1",
+    "@babel/preset-typescript": "^8.0.1",
+    "babel-loader": "^10.1.1",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^7.1.5",
+    "eslint": "^10.10.0",
+    "eslint-webpack-plugin": "^6.0.0",
+    "file-loader": "^6.2.0",
+    "fork-ts-checker-webpack-plugin": "^9.1.0",
+    "html-webpack-plugin": "^5.6.8",
+    "mini-css-extract-plugin": "^2.10.2",
+    "node-loader": "^2.1.0",
+    "sass": "^1.104.0",
+    "sass-loader": "^17.0.1",
+    "terser-webpack-plugin": "^5.6.1",
+    "ts-loader": "^9.6.2",
+    "webpack": "^5.110.3",
+    "webpack-cli": "^7.2.3",
+    "webpack-dev-server": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.2",
+    "typescript": "^6.0.3"
+  }
+}

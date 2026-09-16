@@ -12,9 +12,8 @@ function fixture(name) {
 }
 
 /**
- * Both factories resolve paths against INIT_CWD, which yarn sets but `node --test` does not.
- * Webpack throws without it; vite silently falls back to process.cwd() and picks up packer's own
- * tsconfig.json, so every test must pin it explicitly rather than rely on a default.
+ * The factories resolve paths against INIT_CWD, which yarn sets but `node --test` does not, and
+ * webpack throws without it, so every test must pin it explicitly rather than rely on a default.
  */
 function withInitCwd(name, run) {
     const previous = process.env.INIT_CWD;
@@ -32,19 +31,11 @@ function withInitCwd(name, run) {
 }
 
 function webpackConfig(opts = {}, { mode = 'production', app = 'ts-app' } = {}) {
-    return withInitCwd(app, () =>
-        packer.webpack.createApplicationConfiguration(opts)(null, { mode })
-    );
+    return withInitCwd(app, () => packer.createApplicationConfiguration(opts)(null, { mode }));
 }
 
 function libraryConfig(name, opts = {}, { mode = 'production', app = 'ts-app' } = {}) {
-    return withInitCwd(app, () =>
-        packer.webpack.createLibraryConfiguration(name, opts)(null, { mode })
-    );
-}
-
-function viteConfig(opts = {}, { app = 'ts-app' } = {}) {
-    return withInitCwd(app, () => packer.vite.createApplicationConfiguration(opts));
+    return withInitCwd(app, () => packer.createLibraryConfiguration(name, opts)(null, { mode }));
 }
 
 function pluginNames(config) {
@@ -53,13 +44,6 @@ function pluginNames(config) {
 
 function findPlugin(config, name) {
     return config.plugins.find((plugin) => plugin.constructor.name === name);
-}
-
-function vitePluginNames(config) {
-    return config.plugins
-        .flat(Infinity)
-        .filter(Boolean)
-        .map((plugin) => plugin.name);
 }
 
 function babelOptions(config) {
@@ -118,8 +102,6 @@ module.exports = {
     libraryConfig,
     normalize,
     pluginNames,
-    viteConfig,
-    vitePluginNames,
     webpackConfig,
     withInitCwd
 };

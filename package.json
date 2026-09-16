@@ -15,9 +15,9 @@
     "url": "https://github.com/erkez/packer.git"
   },
   "scripts": {
-    "build": "yarn workspace @ekz/packer build",
-    "test": "yarn workspace @ekz/packer test",
-    "lint": "yarn workspace @ekz/packer lint && yarn workspace my-app lint && yarn workspace my-vite-app lint",
+    "build": "yarn workspace @ekz/packer-vite build && yarn workspace @ekz/packer-webpack build && yarn workspace @ekz/packer build",
+    "test": "yarn build && yarn workspace @ekz/packer-vite test && yarn workspace @ekz/packer-webpack test && yarn workspace @ekz/packer test",
+    "lint": "yarn workspace @ekz/packer-vite lint && yarn workspace @ekz/packer-webpack lint && yarn workspace @ekz/packer lint && yarn workspace my-app lint && yarn workspace my-vite-app lint",
     "docs:dev": "yarn workspace @ekz/packer-docs start",
     "docs:build": "yarn workspace @ekz/packer-docs build",
     "audit": "yarn npm audit -A -R --severity high",

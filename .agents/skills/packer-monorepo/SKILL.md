@@ -11,24 +11,27 @@ description: >-
 ## Layout
 
 ```
-packages/packer/               @ekz/packer — TypeScript → dist/
+packages/packer-vite/          @ekz/packer-vite — Vite config, TypeScript → dist/
+packages/packer-webpack/       @ekz/packer-webpack — Webpack config, TypeScript → dist/
+packages/packer/               @ekz/packer — re-exports both, plus ESLint/tsconfig exports
 packages/eslint-config-packer/ shared ESLint flat configs
 examples/typescript/           my-app — integration test + copyable starter
+examples/typescript-vite/      my-vite-app — same, for Vite
 ```
 
 Workspaces: `packages/*`, `examples/*`. One root `yarn.lock`.
 
 ## Library
 
-- Source: `packages/packer/src/` · publish: `dist/` (`yarn build` / `prepare`)
-- API: `Packer.webpack.createApplicationConfiguration()` / `createLibraryConfiguration()`
-- Also exports `./recommended`, `./typescript`, `./tsconfig/*`
+- Source: `packages/packer-vite/src/`, `packages/packer-webpack/src/`; `packages/packer/src/` only re-exports · publish: `dist/` (root `yarn build` builds the three in dependency order)
+- API: `Packer.webpack.createApplicationConfiguration()` / `createLibraryConfiguration()`, `Packer.vite.createApplicationConfiguration()`
+- `@ekz/packer` also exports `./vite`, `./webpack`, `./recommended`, `./typescript`, `./tsconfig/*`
 - Node `>=24` (`.nvmrc` in repo root and each example)
 
 ```sh
 yarn install && yarn dedupe   # after adding deps; commit yarn.lock
-yarn workspace @ekz/packer build
-yarn workspace @ekz/packer lint
+yarn build
+yarn lint
 yarn workspace my-app lint   # when webpack or eslint surface changes
 ```
 
@@ -44,9 +47,8 @@ After editing source or config, run lint on affected workspaces before marking t
 
 ```sh
 nvm use
-yarn workspace @ekz/packer lint        # packages/packer/src, eslint-config-packer
-yarn workspace my-app lint             # examples/typescript when webpack/eslint surface changes
-yarn workspace @ekz/packer lint:fix    # auto-fix Prettier and other fixable rules
+yarn lint                              # every package and example
+yarn workspace @ekz/packer-webpack lint:fix   # auto-fix Prettier and other fixable rules, per workspace
 ```
 
 Formatting runs through ESLint (`eslint-plugin-prettier`), not a separate Prettier pass. Fix reported issues or run `lint:fix`; do not leave lint errors for CI.
@@ -60,10 +62,10 @@ Formatting runs through ESLint (`eslint-plugin-prettier`), not a separate Pretti
 - **Docs** (`.github/workflows/docs.yml`): Docusaurus → GitHub Pages at `https://packer.ekz.io/` (custom domain via `docs/static/CNAME`; DNS `packer.ekz.io` CNAME → `erkez.github.io`, HTTPS in GitHub Pages settings)
 - **Scorecard** (`.github/workflows/scorecard.yml`): OSSF Scorecard on push to `master` + weekly schedule, publishes publicly (`publish_results: true`) and uploads SARIF to code scanning; badge in `README.md`. Only scores `master` — a feature branch won't update it.
 - **CodeQL** (`.github/workflows/codeql.yml`): SAST on push to `master`, PRs, and a weekly schedule; JS/TS analysis uploaded to code scanning.
-- **Release** (`.github/workflows/release.yml`): Changesets on `master` → version PR or npm publish via `yarn npm publish --provenance` (see `scripts/release.mjs`; **not** `changeset publish`, which leaves `workspace:` ranges on npm). Version PR commits use `commitMode: github-api` so they are GitHub-verified under signed-commit rulesets. After a real publish, it also packs both workspaces, generates a build provenance attestation (`actions/attest-build-provenance`), and uploads it as an asset on both GitHub Releases (which `changesets/action` creates automatically from the tags).
+- **Release** (`.github/workflows/release.yml`): Changesets on `master` → version PR or npm publish via `yarn npm publish --provenance` (see `scripts/release.mjs`; **not** `changeset publish`, which leaves `workspace:` ranges on npm). Version PR commits use `commitMode: github-api` so they are GitHub-verified under signed-commit rulesets. After a real publish, it also packs all four published workspaces, generates a build provenance attestation (`actions/attest-build-provenance`), and uploads it as an asset on each GitHub Release (which `changesets/action` creates automatically from the tags).
 - Packages are **fixed** in `.changeset/config.json` — they always share a version
 - **License**: MIT, copyright erkez — root `LICENSE` plus a copy in each published package; keep `LICENSE` in each package's `files` array
-- Requires **npm trusted publishing** configured on npmjs.com for `@ekz/packer` and `@ekz/eslint-config-packer` (GitHub Actions → repo `erkez/packer`, workflow **`release.yml`** — filename must match exactly)
+- Requires **npm trusted publishing** configured on npmjs.com for `@ekz/packer`, `@ekz/packer-vite`, `@ekz/packer-webpack` and `@ekz/eslint-config-packer` (GitHub Actions → repo `erkez/packer`, workflow **`release.yml`** — filename must match exactly)
 - No `NPM_TOKEN` — publish uses OIDC (`id-token: write` in release workflow)
 - GA'd at 1.0.0 — no longer in Changesets pre-release mode; publishes to `latest`
 - All GitHub Actions across workflows are **pinned to commit SHA** with a `# vX` comment (OpenSSF Scorecard Pinned-Dependencies) — Dependabot bumps both the SHA and comment

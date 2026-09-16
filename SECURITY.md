@@ -26,7 +26,7 @@ We aim to acknowledge reports within a few business days and will coordinate a f
 
 ## Release integrity
 
-`@ekz/packer` and `@ekz/eslint-config-packer` are published from GitHub Actions using [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/) (OIDC). Releases use **`yarn npm publish`** (via `scripts/release.mjs`) so Yarn resolves `workspace:` dependencies before upload; `changeset publish` alone would publish broken `workspace:^` ranges.
+`@ekz/packer`, `@ekz/packer-vite`, `@ekz/packer-webpack` and `@ekz/eslint-config-packer` are published from GitHub Actions using [npm trusted publishing](https://docs.npmjs.com/trusted-publishers/) (OIDC). Releases use **`yarn npm publish`** (via `scripts/release.mjs`) so Yarn resolves `workspace:` dependencies before upload; `changeset publish` alone would publish broken `workspace:^` ranges.
 
 Verify provenance on npm when installing.
 

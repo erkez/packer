@@ -33,6 +33,8 @@ const Packer = require('@ekz/packer');
 module.exports = Packer.vite.createApplicationConfiguration();
 ```
 
+Apps that use only one bundler can install `@ekz/packer-vite` or `@ekz/packer-webpack` instead and skip the other toolchain.
+
 See the [getting started guide](https://packer.ekz.io/docs/getting-started/installation) for ESLint, TypeScript, and migration from 0.16.
 
 The full package README (also published to npm) is in [packages/packer/README.md](packages/packer/README.md).

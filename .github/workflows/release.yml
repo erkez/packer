@@ -69,8 +69,9 @@ jobs:
         if: steps.changesets.outputs.published == 'true'
         run: |
           mkdir -p /tmp/provenance
-          yarn workspace @ekz/packer pack -o /tmp/provenance/packer.tgz
-          yarn workspace @ekz/eslint-config-packer pack -o /tmp/provenance/eslint-config-packer.tgz
+          for pkg in packer packer-vite packer-webpack eslint-config-packer; do
+            yarn workspace "@ekz/$pkg" pack -o "/tmp/provenance/$pkg.tgz"
+          done
 
       - name: Generate provenance attestation
         if: steps.changesets.outputs.published == 'true'
@@ -90,7 +91,7 @@ jobs:
           cp "$BUNDLE_PATH" /tmp/provenance/provenance.sigstore.json
           jq -ce '.dsseEnvelope' "$BUNDLE_PATH" > /tmp/provenance/provenance.intoto.jsonl
 
-          for pkg in packer eslint-config-packer; do
+          for pkg in packer packer-vite packer-webpack eslint-config-packer; do
             version=$(node -p "require('./packages/$pkg/package.json').version")
             gh release upload "@ekz/$pkg@$version" \
               /tmp/provenance/provenance.sigstore.json \

@@ -1,0 +1,1 @@
+This fixture deliberately has no tsconfig.json, exercising the JavaScript-only branch.

@@ -21,7 +21,7 @@ Common tasks:
 
 | Command | Purpose |
 | --- | --- |
-| `yarn build` | Build `@ekz/packer` |
+| `yarn build` | Build `@ekz/packer-vite`, `@ekz/packer-webpack` and `@ekz/packer` |
 | `yarn test` | Rebuild, then run the test suite |
 | `yarn lint` | Lint the package and the example apps |
 | `yarn audit` | Fail on high-severity advisories in the dependency tree |
@@ -31,7 +31,7 @@ The `examples/` workspaces consume the local build, so `yarn workspace my-app bu
 
 ## Tests
 
-`packages/packer/test/` covers the emitted Webpack and Vite configurations, using Node's built-in test runner — there is no test framework to install.
+`packages/packer-vite/test/` and `packages/packer-webpack/test/` cover the emitted Vite and Webpack configurations, and `packages/packer/test/` the re-exports, using Node's built-in test runner — there is no test framework to install.
 
 **Any change to how a configuration is generated needs a test.** New options, changed defaults, and changed merge behaviour are all user-visible, and an assertion on the emitted config is the cheapest way to keep them that way. Bug fixes should come with a test that fails without the fix.
 
@@ -42,7 +42,8 @@ Some behaviour is only observable inside a plugin instance rather than on the co
 Snapshots cover overall config shape. Regenerate them deliberately, and read the diff:
 
 ```sh
-yarn build && yarn workspace @ekz/packer exec node --test --test-update-snapshots 'test/**/*.test.js'
+yarn build && yarn workspace @ekz/packer-webpack exec node --test --test-update-snapshots 'test/**/*.test.js'
+yarn build && yarn workspace @ekz/packer-vite exec node --test --test-update-snapshots 'test/**/*.test.js'
 ```
 
 ## Submitting changes
@@ -54,7 +55,7 @@ yarn build && yarn workspace @ekz/packer exec node --test --test-update-snapshot
    yarn changeset
    ```
 
-   Any change to `@ekz/packer` or `@ekz/eslint-config-packer` that users would notice needs one — it drives the version bump and the changelog. Internal-only changes (CI, docs, tests) do not.
+   Any change to a published package (`@ekz/packer`, `@ekz/packer-vite`, `@ekz/packer-webpack`, `@ekz/eslint-config-packer`) that users would notice needs one — it drives the version bump and the changelog. Internal-only changes (CI, docs, tests) do not.
 
 3. Open a pull request.
 

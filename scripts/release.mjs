@@ -32,7 +32,12 @@ const publishFlags = [
 
 run('yarn build');
 
-for (const workspace of ['@ekz/eslint-config-packer', '@ekz/packer']) {
+for (const workspace of [
+    '@ekz/eslint-config-packer',
+    '@ekz/packer-vite',
+    '@ekz/packer-webpack',
+    '@ekz/packer'
+]) {
     run(`yarn workspace ${workspace} npm publish ${publishFlags}`);
 }
 

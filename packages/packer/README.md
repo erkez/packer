@@ -43,7 +43,7 @@ module.exports = Packer.vite.createApplicationConfiguration();
 
 ### Entry points
 
-`@ekz/packer` exports both bundlers, so importing it loads Webpack and Vite. Use `@ekz/packer/vite` or `@ekz/packer/webpack` to load only the one you configure:
+`@ekz/packer` exports both bundlers, so importing it loads Webpack and Vite. Use `@ekz/packer/vite` or `@ekz/packer/webpack` to load only the one you configure, or install [`@ekz/packer-vite`](https://www.npmjs.com/package/@ekz/packer-vite) / [`@ekz/packer-webpack`](https://www.npmjs.com/package/@ekz/packer-webpack) on their own to keep the other bundler out of `node_modules` entirely:
 
 ```js
 const Packer = require('@ekz/packer/vite');

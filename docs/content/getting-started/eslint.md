@@ -6,6 +6,8 @@ sidebar_position: 4
 
 Packer ships ESLint 10 **flat config** modules. Legacy `.eslintrc` is not supported in 1.0.
 
+The configs live in `@ekz/eslint-config-packer`; `@ekz/packer` re-exports them as `@ekz/packer/recommended` and `@ekz/packer/typescript`. If you installed `@ekz/packer-vite` or `@ekz/packer-webpack` instead, add `@ekz/eslint-config-packer` and import from it directly.
+
 ## JavaScript / JSX
 
 Create `eslint.config.js`:

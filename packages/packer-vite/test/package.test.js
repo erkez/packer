@@ -1,7 +1,6 @@
 'use strict';
 
 const assert = require('node:assert/strict');
-const { execFileSync } = require('node:child_process');
 const fs = require('node:fs');
 const { builtinModules } = require('node:module');
 const path = require('node:path');
@@ -50,41 +49,4 @@ test('every package the build requires is declared', () => {
     const undeclared = requiredPackages().filter((name) => !declared.has(name));
 
     assert.deepEqual(undeclared, []);
-});
-
-test('the vite entry point resolves without loading webpack', () => {
-    const loaded = execFileSync(
-        process.execPath,
-        [
-            '-e',
-            `const vite = require('@ekz/packer/vite');
-             if (typeof vite.createApplicationConfiguration !== 'function') {
-                 throw new Error('missing createApplicationConfiguration');
-             }
-             console.log(Object.keys(require.cache).some((id) => id.includes('/webpack/')));`
-        ],
-        { cwd: PACKAGE_ROOT, encoding: 'utf8' }
-    );
-
-    assert.equal(loaded.trim(), 'false');
-});
-
-test('the webpack entry point resolves', () => {
-    const webpack = require('@ekz/packer/webpack');
-
-    assert.equal(typeof webpack.createApplicationConfiguration, 'function');
-    assert.equal(typeof webpack.createLibraryConfiguration, 'function');
-});
-
-test('the root entry point exposes both bundlers', () => {
-    const packer = require('@ekz/packer');
-
-    assert.equal(
-        packer.vite.createApplicationConfiguration,
-        require('@ekz/packer-vite').createApplicationConfiguration
-    );
-    assert.equal(
-        packer.webpack.createApplicationConfiguration,
-        require('@ekz/packer-webpack').createApplicationConfiguration
-    );
 });

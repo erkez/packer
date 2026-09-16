@@ -14,10 +14,10 @@ const Packer = require('@ekz/packer');
 module.exports = Packer.vite.createApplicationConfiguration();
 ```
 
-`@ekz/packer` exports both bundlers, so this loads Webpack too. Import `@ekz/packer/vite` to load only the Vite half:
+`@ekz/packer` exports both bundlers, so this loads Webpack too. Import `@ekz/packer/vite` to load only the Vite half, or install `@ekz/packer-vite` instead of `@ekz/packer` to not have Webpack in `node_modules` at all — the API is the same:
 
 ```js
-const Packer = require('@ekz/packer/vite');
+const Packer = require('@ekz/packer-vite');
 
 module.exports = Packer.createApplicationConfiguration();
 ```

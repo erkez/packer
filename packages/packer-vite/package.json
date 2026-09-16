@@ -1,14 +1,12 @@
 {
-  "name": "@ekz/packer",
+  "name": "@ekz/packer-vite",
   "version": "1.1.0",
-  "description": "Opinionated Webpack and Vite configuration for React applications, with built-in ESLint and TypeScript support.",
+  "description": "Opinionated Vite configuration for React applications, with built-in TypeScript typechecking.",
   "keywords": [
     "react",
-    "webpack",
     "vite",
     "bundler",
     "build-tool",
-    "eslint",
     "typescript",
     "config"
   ],
@@ -20,23 +18,12 @@
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./vite": {
-      "require": "./dist/vite.js",
-      "import": "./dist/vite.js",
-      "types": "./dist/vite.d.ts"
-    },
-    "./webpack": {
-      "require": "./dist/webpack.js",
-      "import": "./dist/webpack.js",
-      "types": "./dist/webpack.d.ts"
-    },
-    "./recommended": "./config/eslint/recommended.js",
-    "./typescript": "./config/eslint/typescript.js",
     "./tsconfig/*": "./tsconfig/*"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/erkez/packer.git"
+    "url": "https://github.com/erkez/packer.git",
+    "directory": "packages/packer-vite"
   },
   "homepage": "https://packer.ekz.io",
   "license": "MIT",
@@ -45,11 +32,9 @@
   },
   "files": [
     "dist/**",
-    "config/**",
     "tsconfig/**",
     "LICENSE",
-    "README.md",
-    "yarn.lock"
+    "README.md"
   ],
   "scripts": {
     "build": "tsc",
@@ -65,9 +50,10 @@
     "typescript": "*"
   },
   "dependencies": {
-    "@ekz/eslint-config-packer": "workspace:^",
-    "@ekz/packer-vite": "workspace:^",
-    "@ekz/packer-webpack": "workspace:^"
+    "@vitejs/plugin-react": "^6.1.1",
+    "sass": "^1.104.0",
+    "vite": "^8.2.2",
+    "vite-plugin-checker": "^0.14.5"
   },
   "devDependencies": {
     "@types/node": "^26.1.2",
