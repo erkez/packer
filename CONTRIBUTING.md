@@ -42,7 +42,7 @@ Some behaviour is only observable inside a plugin instance rather than on the co
 Snapshots cover overall config shape. Regenerate them deliberately, and read the diff:
 
 ```sh
-yarn workspace @ekz/packer test --test-update-snapshots
+yarn build && yarn workspace @ekz/packer exec node --test --test-update-snapshots 'test/**/*.test.js'
 ```
 
 ## Submitting changes

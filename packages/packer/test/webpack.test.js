@@ -264,52 +264,18 @@ test('devServer defaults, and user options merge over them', () => {
     assert.equal(defaults.port, 9000);
     assert.equal(defaults.compress, true);
     assert.equal(defaults.hot, true);
-    assert.deepEqual(defaults.headers, { 'Access-Control-Allow-Origin': '*' });
+    assert.equal(defaults.headers, undefined, 'no CORS header is sent by default');
 
     const custom = webpackConfig({ devServer: { port: 3000 } }).devServer;
     assert.equal(custom.port, 3000);
     assert.equal(custom.compress, true, 'unrelated defaults survive');
 });
 
-test('devServer headers merge as an object, keeping the CORS default', () => {
-    const { headers } = webpackConfig({
-        devServer: { headers: { 'X-Custom': 'yes' } }
-    }).devServer;
-
-    assert.deepEqual(headers, {
-        'Access-Control-Allow-Origin': '*',
-        'X-Custom': 'yes'
-    });
-});
-
-test('devServer array headers replace a default of the same key', () => {
-    const { headers } = webpackConfig({
-        devServer: {
-            headers: [{ key: 'Access-Control-Allow-Origin', value: 'https://example.com' }]
-        }
-    }).devServer;
-
-    assert.deepEqual(headers, [
-        { key: 'Access-Control-Allow-Origin', value: 'https://example.com' }
-    ]);
-});
-
-test('devServer array headers keep defaults they do not override', () => {
-    const { headers } = webpackConfig({
-        devServer: { headers: [{ key: 'X-Custom', value: 'yes' }] }
-    }).devServer;
-
-    assert.deepEqual(headers, [
-        { key: 'Access-Control-Allow-Origin', value: '*' },
-        { key: 'X-Custom', value: 'yes' }
-    ]);
-});
-
-test('a devServer headers function is passed through untouched', () => {
-    const headers = () => ({ 'X-Custom': 'yes' });
+test('devServer headers are passed through untouched', () => {
+    const headers = { 'Access-Control-Allow-Origin': 'https://example.com' };
     const config = webpackConfig({ devServer: { headers } });
 
-    assert.equal(config.devServer.headers, headers);
+    assert.deepEqual(config.devServer.headers, headers);
 });
 
 test('babel presets and plugins, with the app-level additions appended', () => {

@@ -166,13 +166,7 @@ function createApplicationConfiguration(opts: PackerOptions = {}): WebpackConfig
                     compress: true,
                     hot: true
                 },
-                options.devServer,
-                {
-                    headers: mergeHeaders(
-                        { 'Access-Control-Allow-Origin': '*' },
-                        options.devServer?.headers
-                    )
-                }
+                options.devServer
             )
         };
     };
@@ -318,29 +312,6 @@ function mergeAlias(defaults: Record<string, string>, alias: ResolveAlias): Reso
     }
 
     return Object.assign({}, defaults, alias);
-}
-
-type DevServerHeader = { key: string; value: string };
-
-function mergeHeaders(defaults: Record<string, string>, headers: unknown): unknown {
-    if (headers == null) {
-        return defaults;
-    }
-
-    if (Array.isArray(headers)) {
-        const overridden = new Set((headers as DevServerHeader[]).map((header) => header.key));
-
-        return Object.entries(defaults)
-            .filter(([key]) => !overridden.has(key))
-            .map(([key, value]): DevServerHeader => ({ key, value }))
-            .concat(headers as DevServerHeader[]);
-    }
-
-    if (typeof headers === 'function') {
-        return headers;
-    }
-
-    return Object.assign({}, defaults, headers);
 }
 
 function makePathResolvers(config: AssetPaths) {

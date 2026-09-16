@@ -19,9 +19,6 @@ exports[`snapshot: config without react or typechecking 1`] = `
   },
   "root": "<root>",
   "server": {
-    "headers": {
-      "Access-Control-Allow-Origin": "*"
-    },
     "port": 9000
   }
 }
@@ -123,9 +120,6 @@ exports[`snapshot: default config 1`] = `
   },
   "root": "<root>",
   "server": {
-    "headers": {
-      "Access-Control-Allow-Origin": "*"
-    },
     "port": 9000
   }
 }

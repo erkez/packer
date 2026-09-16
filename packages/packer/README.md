@@ -96,7 +96,7 @@ Without a discoverable TypeScript config, `.tsx` is transpiled by Babel instead 
 
 **Dev server**
 
-Packer bundles **webpack-dev-server v6** (0.16 used v4). Packer’s built-in defaults are unchanged — port **9000**, hot reload, compression, and a CORS header — so apps that never customized `devServer` need no changes.
+Packer bundles **webpack-dev-server v6** (0.16 used v4). Packer’s built-in defaults are unchanged — port **9000**, hot reload, and compression — so apps that never customized `devServer` need no changes.
 
 If you pass a custom `devServer` block, update it for v6. See the [webpack-dev-server v5 migration guide](https://github.com/webpack/webpack-dev-server/blob/main/migration-v5.md) and the [v6 release notes](https://github.com/webpack/webpack-dev-server/releases/tag/v6.0.0) for the full list.
 

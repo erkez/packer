@@ -44,7 +44,6 @@ module.exports = Packer.webpack.createApplicationConfiguration({
 | Dev server port | `9000` |
 | Dev server hot reload | `true` |
 | Dev server compression | `true` |
-| Dev server headers | `Access-Control-Allow-Origin: *` |
 | Asset paths | `assets/js/`, `assets/css/`, `assets/static/` |
 | Production filenames | Content hash when `--mode=production` |
 
@@ -87,7 +86,9 @@ module.exports = Packer.webpack.createApplicationConfiguration({
 
 ## Development server
 
-`devServer` is merged with Packer's defaults: port `9000`, hot reload, compression, and `Access-Control-Allow-Origin: *`.
+`devServer` is merged with Packer's defaults: port `9000`, hot reload, and compression.
+
+The dev server accepts requests from `localhost` origins only (webpack-dev-server's own default). Set `devServer.headers` yourself if another origin needs to load from it.
 
 ```js
 module.exports = Packer.webpack.createApplicationConfiguration({

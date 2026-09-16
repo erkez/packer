@@ -27,7 +27,6 @@ module.exports = Packer.vite.createApplicationConfiguration({
 | Entry | `index.html` |
 | Output path | `dist` |
 | Dev server port | `9000` |
-| Dev server headers | `Access-Control-Allow-Origin: *` |
 | Asset paths | `assets/js/`, `assets/css/`, `assets/static/` |
 | Production filenames | Content hash by default |
 
@@ -139,7 +138,9 @@ module.exports = Packer.vite.createApplicationConfiguration({
 
 ## Server options
 
-`server` is merged with Packer's defaults: port `9000` and `Access-Control-Allow-Origin: *`.
+`server` is merged with Packer's defaults: port `9000`.
+
+The dev server accepts requests from `localhost` origins only (Vite's own default). Set `server.cors` or `server.headers` yourself if another origin needs to load from it.
 
 ```js
 module.exports = Packer.vite.createApplicationConfiguration({

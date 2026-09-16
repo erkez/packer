@@ -68,15 +68,11 @@ test('server defaults, and user options merge over them', () => {
     const defaults = viteConfig().server;
 
     assert.equal(defaults.port, 9000);
-    assert.deepEqual(defaults.headers, { 'Access-Control-Allow-Origin': '*' });
+    assert.equal(defaults.headers, undefined, 'no CORS header is sent by default');
 
-    const custom = viteConfig({ server: { port: 3000 } }).server;
+    const custom = viteConfig({ server: { port: 3000, headers: { 'X-Custom': 'yes' } } }).server;
     assert.equal(custom.port, 3000);
-    assert.deepEqual(
-        custom.headers,
-        { 'Access-Control-Allow-Origin': '*' },
-        'the CORS default survives'
-    );
+    assert.deepEqual(custom.headers, { 'X-Custom': 'yes' });
 });
 
 test('resolve options merge with the @root alias', () => {

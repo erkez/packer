@@ -64,15 +64,7 @@ function createApplicationConfiguration(opts: VitePackerOptions = {}): UserConfi
             },
             resolve ?? {}
         ),
-        server: mergeConfig(
-            {
-                headers: {
-                    'Access-Control-Allow-Origin': '*'
-                },
-                port: 9000
-            },
-            server ?? {}
-        ),
+        server: mergeConfig({ port: 9000 }, server ?? {}),
         build: mergeConfig(
             {
                 outDir,

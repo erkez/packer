@@ -6,9 +6,6 @@ exports[`snapshot: JavaScript-only production config 1`] = `
   },
   "devServer": {
     "compress": true,
-    "headers": {
-      "Access-Control-Allow-Origin": "*"
-    },
     "hot": true,
     "port": 9000
   },
@@ -116,9 +113,6 @@ exports[`snapshot: default development config 1`] = `
   },
   "devServer": {
     "compress": true,
-    "headers": {
-      "Access-Control-Allow-Origin": "*"
-    },
     "hot": true,
     "port": 9000
   },
@@ -237,9 +231,6 @@ exports[`snapshot: default production config 1`] = `
   },
   "devServer": {
     "compress": true,
-    "headers": {
-      "Access-Control-Allow-Origin": "*"
-    },
     "hot": true,
     "port": 9000
   },
@@ -357,9 +348,6 @@ exports[`snapshot: library config 1`] = `
   },
   "devServer": {
     "compress": true,
-    "headers": {
-      "Access-Control-Allow-Origin": "*"
-    },
     "hot": true,
     "port": 9000
   },

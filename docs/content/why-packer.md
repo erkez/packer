@@ -12,7 +12,7 @@ Starting from a blank `webpack.config.js` or `vite.config.js` means wiring up Ty
 
 - **TypeScript typechecking**, automatically, when a `tsconfig.json` is found — `ts-loader` + ForkTsChecker for Webpack, `vite-plugin-checker` for Vite. Type errors fail the build; the dev server stays non-blocking.
 - **ESLint flat config** out of the box, including a TypeScript-aware config.
-- **Dev server defaults**: port `9000`, hot reload and compression (Webpack), CORS headers, proxy support.
+- **Dev server defaults**: port `9000`, hot reload and compression (Webpack), proxy support.
 - **Content-hashed production filenames** and configurable asset path prefixes for JS/CSS/static output.
 - **Webpack optimization defaults** (`splitChunks`, Terser) and, for Vite, `@vitejs/plugin-react` enabled automatically.
 - **Library builds** — `Packer.webpack.createLibraryConfiguration` produces UMD output for publishing a package, not just an app bundle.
